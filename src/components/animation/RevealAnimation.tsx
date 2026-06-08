@@ -1,12 +1,168 @@
+// 'use client';
+// import { cn } from '@/utils/cn';
+// import Springer from '@/utils/springer';
+// import { useGSAP } from '@gsap/react';
+// import { gsap } from 'gsap';
+// import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// import React, { ReactElement, Ref, cloneElement, useRef } from 'react';
+
+// // Register GSAP plugins
+// if (typeof window !== 'undefined') {
+//   gsap.registerPlugin(ScrollTrigger);
+// }
+
+// interface RevealAnimationProps {
+//   children: ReactElement<{
+//     className?: string;
+//     ref?: Ref<HTMLElement>;
+//     'data-ns-animate'?: boolean;
+//   }>;
+//   duration?: number;
+//   delay?: number;
+//   offset?: number;
+//   instant?: boolean;
+//   start?: string;
+//   end?: string;
+//   direction?: 'up' | 'down' | 'left' | 'right';
+//   useSpring?: boolean;
+//   rotation?: number;
+//   animationType?: 'from' | 'to';
+//   className?: string;
+// }
+
+// const RevealAnimation = ({
+//   children,
+//   duration = 0.6,
+//   delay = 0,
+//   offset = 60,
+//   instant = false,
+//   start = 'top 90%',
+//   end = 'top 50%',
+//   direction = 'down',
+//   useSpring = false,
+//   rotation = 0,
+//   animationType = 'from',
+//   className = '',
+// }: RevealAnimationProps) => {
+//   const elementRef = useRef<HTMLElement>(null);
+
+//   useGSAP(() => {
+//     const element = elementRef.current;
+//     if (!element) {
+//       return;
+//     }
+
+//     // Get spring easing if useSpring is true
+//     const spring = useSpring ? Springer.default(0.2, 0.8) : null;
+
+//     // Force initial state
+//     element.style.opacity = '1';
+//     element.style.filter = 'blur(0)';
+
+//     // Set animation properties based on animation type
+//     let animationProps: gsap.TweenVars;
+
+//     if (animationType === 'to') {
+//       // gsap.to() - animate TO the specified values
+//       animationProps = {
+//         opacity: 1,
+//         filter: 'blur(0)',
+//         duration: duration,
+//         delay: delay,
+//         ease: useSpring && spring ? spring : 'power2.out',
+//       };
+
+//       // Add rotation if specified
+//       if (rotation !== 0) {
+//         animationProps.rotation = rotation;
+//       }
+//     } else {
+//       // gsap.from() - animate FROM the specified values to normal
+//       animationProps = {
+//         opacity: 0,
+//         filter: 'blur(16px)',
+//         duration: duration,
+//         delay: delay,
+//         ease: useSpring && spring ? spring : 'power2.out',
+//       };
+
+//       // Add rotation if specified
+//       if (rotation !== 0) {
+//         animationProps.rotation = rotation;
+//       }
+//     }
+
+//     // Add ScrollTrigger if not instant
+//     if (!instant) {
+//       animationProps.scrollTrigger = {
+//         trigger: element,
+//         start: start,
+//         end: end,
+//         scrub: false,
+//       };
+//     }
+
+//     // Set animation direction based on direction prop
+//     switch (direction) {
+//       case 'left':
+//         animationProps.x = animationType === 'from' ? -offset : 0;
+//         if (animationType === 'to') {
+//           gsap.set(element, { x: -offset });
+//         }
+//         break;
+//       case 'right':
+//         animationProps.x = animationType === 'from' ? offset : 0;
+//         if (animationType === 'to') {
+//           gsap.set(element, { x: offset });
+//         }
+//         break;
+//       case 'down':
+//         animationProps.y = animationType === 'from' ? offset : 0;
+//         if (animationType === 'to') {
+//           gsap.set(element, { y: offset });
+//         }
+//         break;
+//       case 'up':
+//       default:
+//         animationProps.y = animationType === 'from' ? -offset : 0;
+//         if (animationType === 'to') {
+//           gsap.set(element, { y: -offset });
+//         }
+//         break;
+//     }
+
+//     // Use appropriate GSAP method based on animation type
+//     if (animationType === 'to') {
+//       gsap.to(element, animationProps);
+//     } else {
+//       gsap.from(element, animationProps);
+//     }
+//   }, [duration, delay, offset, instant, start, end, direction, useSpring, rotation, animationType]);
+
+//   // Early return if children is not valid (after all hooks)
+//   if (!children || !React.isValidElement(children)) {
+//     return null;
+//   }
+
+//   // Clone the child element and add the ref, className, and data-ns-animate attribute
+//   return cloneElement(children, {
+//     ref: elementRef,
+//     className: cn(children?.props?.className, className),
+//     'data-ns-animate': true,
+//   });
+// };
+
+// export default RevealAnimation;
+
 'use client';
 import { cn } from '@/utils/cn';
 import Springer from '@/utils/springer';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import React, { ReactElement, Ref, cloneElement, useRef } from 'react';
+import React, { ReactElement, Ref, cloneElement, useRef, useState, useEffect } from 'react';
 
-// Register GSAP plugins
+// Register GSAP plugins safely on client environment paths
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -45,25 +201,41 @@ const RevealAnimation = ({
   className = '',
 }: RevealAnimationProps) => {
   const elementRef = useRef<HTMLElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile viewports to prevent GSAP thread blocking flags down touch devices
+  useEffect(() => {
+    const checkViewport = () => {
+      setIsMobile(window.innerWidth < 1024); // Syncs directly with Tailwind 'lg' breakpoint rules
+    };
+    checkViewport();
+    window.addEventListener('resize', checkViewport);
+    return () => window.removeEventListener('resize', checkViewport);
+  }, []);
 
   useGSAP(() => {
     const element = elementRef.current;
-    if (!element) {
+    if (!element) return;
+
+    // PERFORMANCE ADVANTAGE FOR MOBILE: 
+    // If layout is on mobile screen boundaries, kill scroll tracking processing pipelines instantly 
+    // and clear up the fallback CSS classes safely to render content smoothly without flickering.
+    if (isMobile) {
+      gsap.set(element, { 
+        clearProps: "all", 
+        opacity: 1, 
+        x: 0, 
+        y: 0, 
+        filter: 'blur(0)' 
+      });
       return;
     }
 
-    // Get spring easing if useSpring is true
     const spring = useSpring ? Springer.default(0.2, 0.8) : null;
 
-    // Force initial state
-    element.style.opacity = '1';
-    element.style.filter = 'blur(0)';
-
-    // Set animation properties based on animation type
     let animationProps: gsap.TweenVars;
 
     if (animationType === 'to') {
-      // gsap.to() - animate TO the specified values
       animationProps = {
         opacity: 1,
         filter: 'blur(0)',
@@ -71,13 +243,8 @@ const RevealAnimation = ({
         delay: delay,
         ease: useSpring && spring ? spring : 'power2.out',
       };
-
-      // Add rotation if specified
-      if (rotation !== 0) {
-        animationProps.rotation = rotation;
-      }
+      if (rotation !== 0) animationProps.rotation = rotation;
     } else {
-      // gsap.from() - animate FROM the specified values to normal
       animationProps = {
         opacity: 0,
         filter: 'blur(16px)',
@@ -85,14 +252,9 @@ const RevealAnimation = ({
         delay: delay,
         ease: useSpring && spring ? spring : 'power2.out',
       };
-
-      // Add rotation if specified
-      if (rotation !== 0) {
-        animationProps.rotation = rotation;
-      }
+      if (rotation !== 0) animationProps.rotation = rotation;
     }
 
-    // Add ScrollTrigger if not instant
     if (!instant) {
       animationProps.scrollTrigger = {
         trigger: element,
@@ -102,52 +264,45 @@ const RevealAnimation = ({
       };
     }
 
-    // Set animation direction based on direction prop
     switch (direction) {
       case 'left':
         animationProps.x = animationType === 'from' ? -offset : 0;
-        if (animationType === 'to') {
-          gsap.set(element, { x: -offset });
-        }
+        if (animationType === 'to') gsap.set(element, { x: -offset });
         break;
       case 'right':
         animationProps.x = animationType === 'from' ? offset : 0;
-        if (animationType === 'to') {
-          gsap.set(element, { x: offset });
-        }
+        if (animationType === 'to') gsap.set(element, { x: offset });
         break;
       case 'down':
         animationProps.y = animationType === 'from' ? offset : 0;
-        if (animationType === 'to') {
-          gsap.set(element, { y: offset });
-        }
+        if (animationType === 'to') gsap.set(element, { y: offset });
         break;
       case 'up':
       default:
         animationProps.y = animationType === 'from' ? -offset : 0;
-        if (animationType === 'to') {
-          gsap.set(element, { y: -offset });
-        }
+        if (animationType === 'to') gsap.set(element, { y: -offset });
         break;
     }
 
-    // Use appropriate GSAP method based on animation type
     if (animationType === 'to') {
       gsap.to(element, animationProps);
     } else {
       gsap.from(element, animationProps);
     }
-  }, [duration, delay, offset, instant, start, end, direction, useSpring, rotation, animationType]);
+  }, [duration, delay, offset, instant, start, end, direction, useSpring, rotation, animationType, isMobile]);
 
-  // Early return if children is not valid (after all hooks)
   if (!children || !React.isValidElement(children)) {
     return null;
   }
 
-  // Clone the child element and add the ref, className, and data-ns-animate attribute
+  // ================= THE RESOLUTION RULES =================
+  // 1. 'invisible lg:visible': Keeps components hidden on desktop renders until GSAP reads and initializes vectors.
+  // 2. On mobile, components are loaded instantly via the standard render pipeline, completely eliminating blank white spaces.
+  const conditionalMobileVisibility = isMobile ? "" : "invisible lg:visible";
+
   return cloneElement(children, {
     ref: elementRef,
-    className: cn(children?.props?.className, className),
+    className: cn(children?.props?.className, className, conditionalMobileVisibility),
     'data-ns-animate': true,
   });
 };
