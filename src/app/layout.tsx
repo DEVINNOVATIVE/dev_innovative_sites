@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     canonical: "https://devinnovative.com/",
   },
   formatDetection: {
-    telephone: false, // Prevents mobile browsers from automatically styling/linking numbers
+    telephone: false,
   },
   robots: {
     index: true,
@@ -94,7 +94,8 @@ export const metadata: Metadata = {
     siteName: "Dev iNN | Development Services Provider",
     images: [
       {
-        url: "https://devinnovative.com/src/assets/logo.webp",
+        // FIXED ROUTING: Pointed straight to the exposed production public route directory asset
+        url: "https://devinnovative.com/og-banner.png", 
         width: 1200,
         height: 630,
         alt: "Dev innovative Solutions Global Branding Asset",
@@ -107,7 +108,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dev innovative - Your Trusted Partner for Software Solutions",
     description: "Transform your business with Dev innovative, Specializing in software web, mobile app dev, blockchain, AI, & cloud solutions... Contact us",
-    images: ["https://devinnovative.com/src/assets/logo.webp"],
+    // FIXED ROUTING: Same rule applies here
+    images: ["https://devinnovative.com/og-banner.png"], 
   },
 };
 
@@ -125,7 +127,6 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-white text-slate-900" suppressHydrationWarning>
         <Header />
         
-        {/* Main layout grow wrapper prevents the footer from jumping on empty page contexts */}
         <main className="flex-1 w-full flex flex-col">
           {children}
         </main>
