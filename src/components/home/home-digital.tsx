@@ -606,7 +606,7 @@
 
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Clock, Cloud, LayoutDashboard, Settings, Check } from "lucide-react";
 import RevealAnimation from "../animation/RevealAnimation";
@@ -660,10 +660,26 @@ const solutions = [
 ];
 
 export function HomeDigital() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <section className="relative bg-[#0a0f24] text-white pt-40 pb-20 sm:pb-24 mt-40 select-none">
+    /* 
+      FIXED VISUAL LOOK: 
+      - Removed the global negative margin from the main section so layout boundaries remain clean.
+      - Added 'z-10 relative' to make sure the entire background wrapper stacks safely.
+    */
+    <section className="relative z-10 bg-[#0a0f24] text-white pt-24 lg:pt-32 pb-20 sm:pb-24 select-none">
       
-      {/* Background Masked Track Layers */}
+      {/* Background Graphic Scheme Canvas */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <Image 
           src={bgDigital} 
@@ -676,13 +692,18 @@ export function HomeDigital() {
       </div>
 
       {/* ======================================================================
-          1. DESKTOP SYSTEM LAYER: SCROLLTRIGGER TIMELINES (lg and above)
+          1. DESKTOP SYSTEM LAYER (GSAP ACTIVE ABOVE LG BREAKPOINTS)
           ====================================================================== */}
       <div className="hidden lg:block w-full relative z-10">
-        {/* Floating Top Banner Row */}
-        <div className="absolute top-0 left-1/2 z-30 w-full -translate-x-1/2 -translate-y-1/2 px-8" style={{ maxWidth: "1240px" }}>
+        
+        {/* 
+          FIXED FLOATING LAYOUT (Matches image_b430e2.png):
+          - Using 'relative z-30 -top-44 -mb-24' pulls the card exactly halfway out 
+            of the container without clipping or overlay errors.
+        */}
+        <div className="mx-auto px-8 relative z-30 -top-44 -mb-24 w-full" style={{ maxWidth: "1240px" }}>
           <RevealAnimation direction="down" duration={1.0} delay={0.0} offset={30} animationType="from">
-            <div className="relative overflow-hidden rounded-2xl p-10 shadow-[0_25px_60px_rgba(0,0,0,0.45)] bg-[#111836] border border-white/[0.04]">
+            <div className="relative overflow-hidden rounded-2xl p-10 shadow-[0_25px_60px_rgba(0,0,0,0.5)] bg-[#111836] border border-white/[0.04]">
               <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
                 <Image src={transformBg} alt="Transform vision banner backing graphic configuration layer" fill className="object-cover" />
               </div>
@@ -705,14 +726,15 @@ export function HomeDigital() {
           </RevealAnimation>
         </div>
 
-        {/* Content Split Split Row Grid */}
-        <div className="mx-auto px-8 mt-24 grid grid-cols-12 gap-16 items-start" style={{ maxWidth: "1240px" }}>
-          {/* Grid Box Tiles */}
+        {/* Main Split Grid */}
+        <div className="mx-auto px-8 grid grid-cols-12 gap-16 items-start" style={{ maxWidth: "1240px" }}>
+          
+          {/* Features Cards Grid */}
           <div className="grid gap-6 grid-cols-2 col-span-7">
             {features.map(({ title, description, Icon }, index) => {
-              const directionalParam = index % 2 === 0 ? "left" : "right";
+              const featureDirection = index % 2 === 0 ? "left" : "right";
               return (
-                <RevealAnimation key={title} direction={directionalParam} duration={0.9} delay={0.15 + index * 0.1} offset={35} animationType="from">
+                <RevealAnimation key={title} direction={featureDirection} duration={0.9} delay={0.15 + index * 0.1} offset={35} animationType="from">
                   <div className={`group rounded-2xl bg-[#0d1533]/60 p-8 text-center border border-white/[0.04] backdrop-blur-md transition-all duration-500 hover:border-blue-500/30 shadow-lg hover:-translate-y-1 hover:bg-[#0d1533]/80 ${index % 2 === 0 ? "-translate-y-4" : "translate-y-4"}`}>
                     <div className="mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-white/[0.03] border border-white/[0.06] group-hover:bg-[#ff5c3d] group-hover:border-transparent text-white transition-all duration-300 ease-out group-hover:scale-105">
                       <Icon className="h-6 w-6 text-white" />
@@ -725,7 +747,7 @@ export function HomeDigital() {
             })}
           </div>
 
-          {/* Checklist Block */}
+          {/* Solutions Content Column */}
           <div className="space-y-8 col-span-5 pt-6 text-left">
             <div className="space-y-3">
               <RevealAnimation direction="left" duration={0.9} delay={0.1} offset={30} animationType="from">
@@ -760,19 +782,24 @@ export function HomeDigital() {
               </div>
             </RevealAnimation>
           </div>
+
         </div>
       </div>
 
       {/* ======================================================================
-          2. MOBILE LAYER SYSTEM: INSTANT STATIC PAINT (Under lg breakpoints)
+          2. MOBILE LAYER SYSTEM (INSTANT STATIC HARDWARE INJECTION)
           ====================================================================== */}
-      <div className="block lg:hidden w-full relative z-10 px-4 sm:px-6">
+      {/* 
+        Responsive mobile layout flow adjusts dynamically to match standard vertical spacing 
+        rules, ensuring elements do not break bounds or overlay over header elements.
+      */}
+      <div className="block lg:hidden w-full relative z-10 px-4 sm:px-6 space-y-12">
         
-        {/* Floating Top Banner Card */}
-        <div className="w-full -translate-y-52 sm:-translate-y-48 mb-[-120px]">
-          <div className="relative overflow-hidden rounded-2xl p-6 sm:p-8 bg-[#111836] border border-white/[0.04] shadow-xl">
+        {/* Top Floating Banner Box */}
+        <div className="w-full max-w-[1240px] mx-auto -mt-36 relative z-30">
+          <div className="relative overflow-hidden rounded-2xl p-6 sm:p-8 bg-[#111836] border border-white/[0.04] shadow-2xl">
             <div className="absolute inset-0 z-0 opacity-35">
-              <Image src={transformBg} alt="Transform vision mobile banner backing layer" fill className="object-cover" priority />
+              <Image src={transformBg} alt="Transform vision banner backing layer" fill className="object-cover" priority />
             </div>
             <div className="relative z-10 flex flex-col gap-5 text-center sm:text-left">
               <div className="space-y-1.5">
@@ -783,20 +810,20 @@ export function HomeDigital() {
                   We are dedicated to helping you bring your vision to life with our top-quality web & IT solutions services.
                 </p>
               </div>
-              <a href="/contact" className="inline-flex items-center justify-center rounded-xl bg-[#ff5c3d] px-5 py-3 text-sm font-bold text-white">
+              <a href="/contact" className="inline-flex items-center justify-center rounded-xl bg-[#ff5c3d] px-5 py-3 text-sm font-bold text-white shadow-md">
                 Start a Project
               </a>
             </div>
           </div>
         </div>
 
-        {/* Content Flow Structure */}
-        <div className="flex flex-col gap-14 w-full">
-          {/* Header & Checklists Row */}
+        {/* Content Stacking Block Container */}
+        <div className="flex flex-col gap-12 w-full">
+          
           <div className="space-y-6 text-center sm:text-left max-w-xl mx-auto w-full">
             <div className="space-y-2">
               <span className="text-xs sm:text-sm font-bold tracking-wider text-blue-500 uppercase block">Discover Our Range of Services</span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">Digital Creativity <br /> Solutions</h2>
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">Digital Creativity <br /> Solutions</h2>
             </div>
 
             <div className="space-y-5 text-left">
@@ -820,7 +847,7 @@ export function HomeDigital() {
             </div>
           </div>
 
-          {/* Cards Layout Loop Container */}
+          {/* Feature Blocks Stack */}
           <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 max-w-2xl mx-auto w-full">
             {features.map(({ title, description, Icon }) => (
               <div key={title} className="rounded-2xl bg-[#0d1533]/60 p-6 text-center border border-white/[0.04] backdrop-blur-md shadow-md">
@@ -832,6 +859,7 @@ export function HomeDigital() {
               </div>
             ))}
           </div>
+
         </div>
 
       </div>
