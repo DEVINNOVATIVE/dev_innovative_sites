@@ -309,7 +309,7 @@ export function HomeHero() {
 
                             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
                                 <Link href="/contact-us" className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-[#ff6b4a] to-[#ff3b2d] px-5 py-3 text-sm font-semibold text-white shadow-lg">Contact Us</Link>
-                                <Link href="/service" className="inline-flex items-center gap-2 rounded-md bg-white/10 px-5 py-3 text-sm font-medium text-white">Our Services</Link>
+                                <Link href="/service/web-development" className="inline-flex items-center gap-2 rounded-md bg-white/10 px-5 py-3 text-sm font-medium text-white">Our Services</Link>
                             </div>
                         </div>
                     </RevealAnimation>
