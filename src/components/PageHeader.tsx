@@ -17,7 +17,7 @@ interface PageHeaderProps {
 }
 export function PageHeader({ title, currentPage, parentPage }: PageHeaderProps) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#060b1f] via-[#08112a] to-[#050919] py-16 md:py-20 text-center flex items-center justify-center min-h-[320px] border-b border-white/5">
+    <section className="relative overflow-hidden bg-[#071033] py-16 md:py-20 text-center flex items-center justify-center min-h-[320px] border-b border-white/5">
       
       {/* --- 1. GEOMETRIC BACKGROUND PATTERN LAYER --- */}
       <div className="absolute inset-0 z-0 opacity-15 select-none pointer-events-none mix-blend-screen transform scale-105">

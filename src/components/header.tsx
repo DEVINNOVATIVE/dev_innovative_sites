@@ -179,7 +179,7 @@ export function Header() {
       the header expands vertically directly inside the document flow. 
       Touch coords map natively, meaning mobile Chrome can never block clicks.
     */
-    <header className="sticky top-0 z-[999] w-full bg-[#0b1230] text-white border-b border-white/[0.04] transition-all duration-300" suppressHydrationWarning>
+    <header className="sticky top-0 z-[999] w-full bg-[#071033] text-white   transition-all duration-300" suppressHydrationWarning>
       
       {/* Upper Main Row Brand Line */}
       <div className="mx-auto flex h-[72px] w-full max-w-[1400px] items-center justify-between px-4 sm:px-8 lg:px-10">
