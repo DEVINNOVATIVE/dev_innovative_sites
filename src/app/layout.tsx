@@ -94,7 +94,7 @@ export const metadata: Metadata = {
     siteName: "Dev iNN | Development Services Provider",
     images: [
       {
-        url: "https://devinnovative.com/wp-content/uploads/2022/06/06-img.jpg",
+        url: "https://devinnovative.com/src/assets/logo.webp",
         width: 1200,
         height: 630,
         alt: "Dev innovative Solutions Global Branding Asset",
@@ -107,7 +107,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dev innovative - Your Trusted Partner for Software Solutions",
     description: "Transform your business with Dev innovative, Specializing in software web, mobile app dev, blockchain, AI, & cloud solutions... Contact us",
-    images: ["https://devinnovative.com/wp-content/uploads/2022/06/06-img.jpg"],
+    images: ["https://devinnovative.com/src/assets/logo.webp"],
   },
 };
 
