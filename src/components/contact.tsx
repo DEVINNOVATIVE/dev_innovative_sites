@@ -71,7 +71,7 @@ export function ContactUsForm() {
 
                     {/* Left Column: Floating Floating Abstract Vector Art */}
                     <div className="w-full flex justify-center items-center relative order-last lg:order-first">
-                        <RevealAnimation direction={isDesktop ? "left" : "up"} duration={1.0} delay={0.1} offset={40} animationType="from">
+                        {/* <RevealAnimation direction={isDesktop ? "left" : "up"} duration={1.0} delay={0.1} offset={40} animationType="from"> */}
                             <div className="relative w-full max-w-[500px] aspect-[1.15/1]">
                                 <Image
                                     src={contactIllustration}
@@ -82,7 +82,7 @@ export function ContactUsForm() {
                                     priority
                                 />
                             </div>
-                        </RevealAnimation>
+                        {/* </RevealAnimation> */}
 
                         {/* Geometric Decorative Scatter Ring Elements from image_03ae23.png */}
                         <div className="absolute top-[-5%] right-[25%] hidden lg:block text-cyan-400 text-3xl opacity-40 animate-pulse">○</div>
