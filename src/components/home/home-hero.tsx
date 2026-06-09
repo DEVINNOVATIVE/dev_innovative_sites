@@ -89,7 +89,7 @@
 //             </div>
 
 //             <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-12 px-10 pt-32 pb-12 sm:px-6 lg:grid-cols-2 lg:px-8 lg:items-start">
-                
+
 //                 {/* Left Column Text content wrapped in a RevealAnimation */}
 //                 <RevealAnimation direction="left" delay={0.1} offset={60} animationType="from">
 //                     <div className="max-w-[720px] space-y-6 self-start">
@@ -290,23 +290,19 @@ export function HomeHero() {
 
             {/* Main Layout Content Grid Container */}
             <div className="mx-auto flex flex-col md:grid w-full max-w-[1400px] md:grid-cols-12 gap-16 px-6 pt-32 pb-12 sm:px-8 lg:px-10 lg:items-center">
-                
+
                 {/* Left Column Text content wrapped in a RevealAnimation */}
                 <div className="w-full md:col-span-7 flex flex-col items-center md:items-start text-center md:text-left mx-auto max-w-[720px]">
                     <RevealAnimation direction="left" delay={0.1} offset={60} animationType="from">
                         <div className="space-y-6 flex flex-col items-center md:items-start w-full">
                             <div className="text-xl sm:text-2xl font-medium text-white font-extrabold">Technology & software Development</div>
 
-                            <h1 className="text-3xl leading-tight font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                                Web & Software
-                                <br />
-                                Solutions
+                            <h1 className="text-[22px] whitespace-nowrap leading-tight font-extrabold tracking-tight sm:text-5xl lg:text-6xl sm:whitespace-normal">
+                                Web & Software <br className="hidden sm:block" /> Solutions
                             </h1>
-
                             <p className="max-w-[560px] text-sm text-[#cbd5e1] font-normal">
                                 With our expertise and innovative approach, we empower businesses to reach new heights of success in the digital realm. From web design and development to IT consulting and support, we have you covered.
                             </p>
-
                             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
                                 <Link href="/contact-us" className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-[#ff6b4a] to-[#ff3b2d] px-5 py-3 text-sm font-semibold text-white shadow-lg">Contact Us</Link>
                                 <Link href="/service/web-development" className="inline-flex items-center gap-2 rounded-md bg-white/10 px-5 py-3 text-sm font-medium text-white">Our Services</Link>
@@ -318,10 +314,10 @@ export function HomeHero() {
                 {/* Right Column Canvas graphic wrapped in a RevealAnimation */}
                 <div className="w-full md:col-span-5 flex justify-center items-center relative pt-8 md:pt-0">
                     <RevealAnimation direction="right" delay={0.3} offset={60} animationType="from">
-                        
+
                         {/* Fluid Graphic container that switches sizing scale constraints across breakpoints */}
                         <div className="relative w-[75vw] h-[75vw] sm:w-[320px] sm:h-[320px] md:w-[360px] md:h-[360px] lg:w-[420px] lg:h-[420px] justify-self-center lg:justify-self-start shrink-0">
-                            
+
                             {/* blue curved shape (behind) */}
                             <div
                                 className="absolute -left-[10%] -top-[10%] h-[120%] w-[120%] rounded-[40%] bg-[#3557ff] opacity-90"
@@ -340,13 +336,12 @@ export function HomeHero() {
 
                             {/* image tint overlay (appears when hovering color shapes) */}
                             <div
-                                className={`absolute inset-0 z-40 rounded-full transition-opacity duration-300 pointer-events-none ${
-                                    activeAccent === "blue"
+                                className={`absolute inset-0 z-40 rounded-full transition-opacity duration-300 pointer-events-none ${activeAccent === "blue"
                                         ? "bg-[#3557ff]/18"
                                         : activeAccent === "orange"
                                             ? "bg-[#ff4b34]/18"
                                             : "bg-transparent"
-                                }`}
+                                    }`}
                             />
 
                             {/* decorative blur behind image */}
