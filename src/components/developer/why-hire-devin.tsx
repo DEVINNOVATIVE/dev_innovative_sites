@@ -101,7 +101,7 @@ export function WhyHireDevInn() {
             <RevealAnimation direction="up" duration={1.0} delay={0.3} offset={15} animationType="from">
               <div className="pt-6">
                 <Link
-                  href="/quote"
+                  href="/contact-us"
                   className="group inline-flex items-center gap-1.5 text-sm font-bold text-neutral-400 hover:text-[#104cba] transition-colors duration-300"
                 >
                   <span>Get A Free Quote</span>

@@ -1,11 +1,22 @@
-import { RoutePage } from "@/components/route-page";
+import { AppDevelopmentBenefits } from "@/components/services/app-development/app-development-benefits";
+import { AppDevelopmentFeatures } from "@/components/services/app-development/app-development-features";
+import { AppDevelopmentHero } from "@/components/services/app-development/app-development-hero";
+import { AppDevelopmentTechAndOS } from "@/components/services/app-development/tech-ios";
 
-export default function ApplicationDevelopmentPage() {
+
+export default function ApplicationPage() {
   return (
-    <RoutePage
-      eyebrow="Service / Application Development"
-      title="Application Development"
-      description="Custom software and internal tools built for real workflows."
-    />
+      <main className="bg-background text-foreground">
+        <AppDevelopmentHero/>
+        <AppDevelopmentFeatures/>
+        <AppDevelopmentBenefits/>
+        <AppDevelopmentTechAndOS/>
+
+          {/* <PageHeader title="Web Hosting" /> */}
+         
+          {/* <WebHostingOverView/> */}
+         
+        </main>
+
   );
 }

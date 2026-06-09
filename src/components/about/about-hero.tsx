@@ -6,6 +6,7 @@ import RevealAnimation from "../animation/RevealAnimation"; // Verify your folde
 // Image assets from your project folder
 import aboutImg from "@/assets/about/about_hero.png"; 
 import roundTick from "@/assets/about/round_tick.png"; // Dynamic custom check icon asset
+import Link from "next/link";
 
 const solutions = [
   {
@@ -104,12 +105,12 @@ export function AboutHero() {
             {/* Company Profile Action CTA Button */}
             <RevealAnimation direction="up" duration={1.1} delay={0.75} offset={25} animationType="from">
               <div className="pt-2">
-                <a
-                  href="/about"
+                <Link
+                  href="/our-portfolio"
                   className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-[#ff4722] to-[#ff733b] px-7 py-3.5 text-sm font-bold text-white shadow-[0_10px_25px_rgba(255,92,61,0.2)] transition-all duration-300 hover:scale-[1.03] hover:opacity-95 active:scale-98"
                 >
                   Company Profile
-                </a>
+                </Link>
               </div>
             </RevealAnimation>
 

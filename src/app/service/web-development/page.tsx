@@ -8,7 +8,7 @@ import { OurProcess } from "@/components/services/web-developement/our-process";
 export default function WebDevelopmentPage() {
   return (
       <main className="bg-background text-foreground">
-          <PageHeader title="Web Development" />
+          {/* <PageHeader title="Web Development" /> */}
           <HeroSection/>
           <OurProcess/>
           <FeaturedServices/>

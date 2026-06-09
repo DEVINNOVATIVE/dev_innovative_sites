@@ -47,7 +47,7 @@ export function Footer() {
                 <h4 className="text-base font-extrabold tracking-wider uppercase text-slate-100">Follow Us</h4>
                 <div className="flex items-center gap-3.5">
                   {/* Facebook SVG */}
-                  <a href="#" target="_blank" rel="noopener noreferrer"  className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 border border-white/10 hover:bg-[#3b5998] hover:border-[#3b5998] transition-all duration-200 group" aria-label="Facebook">
+                  <a href="https://www.facebook.com/devinnovative/" target="_blank" rel="noopener noreferrer"  className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 border border-white/10 hover:bg-[#3b5998] hover:border-[#3b5998] transition-all duration-200 group" aria-label="Facebook">
                     <svg className="w-5 h-5 fill-current text-slate-200 group-hover:text-white" viewBox="0 0 24 24">
                       <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
                     </svg>
@@ -80,8 +80,8 @@ export function Footer() {
               <ul className="space-y-4 text-[15px] font-semibold text-slate-200/95">
                 <li><Link href="/" className="hover:text-orange-400 transition-colors">Home</Link></li>
                 <li><Link href="/about" className="hover:text-orange-400 transition-colors">About Us</Link></li>
-                <li><Link href="/services" className="hover:text-orange-400 transition-colors">Services</Link></li>
-                <li><Link href="/contact" className="hover:text-orange-400 transition-colors">Contact Us</Link></li>
+                <li><Link href="/service/web-development" className="hover:text-orange-400 transition-colors">Services</Link></li>
+                <li><Link href="/contact-us" className="hover:text-orange-400 transition-colors">Contact Us</Link></li>
               </ul>
             </div>
 
@@ -93,14 +93,14 @@ export function Footer() {
                   2020 N Academy Blvd, Colorado Springs, 80909 United States
                 </li>
                 <li>
-                  <Link href="mailto:Info@devinnovative.com" className="hover:underline hover:text-orange-400 block transition-colors">
+                  <span className="hover:underline hover:text-orange-400 block transition-colors">
                     Info@devinnovative.com
-                  </Link>
+                  </span>
                 </li>
                 <li>
-                  <Link href="tel:+16892674506" className="hover:underline hover:text-orange-400 block transition-colors">
+                  <span  className="hover:underline hover:text-orange-400 block transition-colors">
                     +1 (689) 267-4506
-                  </Link>
+                  </span>
                 </li>
               </ul>
             </div>

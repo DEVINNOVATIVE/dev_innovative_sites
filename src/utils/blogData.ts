@@ -70,9 +70,9 @@ export const blogPosts: Record<string, BlogPost> = {
         ],
         conclusionText: "In conclusion, a robust cybersecurity strategy is crucial for every business, regardless of its size or industry. By protecting your sensitive data, meeting regulatory compliance, improving customer trust, and saving money in the long run, a cybersecurity strategy can help your business thrive in today's digital age.",
         navigation: {
-            olderPost: {
+            newerPost: {
                 title: "The Role Of UX Design In Creating A Successful Website",
-                slug: "role-of-ux-design-in-websites-success"
+                slug: "role-of-ux-design-in-websites-success",
             }
         }
     },
@@ -110,12 +110,12 @@ export const blogPosts: Record<string, BlogPost> = {
         conclusionText: "In conclusion, UX design plays a critical role in creating a successful website. By understanding the needs of the users, creating a user-centered design, improving user engagement, reducing bounce rates, and enhancing brand reputation, businesses can create a website that is both effective and engaging for visitors.",
         navigation: {
             olderPost: {
-                title: "How Our E-commerce Solutions Can Help You Reach More Customers",
-                slug: "how-ecommerce-solutions-reach-customers"
+                slug: "why-business-needs-robust-cybersecurity-strategy",
+                title: "Why Your Business Needs A Robust Cybersecurity Strategy",
             },
             newerPost: {
-                title: "Why Your Business Needs A Robust Cybersecurity Strategy",
-                slug: "why-business-needs-robust-cybersecurity-strategy"
+                slug: "how-ecommerce-solutions-reach-customers",
+                title: "How Our E-Commerce Solutions Can Help You Reach More Customers",
             }
         }
     },
@@ -154,12 +154,12 @@ export const blogPosts: Record<string, BlogPost> = {
         conclusionText: "In conclusion, our e-commerce solutions can help you reach more customers and grow your business. Dedicated to build responsive platforms, our tools completely deploy modern framework layouts to connect users cleanly to your storefront. Contact us today to learn more about how we can help you take your e-commerce business to the next level.",
         navigation: {
             olderPost: {
-                title: "The Benefits of Custom Software Development for Small Businesses",
-                slug: "benefits-of-custom-software-development"
+                slug: "role-of-ux-design-in-websites-success",
+                title: "The Role Of UX Design In Creating A Successful Website",
             },
             newerPost: {
-                title: "The Role of UX Design In Creating A Successful Website",
-                slug: "role-of-ux-design-in-websites-success"
+                slug: "benefits-of-custom-software-development",
+                title: "The Benefits Of Custom Software Development For Small Businesses",
             }
         }
     },
@@ -197,12 +197,12 @@ export const blogPosts: Record<string, BlogPost> = {
         conclusionText: "In conclusion, custom software development can provide small businesses with many benefits, including tailored solutions, enhanced efficiency and productivity, better scalability, a competitive advantage, and increased security. If you are a small business looking to gain a competitive edge and streamline your operations, custom software development is definitely worth considering.",
         navigation: {
             olderPost: {
-                title: "The Importance of Mobile App Development For Your Business",
-                slug: "importance-of-mobile-app-development"
+                slug: "how-ecommerce-solutions-reach-customers",
+                title: "How Our E-Commerce Solutions Can Help You Reach More Customers",
             },
             newerPost: {
-                title: "How Our E-Commerce Solutions Can Help You Reach More Customers",
-                slug: "how-ecommerce-solutions-reach-customers"
+                slug: "importance-of-mobile-app-development",
+                title: "The Importance Of Mobile App Development For Your Business",
             }
         }
     },
@@ -240,12 +240,12 @@ export const blogPosts: Record<string, BlogPost> = {
         conclusionText: "In conclusion, mobile app development is crucial for any business currently looking to stay competitive and meet the evolving needs of their customers. By investing in a mobile app, you can enhance your online presence, improve customer engagement and loyalty, and gain valuable insights into your customer behavior.",
         navigation: {
             olderPost: {
-                title: "5 Ways Our Company Can Help You Boost Your Online Presence",
-                slug: "boost-your-online-presence"
+                slug: "importance-of-mobile-app-development",
+                title: "The Importance Of Mobile App Development For Your Business",
             },
             newerPost: {
-                title: "The Benefits of Custom Software Development For Small Businesses",
-                slug: "benefits-of-custom-software-development"
+                slug: "boost-your-online-presence",
+                title: "5 Ways Our Company Can Help You Boost Your Online Presence",
             }
         }
     },
@@ -282,10 +282,10 @@ export const blogPosts: Record<string, BlogPost> = {
         ],
         conclusionText: "In conclusion, our company has a range of services that can help you boost your online presence and take your business to the next level. Contact us today to learn more about how we can help you achieve your online goals.",
         navigation: {
-            newerPost: {
+            olderPost: {
+                slug: "importance-of-mobile-app-development",
                 title: "The Importance Of Mobile App Development For Your Business",
-                slug: "importance-of-mobile-app-development"
-            }
+            },
         }
     },
 

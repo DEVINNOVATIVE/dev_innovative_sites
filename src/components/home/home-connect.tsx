@@ -119,6 +119,7 @@ import user3 from "@/assets/user3.png";
 import user4 from "@/assets/user4.png";
 import user5 from "@/assets/user5.png";
 import user6 from "@/assets/user6.png";
+import Link from "next/link";
 
 export function ConnectWithUs() {
   return (
@@ -192,12 +193,12 @@ export function ConnectWithUs() {
           </h2>
 
           <div className="pt-4">
-            <a
-              href="/contact"
+            <Link
+              href="/contact-us"
               className="inline-flex w-full sm:w-auto items-center justify-center rounded-xl bg-gradient-to-r from-[#ff4722] to-[#ff733b] px-8 py-4 text-sm font-bold text-white shadow-[0_10px_25px_rgba(255,92,61,0.2)] active:scale-[0.98] transition-all duration-200"
             >
               Get a Free Quote !
-            </a>
+            </Link>
           </div>
 
         </div>

@@ -54,7 +54,7 @@ export function HireDeveloperHero() {
               
               {/* Main Lead Action Button */}
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="group relative inline-flex items-center justify-center px-7 py-3.5 rounded-2xl font-bold text-white text-[15px] shadow-[0_8px_24px_rgba(255,75,43,0.25)] hover:shadow-[0_12px_32px_rgba(255,75,43,0.35)] transition-all duration-300 transform active:scale-[0.98] overflow-hidden cursor-pointer"
                 style={{
                   background: "linear-gradient(135deg, #ff4b2b 0%, #ff416c 100%)"

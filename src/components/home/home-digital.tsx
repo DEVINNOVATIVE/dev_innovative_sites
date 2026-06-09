@@ -613,6 +613,7 @@ import RevealAnimation from "../animation/RevealAnimation";
 
 import bgDigital from "@/assets/bg_digital.webp";
 import transformBg from "@/assets/transform.webp";
+import Link from "next/link";
 
 const features = [
   {
@@ -717,9 +718,9 @@ export function HomeDigital() {
                   </p>
                 </div>
                 <div className="shrink-0">
-                  <a href="/contact" className="inline-flex items-center justify-center rounded-xl bg-[#ff5c3d] hover:bg-[#e84c2e] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-orange-500/10 transition-all duration-300">
+                  <Link href="/contact-us" className="inline-flex items-center justify-center rounded-xl bg-[#ff5c3d] hover:bg-[#e84c2e] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-orange-500/10 transition-all duration-300">
                     Start a Project
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -776,9 +777,9 @@ export function HomeDigital() {
 
             <RevealAnimation direction="up" duration={0.9} delay={0.5} offset={20} animationType="from">
               <div className="pt-3">
-                <a href="/contact" className="inline-flex items-center justify-center rounded-xl bg-[#ff5c3d] hover:bg-[#e84c2e] px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-orange-500/10 transition-all duration-300">
+                <Link href="/contact-us" className="inline-flex items-center justify-center rounded-xl bg-[#ff5c3d] hover:bg-[#e84c2e] px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-orange-500/10 transition-all duration-300">
                   Get A Free Quote
-                </a>
+                </Link>
               </div>
             </RevealAnimation>
           </div>
@@ -810,9 +811,9 @@ export function HomeDigital() {
                   We are dedicated to helping you bring your vision to life with our top-quality web & IT solutions services.
                 </p>
               </div>
-              <a href="/contact" className="inline-flex items-center justify-center rounded-xl bg-[#ff5c3d] px-5 py-3 text-sm font-bold text-white shadow-md">
+              <Link href="/contact-us" className="inline-flex items-center justify-center rounded-xl bg-[#ff5c3d] px-5 py-3 text-sm font-bold text-white shadow-md">
                 Start a Project
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -841,9 +842,9 @@ export function HomeDigital() {
             </div>
 
             <div className="pt-2">
-              <a href="/contact" className="inline-flex items-center justify-center w-full sm:w-auto rounded-xl bg-[#ff5c3d] px-6 py-3.5 text-sm font-bold text-white shadow-md">
+              <Link href="/contact-us" className="inline-flex items-center justify-center w-full sm:w-auto rounded-xl bg-[#ff5c3d] px-6 py-3.5 text-sm font-bold text-white shadow-md">
                 Get A Free Quote
-              </a>
+              </Link>
             </div>
           </div>
 
