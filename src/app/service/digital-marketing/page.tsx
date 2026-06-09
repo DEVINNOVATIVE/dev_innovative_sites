@@ -1,11 +1,14 @@
-import { RoutePage } from "@/components/route-page";
+import { DigitalMarketingRevamp } from "@/components/services/marketing/marketing-Revamp";
+import { DigitalMarketingServices } from "@/components/services/marketing/marketing-services";
+import { WhyDigitalMarketing } from "@/components/services/marketing/why-marketing";
 
-export default function DigitalMarketingPage() {
+export default function MarketingPage() {
   return (
-    <RoutePage
-      eyebrow="Service / Digital Marketing"
-      title="Digital Marketing"
-      description="Campaigns, content, and performance strategy to grow visibility."
-    />
+    <main className="bg-background text-foreground">
+      <DigitalMarketingServices />
+      <WhyDigitalMarketing/>
+      <DigitalMarketingRevamp/>
+    </main>
+
   );
 }
