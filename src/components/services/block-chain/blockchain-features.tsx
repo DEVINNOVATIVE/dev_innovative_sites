@@ -78,7 +78,7 @@ export function BlockchainFeatures() {
       <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 lg:mb-20">
         <div className="hidden lg:block space-y-3">
           <RevealAnimation direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
-            <span className="text-xs sm:text-lg font-bold tracking-wider text-[#104cba] uppercase block">
+            <span className="text-xs sm:text-lg font-bold tracking-wider text-[#104cba]  block">
               Innovative Blockchain Solutions For Business Transformation
             </span>
           </RevealAnimation>
@@ -96,13 +96,13 @@ export function BlockchainFeatures() {
 
         {/* Mobile Safe Static Fallback Header Layer */}
         <div className="block lg:hidden space-y-2.5 px-2">
-          <span className="text-[11px] sm:text-xs font-bold tracking-wider text-[#104cba] uppercase block">
+          <span className="text-base sm:text-lg font-bold tracking-wider text-[#104cba] block">
             Innovative Blockchain Solutions For Business Transformation
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-[#08112a]">
+          <h2 className="text-xl sm:text-3xl font-bold tracking-tight text-[#08112a]">
             Blockchain Development
           </h2>
-          <p className="text-[13px] sm:text-sm leading-relaxed text-slate-400 font-normal">
+          <p className="text-base sm:text-base leading-relaxed text-slate-400 font-normal">
             We provide innovative and cutting-edge blockchain development services that help businesses handle challenges with absolute security metrics.
           </p>
         </div>
@@ -137,11 +137,11 @@ export function BlockchainFeatures() {
                     />
                   </div>
 
-                  <h3 className="text-[18px] font-bold text-[#08112a] mb-3 tracking-tight transition-colors duration-300 group-hover:text-[#104cba]">
+                  <h3 className="text-lg font-bold text-[#08112a] mb-3 tracking-tight transition-colors duration-300 group-hover:text-[#104cba]">
                     {card.title}
                   </h3>
 
-                  <p className="text-[13.5px] leading-relaxed text-slate-400 font-normal transition-colors duration-300 group-hover:text-slate-500">
+                  <p className="text-base leading-relaxed text-slate-400 font-normal transition-colors duration-300 group-hover:text-slate-500">
                     {card.description}
                   </p>
                 </div>
@@ -162,11 +162,11 @@ export function BlockchainFeatures() {
                   />
                 </div>
 
-                <h3 className="text-base font-bold text-[#08112a] mb-2 tracking-tight">
+                <h3 className="text-lg font-bold text-[#08112a] mb-2 tracking-tight">
                   {card.title}
                 </h3>
 
-                <p className="text-[13px] leading-relaxed text-slate-400 font-normal">
+                <p className="text-base leading-relaxed text-slate-400 font-normal">
                   {card.description}
                 </p>
               </div>

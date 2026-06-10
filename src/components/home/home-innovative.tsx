@@ -580,7 +580,7 @@ const innovativeFeatures = [
 
 export function HomeInnovative() {
   return (
-    <section className="relative overflow-hidden bg-white px-4 py-20 sm:px-8 lg:px-10 text-slate-900 select-none">
+    <section className="relative overflow-hidden bg-white px-4 py-8 md:py-16 sm:px-8 lg:px-10 text-slate-900 select-none">
       
       {/* ================= BACKGROUND WATER AMBIENT BLOB CANVAS ================= */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -603,7 +603,7 @@ export function HomeInnovative() {
           {/* Header Rows */}
           <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
             <RevealAnimation direction="down" duration={0.9} delay={0.0} offset={25} animationType="from">
-              <span className="text-base font-bold tracking-wider text-[#104cba] uppercase block">
+              <span className="text-lg font-bold tracking-wider text-[#104cba] uppercase block">
                 Our Innovative Services
               </span>
             </RevealAnimation>
@@ -680,10 +680,10 @@ export function HomeInnovative() {
         <div className="block lg:hidden w-full space-y-12">
           {/* Header Rows Container */}
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <span className="text-xs sm:text-sm font-bold tracking-wider text-[#104cba] uppercase block">
+            <span className="text-base sm:text-lg font-bold tracking-wider text-[#104cba] uppercase block">
               Our Innovative Services
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 leading-tight">
               Innovative IT Solutions For Business <br className="hidden sm:inline" /> Transformation
             </h2>
             <p className="text-[14px] sm:text-base leading-relaxed text-slate-500 font-normal pt-1">

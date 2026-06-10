@@ -63,7 +63,7 @@ export function ContactUsForm() {
     };
 
     return (
-        <section className="relative w-full bg-white px-4 sm:px-8 lg:px-10 py-16 sm:py-24 text-slate-900 select-none overflow-hidden">
+        <section className="relative w-full bg-white px-4 sm:px-8 lg:px-10 py-8 sm:py-16 text-slate-900 select-none overflow-hidden">
             <div className="mx-auto max-w-[1240px] space-y-24">
 
                 {/* ================= TOP SECTION: ILLUSTRATION & CONTACT FORM ================= */}

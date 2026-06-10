@@ -273,7 +273,7 @@ const metrics = [
 
 export function ComprehensiveSolution() {
   return (
-    <section className="relative overflow-hidden bg-white px-4 sm:px-8 lg:px-10 py-20 text-slate-900 select-none">
+    <section className="relative overflow-hidden bg-white px-4 sm:px-8 lg:px-10 py-8 md:py-16 text-slate-900 select-none">
       <div className="relative z-10 mx-auto max-w-[1240px]">
         
         {/* ======================================================================
@@ -314,7 +314,7 @@ export function ComprehensiveSolution() {
           {/* Right Column: Copywriting Content & Staggered Progress Bars */}
           <div className="w-full text-left space-y-6">
             <div className="space-y-3">
-              <span className="text-base font-bold text-[#104cba] tracking-wider uppercase block">
+              <span className="text-lg font-bold text-[#104cba] tracking-wider uppercase block">
                 Comprehensive Suite of Solutions
               </span>
               <h2 className="text-4xl font-bold tracking-tight text-slate-900 leading-snug pt-1">
@@ -368,10 +368,10 @@ export function ComprehensiveSolution() {
           {/* Top Text Content & Metrics Wrapper */}
           <div className="w-full text-center sm:text-left space-y-5 mx-auto max-w-xl">
             <div className="space-y-2">
-              <span className="text-sm sm:text-base font-bold text-[#104cba] tracking-wider uppercase block">
+              <span className="text-base sm:text-lg font-bold text-[#104cba] tracking-wider uppercase block">
                 Comprehensive Suite of Solutions
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-tight">
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 leading-tight">
                 Empowering Businesses With Perfect Technology Solutions
               </h2>
             </div>

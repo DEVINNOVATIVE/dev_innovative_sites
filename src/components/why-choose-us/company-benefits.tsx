@@ -38,7 +38,7 @@ const benefitsTimelineData = [
 
 export function CompanyBenefitsTimeline() {
   return (
-    <section className="relative bg-[#ffffff] text-neutral-900 py-24 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
+    <section className="relative bg-[#ffffff] text-neutral-900 py-8  md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       
       {/* Dynamic Ambient Blur Orbs */}
       <div className="absolute top-1/3 left-1/4 w-[380px] h-[380px] bg-blue-50/40 rounded-full blur-3xl pointer-events-none -z-10" />

@@ -289,7 +289,7 @@ export function HomeHero() {
             </div>
 
             {/* Main Layout Content Grid Container */}
-            <div className="mx-auto flex flex-col md:grid w-full max-w-[1400px] md:grid-cols-12 gap-16 px-6 pt-32 pb-12 sm:px-8 lg:px-10 lg:items-center">
+            <div className="mx-auto flex flex-col md:grid w-full max-w-[1400px] md:grid-cols-12 gap-16 px-6 pt-8 lg:pt-32 pb-12 sm:px-8 lg:px-10 lg:items-center">
 
                 {/* Left Column Text content wrapped in a RevealAnimation */}
                 <div className="w-full md:col-span-7 flex flex-col items-center md:items-start text-center md:text-left mx-auto max-w-[720px]">

@@ -123,7 +123,7 @@ import Link from "next/link";
 
 export function ConnectWithUs() {
   return (
-    <section className="relative overflow-hidden bg-white px-4 py-20 sm:py-24 sm:px-6 lg:px-8 text-slate-900 min-h-[460px] flex items-center select-none">
+    <section className="relative overflow-hidden bg-white px-4 py-6  md:py-12 sm:px-6 lg:px-8 text-slate-900 min-h-96 md:min-h-115 flex items-center select-none">
       
       {/* --- 1. BACKGROUND PATTERN MAP IMAGE --- */}
       <div className="absolute inset-0 z-0 opacity-30 sm:opacity-45 pointer-events-none">
@@ -181,9 +181,9 @@ export function ConnectWithUs() {
       {/* --- 4. CENTRAL TEXT TYPOGRAPHY CONTAINER --- */}
       <div className="relative z-20 mx-auto max-w-[1100px] w-full text-center">
         {/* FIXED RESPONSIVENESS: Fluid width constraints set to look flawless on mobile profiles */}
-        <div className="space-y-5 max-w-4xl mx-auto px-2 sm:px-4">
+        <div className="space-y-2 max-w-4xl mx-auto px-2 sm:px-4">
           
-          <span className="text-xs sm:text-sm font-bold tracking-wider text-blue-600 uppercase block">
+          <span className="text-base sm:text-lg font-bold tracking-wider text-blue-600 uppercase block">
             Connect With Us
           </span>
 

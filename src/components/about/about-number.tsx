@@ -39,7 +39,7 @@ const metrics = [
 
 export function AboutNumbers() {
   return (
-    <section className="relative w-full py-12 md:py-12 mb-24 text-white overflow-hidden select-none">
+    <section className="relative w-full py-12 md:py-12  text-white overflow-hidden select-none">
       
       {/* Background Graphic Asset */}
       <div className="absolute inset-0 z-0 pointer-events-none">

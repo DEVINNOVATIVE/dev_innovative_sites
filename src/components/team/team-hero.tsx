@@ -9,7 +9,7 @@ import videoPlayBtn from "@/assets/team/video.png";
 
 export function TeamHero() {
   return (
-    <section className="relative bg-white text-slate-900 pt-20 pb-4 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
+    <section className="relative bg-white text-slate-900 pt-8 md:pt-16 pb-4 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       <div className="mx-auto max-w-[1240px]">
         <div className="grid gap-12 items-center lg:grid-cols-12">
           

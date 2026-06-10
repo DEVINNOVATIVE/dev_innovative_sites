@@ -23,7 +23,7 @@ const solutions = [
 
 export function AboutHero() {
   return (
-    <section className="relative bg-white text-slate-900 py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="relative bg-white text-slate-900 md:py-16 py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="mx-auto max-w-310">
         <div className="grid gap-16 items-center lg:grid-cols-12">
           

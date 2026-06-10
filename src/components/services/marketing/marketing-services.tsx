@@ -32,7 +32,7 @@ const marketingCards = [
 
 export function DigitalMarketingServices() {
   return (
-    <section className="mx-auto w-full max-w-[1400px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24 bg-white text-slate-900 select-none">
+    <section className="mx-auto w-full max-w-[1400px] px-4 py-12 sm:px-6 lg:px-8 lg:py-24 bg-white text-slate-900 select-none">
       
       {/* ======================================================================
           HEADER BLOCK: TYPOGRAPHY LAYOUT AND INTRO TEXT
@@ -41,7 +41,7 @@ export function DigitalMarketingServices() {
         {/* Desktop Animating Header Block */}
         <div className="hidden lg:block space-y-3">
           <RevealAnimation direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
-            <span className="text-xs sm:text-lg font-bold tracking-wider text-[#104cba]  block">
+            <span className="text-sm sm:text-lg font-bold tracking-wider text-[#104cba]  block">
               Discover Our Range Of Services To Boost Your Business
             </span>
           </RevealAnimation>
@@ -59,10 +59,10 @@ export function DigitalMarketingServices() {
 
         {/* Mobile Static Fast Paint Header Block */}
         <div className="block lg:hidden space-y-2.5 px-2">
-          <span className="text-[11px] sm:text-xs font-bold tracking-wider text-[#104cba]  block">
+          <span className="text-base font-bold tracking-wider text-[#104cba]  block">
             Discover Our Range Of Services To Boost Your Business
           </span>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#08112a]">
+          <h2 className="text-xl font-bold tracking-tight text-[#08112a]">
             Digital Marketing Services
           </h2>
           <p className="text-base leading-relaxed text-slate-400 font-normal">

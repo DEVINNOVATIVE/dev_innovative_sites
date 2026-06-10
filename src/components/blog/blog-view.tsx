@@ -11,7 +11,7 @@ export function BlogView() {
   const postsArray = Object.values(blogPosts);
 
   return (
-    <section className="relative bg-[#fafafa] text-neutral-900 py-24 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
+    <section className="relative bg-[#fafafa] text-neutral-900 py-8 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       {/* Background Decorative Ambient Flares */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-50/50 rounded-full blur-3xl pointer-events-none -z-10" />
       <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-red-50/40 rounded-full blur-3xl pointer-events-none -z-10" />

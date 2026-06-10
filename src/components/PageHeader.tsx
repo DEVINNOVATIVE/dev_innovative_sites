@@ -17,7 +17,7 @@ interface PageHeaderProps {
 }
 export function PageHeader({ title, currentPage, parentPage }: PageHeaderProps) {
   return (
-    <section className="relative overflow-hidden bg-[#071033] py-16 md:py-20 text-center flex items-center justify-center min-h-[320px] border-b border-white/5">
+    <section className="relative overflow-hidden bg-[#071033] py-8 md:py-14 text-center flex items-center justify-center min-h-60 md:min-h-80 border-b border-white/5">
       
       {/* --- 1. GEOMETRIC BACKGROUND PATTERN LAYER --- */}
       <div className="absolute inset-0 z-0 opacity-15 select-none pointer-events-none mix-blend-screen transform scale-105">
@@ -31,7 +31,7 @@ export function PageHeader({ title, currentPage, parentPage }: PageHeaderProps) 
       </div>
 
       {/* Futuristic Center Glow Radial Accent for Premium Contrast */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] bg-gradient-to-r from-[#104cba]/20 to-[#ff5c3d]/10 rounded-full blur-[80px] z-0 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-44 md:h-62.5 bg-linear-to-r from-[#104cba]/20 to-[#ff5c3d]/10 rounded-full blur-[80px] z-0 pointer-events-none" />
 
       {/* --- 2. DYNAMIC CONTENT INNER CONTAINER --- */}
       <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-4xl">

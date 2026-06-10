@@ -12,7 +12,7 @@ import triangleIcon from "@/assets/hire_developer/triangle.png";
 
 export function HireDeveloperHero() {
   return (
-    <section className="relative w-full bg-white text-neutral-900 min-h-[90vh] sm:min-h-[80vh] flex items-center pt-12 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
+    <section className="relative w-full bg-white text-neutral-900 min-h-[90vh] sm:min-h-[80vh] flex items-center pt-6 md:pt-12 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       
       {/* Decorative Minimal Floating Elements Layout */}
       <div className="absolute left-[12%] bottom-[8%] w-5 h-5 opacity-80 animate-pulse hidden sm:block">
