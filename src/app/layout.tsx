@@ -221,26 +221,57 @@ export const viewport: Viewport = {
 };
 
 // ================= PRODUCTION READY SEO METADATA =================
+// export const metadata: Metadata = {
+//   title: "Dev innovative - Your Trusted Partner for Software Solutions",
+//   description: "Transform your business with Dev innovative, Specializing in software web, mobile app dev, blockchain, AI, & cloud solutions... Contact us",
+//   alternates: {
+//     canonical: "https://devinnovative.com",
+//   },
+//   formatDetection: {
+//     telephone: false,
+//   },
+//   robots: {
+//     index: true,
+//     follow: true,
+//     googleBot: {
+//       index: true,
+//       follow: true,
+//       "max-image-preview": "large",
+//       "max-snippet": -1,
+//       "max-video-preview": -1,
+//     },
+//   },
+//   openGraph: {
+//     locale: "en_US",
+//     type: "website",
+//     title: "Dev innovative - Your Trusted Partner for Software Solutions",
+//     description: "Transform your business with Dev innovative, Specializing in software web, mobile app dev, blockchain, AI, & cloud solutions... Contact us",
+//     url: "https://devinnovative.com",
+//     siteName: "Dev iNN | Development Services Provider",
+//     images: [
+//       {
+//         url: "https://devinnovative.com/og-banner.png", 
+//         width: 1200,
+//         height: 630,
+//         alt: "Dev innovative Solutions Global Branding Asset",
+//       },
+//     ],
+//   },
+//   twitter: {
+//     card: "summary_large_image",
+//     title: "Dev innovative - Your Trusted Partner for Software Solutions",
+//     description: "Transform your business with Dev innovative, Specializing in software web, mobile app dev, blockchain, AI, & cloud solutions... Contact us",
+//     images: ["https://devinnovative.com/og-banner.png"], 
+//   },
+// };
+// ================= PRODUCTION READY SEO METADATA =================
 export const metadata: Metadata = {
   title: "Dev innovative - Your Trusted Partner for Software Solutions",
   description: "Transform your business with Dev innovative, Specializing in software web, mobile app dev, blockchain, AI, & cloud solutions... Contact us",
   alternates: {
     canonical: "https://devinnovative.com",
   },
-  formatDetection: {
-    telephone: false,
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
+  
   openGraph: {
     locale: "en_US",
     type: "website",
@@ -250,18 +281,21 @@ export const metadata: Metadata = {
     siteName: "Dev iNN | Development Services Provider",
     images: [
       {
-        url: "https://devinnovative.com/og-banner.png", 
+        // Added ?v=1 to break old image cache logs across messaging platforms
+        url: "https://devinnovative.com/og-banner.png?v=1", 
         width: 1200,
         height: 630,
         alt: "Dev innovative Solutions Global Branding Asset",
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
     title: "Dev innovative - Your Trusted Partner for Software Solutions",
     description: "Transform your business with Dev innovative, Specializing in software web, mobile app dev, blockchain, AI, & cloud solutions... Contact us",
-    images: ["https://devinnovative.com/og-banner.png"], 
+    // Added ?v=1 here as well
+    images: ["https://devinnovative.com/og-banner.png?v=1"], 
   },
 };
 
