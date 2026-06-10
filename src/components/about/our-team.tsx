@@ -317,7 +317,7 @@ import RevealAnimation from "../animation/RevealAnimation";
 import leaderImg from "@/assets/about/blockChain.jpeg"; 
 import member1 from "@/assets/about/ceo.jpeg";
 import member2 from "@/assets/about/cofounder.png";
-import member3 from "@/assets/about/ux.png";
+import member3 from "@/assets/about/ux.jpeg";
 import saudImg from "@/assets/about/saud.jpeg";
 import asmaImg from "@/assets/about/asma.jpeg";
 import Link from "next/link";
@@ -327,7 +327,7 @@ const teamData = [
     name: "Habib Rehman",
     role: "CEO & Founder",
     image: member1,
-    socials: { linkedin: "#", github: "#" }
+    socials: { linkedin: "https://www.linkedin.com/in/habib-rehman-6457a31a4?utm_source=share_via&utm_content=profile&utm_medium=member_ios", github: "#" }
   },
     {
     name: "Asma Rehman",
@@ -342,10 +342,10 @@ const teamData = [
     socials: { linkedin: "#", github: "#" }
   },
   {
-    name: "Abdullah",
+    name: "Abdullah Rehman",
     role: "Graphic Web Designer",
     image: member3,
-    socials: { linkedin: "#", github: "#" }
+    socials: { linkedin: "https://www.linkedin.com/in/abdullah-rehman-16460a1a6/", github: "#" }
   },
   {
     name: "Saud Gul",
