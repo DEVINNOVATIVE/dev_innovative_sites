@@ -319,6 +319,7 @@ import member1 from "@/assets/about/ceo.jpeg";
 import member2 from "@/assets/about/cofounder.png";
 import member3 from "@/assets/about/ux.png";
 import saudImg from "@/assets/about/saud.jpeg";
+import asmaImg from "@/assets/about/asma.jpeg";
 import Link from "next/link";
 
 const teamData = [
@@ -327,6 +328,12 @@ const teamData = [
     role: "CEO & Founder",
     image: member1,
     socials: { linkedin: "#", github: "#" }
+  },
+    {
+    name: "Asma Rehman",
+    role: "CTO",
+    image: asmaImg,
+    socials: { linkedin: "https://www.linkedin.com/in/asma-rehman-363986335?utm_source=share_via&utm_content=profile&utm_medium=member_ios", github: "#" }
   },
   {
     name: "Neil Gibson",
@@ -341,16 +348,16 @@ const teamData = [
     socials: { linkedin: "#", github: "#" }
   },
   {
-    name: "Saud Gul",
-    role: "Full Stack Developer",
-    image: saudImg,
-    socials: { linkedin: "https://www.linkedin.com/in/saud-gul-b7942323b/", github: "https://github.com/saudgul" }
-  },
-  {
     name: "Mohsin Ali Solangi",
     role: "Blockchain Developer",
     image: leaderImg,
     socials: { linkedin: "#", github: "#" }
+  },
+   {
+    name: "Saud Gul",
+    role: "Full Stack Developer",
+    image: saudImg,
+    socials: { linkedin: "https://www.linkedin.com/in/saud-gul-b7942323b/", github: "https://github.com/saudgul" }
   },
 ];
 
