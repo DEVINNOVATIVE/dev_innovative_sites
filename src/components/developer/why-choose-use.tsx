@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import RevealAnimation from "../animation/RevealAnimation";
 
@@ -32,6 +32,30 @@ const featuresData = [
 ];
 
 export function WhyChooseUsFeatures() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative bg-white text-neutral-900 pb-20 pt-4 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       <div className="mx-auto max-w-285">
@@ -39,7 +63,7 @@ export function WhyChooseUsFeatures() {
         {/* ================= FOUR COLUMN FEATURE CARD LAYOUT ================= */}
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 items-start">
           {featuresData.map((feature, index) => (
-            <RevealAnimation
+            <ConditionalReveal
               key={index}
               direction="up"
               duration={0.9}
@@ -74,7 +98,7 @@ export function WhyChooseUsFeatures() {
                 </div>
 
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           ))}
         </div>
 

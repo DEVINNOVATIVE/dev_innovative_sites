@@ -5,6 +5,8 @@ import { ContactFormCard } from "@/components/contact-us"; // Import your new co
 import industriesHero from "@/assets/hire_developer/industries.png";
 
 export function IndustrySolutionsSection() {
+
+  
   return (
     <section className="relative bg-white text-neutral-900 pt-10 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       <div className="mx-auto max-w-[1140px]">
