@@ -520,7 +520,7 @@ export function HomeHero() {
                         <div className="space-y-6 flex flex-col items-center md:items-start w-full">
                             <div className="text-xl sm:text-2xl font-extrabold text-white">Next-Gen Elite Engineering</div>
 
-                            <h1 className="text-[22px] sm:text-3xl whitespace-nowrap leading-tight font-extrabold tracking-tight md:text-4xl lg:text-5xl sm:whitespace-normal">
+                            <h1 className="text-[20px] sm:text-3xl whitespace-nowrap leading-tight font-extrabold tracking-tight md:text-4xl lg:text-5xl sm:whitespace-normal">
                                 Consensus AI & <br className="hidden sm:block" />
                                 
                                 {/* Responsive Text swapper block wrapper preventing string wrap collisions */}
