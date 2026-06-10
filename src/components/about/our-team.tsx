@@ -59,6 +59,30 @@ export function OurTeam() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="relative w-full bg-[#f8f9fa] text-slate-900 py-10 sm:py-16 px-2.5 xs:px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
@@ -70,16 +94,16 @@ export function OurTeam() {
         <div className="text-center max-w-2xl mx-auto space-y-3 mb-10 sm:mb-20">
           {/* Desktop Animating Path */}
           <div className="hidden lg:block space-y-3">
-            <RevealAnimation direction="down" duration={0.8} delay={0.1} offset={20} animationType="from">
+            <ConditionalReveal direction="down" duration={0.8} delay={0.1} offset={20} animationType="from">
               <span className="text-xs sm:text-lg font-bold tracking-widest text-[#104cba] uppercase block">
                 Team Member
               </span>
-            </RevealAnimation>
-            <RevealAnimation direction="down" duration={0.9} delay={0.18} offset={25} animationType="from">
+            </ConditionalReveal>
+            <ConditionalReveal direction="down" duration={0.9} delay={0.18} offset={25} animationType="from">
               <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-[#08112a]">
                 Our Proficient Team
               </h2>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Mobile Static Path */}
@@ -102,7 +126,7 @@ export function OurTeam() {
               
               {/* DESKTOP VIEW PROFILE CARD SYSTEM */}
               <div className="hidden lg:block text-center relative">
-                <RevealAnimation
+                <ConditionalReveal
                   direction="up"
                   duration={0.9}
                   delay={0.12 + index * 0.08}
@@ -149,7 +173,7 @@ export function OurTeam() {
                     </div>
 
                   </div>
-                </RevealAnimation>
+                </ConditionalReveal>
               </div>
 
               {/* MOBILE VIEW PROFILE CARD SYSTEM (Guaranteed 2-columns side-by-side at 320px) */}

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link"; // Integrated Next.js Link component for client-side routing
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -14,13 +14,37 @@ import initial from "@/assets/loan_app/initial.png";
 import deava from "@/assets/loan_app/deava.png";
 
 export function LoanAppDetail() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative bg-white text-slate-900 py-20 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       <div className="mx-auto max-w-[1140px] space-y-16">
         
         {/* ================= 1. HEADER DOUBLE DEVICE SHOWCASE DECK ================= */}
         <div className="grid gap-8 grid-cols-1 md:grid-cols-2 items-center">
-          <RevealAnimation direction="left" duration={1.1} delay={0.0} offset={40} animationType="from">
+          <ConditionalReveal direction="left" duration={1.1} delay={0.0} offset={40} animationType="from">
             <div className="relative w-full aspect-[1.4/1] transform transition-transform duration-500 hover:scale-[1.02]">
               <Image
                 src={main1}
@@ -30,9 +54,9 @@ export function LoanAppDetail() {
                 priority
               />
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
 
-          <RevealAnimation direction="right" duration={1.1} delay={0.15} offset={40} animationType="from">
+          <ConditionalReveal direction="right" duration={1.1} delay={0.15} offset={40} animationType="from">
             <div className="relative w-full aspect-[1.4/1] transform transition-transform duration-500 hover:scale-[1.02]">
               <Image
                 src={main2}
@@ -42,7 +66,7 @@ export function LoanAppDetail() {
                 priority
               />
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
 
@@ -54,13 +78,13 @@ export function LoanAppDetail() {
             
             {/* Context Narrative Card Block 1 */}
             <div className="space-y-4">
-              <RevealAnimation direction="down" duration={0.9} delay={0.1} offset={20} animationType="from">
+              <ConditionalReveal direction="down" duration={0.9} delay={0.1} offset={20} animationType="from">
                 <h2 className="text-3xl font-black tracking-tight text-[#08112a] sm:text-4xl">
                   Fido App Development
                 </h2>
-              </RevealAnimation>
+              </ConditionalReveal>
               
-              <RevealAnimation direction="up" duration={1.0} delay={0.2} offset={30} animationType="from">
+              <ConditionalReveal direction="up" duration={1.0} delay={0.2} offset={30} animationType="from">
                 <div className="space-y-3">
                   <p className="text-sm leading-7 text-slate-400 font-normal">
                     Like many fast-growing fintech startups out there, Fido Solutions Inc. has reached a point where it surpassed the capabilities of its IT infrastructure. To account for the increasing number of clients and its global expansion, Fido needed to make a leap from the legacy system to the new one that would be capable of handling the company's growing needs.
@@ -69,18 +93,18 @@ export function LoanAppDetail() {
                     This case study describes how Dev iNN developed a mobile lending app for Fido clients to ultimately increase customer satisfaction and make the whole process of loan lending much more convenient and transparent.
                   </p>
                 </div>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* Context Narrative Card Block 2 */}
             <div className="space-y-4 pt-2">
-              <RevealAnimation direction="down" duration={0.9} delay={0.25} offset={20} animationType="from">
+              <ConditionalReveal direction="down" duration={0.9} delay={0.25} offset={20} animationType="from">
                 <h3 className="text-2xl font-black tracking-tight text-[#08112a]">
                   Product
                 </h3>
-              </RevealAnimation>
+              </ConditionalReveal>
               
-              <RevealAnimation direction="up" duration={1.0} delay={0.35} offset={30} animationType="from">
+              <ConditionalReveal direction="up" duration={1.0} delay={0.35} offset={30} animationType="from">
                 <div className="space-y-4">
                   <p className="text-sm leading-7 text-slate-400 font-normal">
                     Fido Money Lending is an instant loan app developed in partnership with Dev iNN that allows users to get money fast straight from their Android and iOS devices.
@@ -101,14 +125,14 @@ export function LoanAppDetail() {
                     ))}
                   </div>
                 </div>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
           </div>
 
           {/* RIGHT MARKETING BANNER GRAPHIC COLUMN */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center w-full space-y-6">
-            <RevealAnimation direction="right" duration={1.1} delay={0.3} offset={45} animationType="from">
+            <ConditionalReveal direction="right" duration={1.1} delay={0.3} offset={45} animationType="from">
               <div 
                 className="relative w-full max-w-[400px] aspect-square rounded-2xl overflow-hidden shadow-2xl border border-slate-100 transform-gpu"
                 style={{ animation: "loanAppBannerFloat 6s ease-in-out infinite" }}
@@ -120,7 +144,7 @@ export function LoanAppDetail() {
                   className="object-cover"
                 />
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
         </div>
@@ -130,7 +154,7 @@ export function LoanAppDetail() {
         <div className="pt-10 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
           
           {/* Previous Portfolio Router Link Container */}
-          <RevealAnimation direction="left" duration={1.0} delay={0.45} offset={25} animationType="from">
+          <ConditionalReveal direction="left" duration={1.0} delay={0.45} offset={25} animationType="from">
             <Link 
               href="/portfolio/initial-coin" 
               className="group flex items-center gap-5 p-4 rounded-xl border border-slate-100/70 bg-[#fafbfc]/40 hover:bg-white hover:shadow-[0_15px_35px_rgba(0,0,0,0.03)] w-full sm:w-[360px] transition-all duration-300 block"
@@ -152,10 +176,10 @@ export function LoanAppDetail() {
                 </h4>
               </div>
             </Link>
-          </RevealAnimation>
+          </ConditionalReveal>
 
           {/* Next Portfolio Router Link Container */}
-          <RevealAnimation direction="right" duration={1.0} delay={0.45} offset={25} animationType="from">
+          <ConditionalReveal direction="right" duration={1.0} delay={0.45} offset={25} animationType="from">
             <Link 
               href="/portfolio/deana-ai" 
               className="group flex items-center justify-between p-4 rounded-xl border border-slate-100/70 bg-[#fafbfc]/40 hover:bg-white hover:shadow-[0_15px_35px_rgba(0,0,0,0.03)] w-full sm:w-[360px] transition-all duration-300 block text-right"
@@ -177,7 +201,7 @@ export function LoanAppDetail() {
                 />
               </div>
             </Link>
-          </RevealAnimation>
+          </ConditionalReveal>
 
         </div>
 

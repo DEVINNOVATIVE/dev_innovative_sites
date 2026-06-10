@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import RevealAnimation from "../animation/RevealAnimation"; // Verify path matching your folder tree structure
@@ -49,6 +49,30 @@ export function FAQSection() {
   const toggleAccordion = (id: string) => {
     setOpenId(openId === id ? null : id);
   };
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="relative bg-[#f8fafc] py-24 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
@@ -57,7 +81,7 @@ export function FAQSection() {
           
           {/* ================= LEFT COLUMN: DECORATIVE HERO ART ================= */}
           <div className="lg:col-span-5 flex justify-center w-full">
-            <RevealAnimation direction="left" duration={1.1} delay={0.1} offset={50} animationType="from">
+            <ConditionalReveal direction="left" duration={1.1} delay={0.1} offset={50} animationType="from">
               <div 
                 className="relative w-full max-w-[500px] aspect-[1.15/1] transform-gpu"
                 style={{ animation: "faqHeroFloat 6s ease-in-out infinite" }}
@@ -70,7 +94,7 @@ export function FAQSection() {
                   priority
                 />
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* ================= RIGHT COLUMN: INTERACTIVE ACCORDION GRID ================= */}
@@ -78,17 +102,17 @@ export function FAQSection() {
             
             {/* Context Heading Group block titles */}
             <div className="space-y-3 mb-8">
-              <RevealAnimation direction="down" duration={1.0} delay={0.0} offset={20} animationType="from">
+              <ConditionalReveal direction="down" duration={1.0} delay={0.0} offset={20} animationType="from">
                 <span className="text-lg font-bold text-[#104cba] tracking-wider uppercase block">
                   Any Query
                 </span>
-              </RevealAnimation>
+              </ConditionalReveal>
               
-              <RevealAnimation direction="down" duration={1.1} delay={0.15} offset={30} animationType="from">
+              <ConditionalReveal direction="down" duration={1.1} delay={0.15} offset={30} animationType="from">
                 <h2 className="text-3xl font-bold tracking-tight text-[#08112a] sm:text-4xl">
                   Frequently Asked Questions
                 </h2>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* Accordion List Collection Container */}
@@ -97,7 +121,7 @@ export function FAQSection() {
                 const isOpen = openId === item.id;
                 
                 return (
-                  <RevealAnimation
+                  <ConditionalReveal
                     key={item.id}
                     direction="up"
                     duration={0.8}
@@ -141,7 +165,7 @@ export function FAQSection() {
                       </div>
 
                     </div>
-                  </RevealAnimation>
+                  </ConditionalReveal>
                 );
               })}
             </div>

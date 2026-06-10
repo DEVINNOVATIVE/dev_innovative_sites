@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link"; // Integrated Next.js Link component for client-side routing
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -12,13 +12,37 @@ import loanAsset from "@/assets/diana_ai/loan.png";
 import cryptoAsset from "@/assets/diana_ai/crypto.png";
 
 export function DeanaDetail() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative bg-white text-slate-900 py-20 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       <div className="mx-auto max-w-[1140px] space-y-12">
         
         {/* ================= 1. TOP MAIN TECH HEADER BANNER ================= */}
         <div className="w-full">
-          <RevealAnimation direction="down" duration={1.1} delay={0.0} offset={35} animationType="from">
+          <ConditionalReveal direction="down" duration={1.1} delay={0.0} offset={35} animationType="from">
             <div className="relative w-full aspect-[2.6/1] rounded-2xl overflow-hidden bg-[#070b19] shadow-xl border border-slate-100">
               <Image
                 src={mainBanner}
@@ -28,28 +52,28 @@ export function DeanaDetail() {
                 priority
               />
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
 
         {/* ================= 2. ANALYSIS LOGICAL READ DOCUMENTATION WRAPPERS ================= */}
         <div className="max-w-4xl space-y-10 pt-4">
           
-          <RevealAnimation direction="up" duration={1.0} delay={0.1} offset={25} animationType="from">
+          <ConditionalReveal direction="up" duration={1.0} delay={0.1} offset={25} animationType="from">
             <p className="text-[15px] leading-7 text-slate-500 font-normal">
               <strong className="text-[#08112a] font-extrabold">Deana.AI®</strong> is a virtual assistant that uses GTP-3 and a custom NLP model behind the scenes to understand and execute user commands. Users communicate with Deana.AI® using simple text by email and in messengers and web chatbots.
             </p>
-          </RevealAnimation>
+          </ConditionalReveal>
 
           {/* Section Block: Idea Narrative */}
           <div className="space-y-4">
-            <RevealAnimation direction="down" duration={0.9} delay={0.15} offset={20} animationType="from">
+            <ConditionalReveal direction="down" duration={0.9} delay={0.15} offset={20} animationType="from">
               <h2 className="text-2xl font-black tracking-tight text-[#08112a]">
                 Idea
               </h2>
-            </RevealAnimation>
+            </ConditionalReveal>
 
-            <RevealAnimation direction="up" duration={1.0} delay={0.25} offset={30} animationType="from">
+            <ConditionalReveal direction="up" duration={1.0} delay={0.25} offset={30} animationType="from">
               <div className="space-y-4 text-[14px] leading-7 text-slate-400 font-normal">
                 <p>
                   Email is a traditional way of digital communication between people in business and everyday life. Services like Gmail and Outlook help us exchange sensitive information and plan activities in advance.
@@ -64,18 +88,18 @@ export function DeanaDetail() {
                   Here are a few more use cases for our email-first AI assistant:
                 </p>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Section Block: Key Features Parameter Deck */}
           <div className="space-y-4 pt-2">
-            <RevealAnimation direction="down" duration={0.9} delay={0.2} offset={20} animationType="from">
+            <ConditionalReveal direction="down" duration={0.9} delay={0.2} offset={20} animationType="from">
               <h3 className="text-xl font-black tracking-tight text-[#08112a]">
                 Key Features
               </h3>
-            </RevealAnimation>
+            </ConditionalReveal>
 
-            <RevealAnimation direction="up" duration={1.0} delay={0.3} offset={25} animationType="from">
+            <ConditionalReveal direction="up" duration={1.0} delay={0.3} offset={25} animationType="from">
               <div className="space-y-2.5 text-[14px] font-medium text-slate-400 pl-1">
                 {[
                   "Plan events and tasks",
@@ -91,18 +115,18 @@ export function DeanaDetail() {
                   </div>
                 ))}
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Section Block: Team Structure Allocations */}
           <div className="space-y-4 pt-2">
-            <RevealAnimation direction="down" duration={0.9} delay={0.2} offset={20} animationType="from">
+            <ConditionalReveal direction="down" duration={0.9} delay={0.2} offset={20} animationType="from">
               <h3 className="text-xl font-black tracking-tight text-[#08112a]">
                 Team
               </h3>
-            </RevealAnimation>
+            </ConditionalReveal>
 
-            <RevealAnimation direction="up" duration={1.0} delay={0.32} offset={25} animationType="from">
+            <ConditionalReveal direction="up" duration={1.0} delay={0.32} offset={25} animationType="from">
               <div className="space-y-4">
                 <p className="text-[14px] leading-relaxed text-slate-400 font-normal">
                   As Dev iNN already had a sufficient experience in AI development, we quickly formed a team that included these roles:
@@ -123,18 +147,18 @@ export function DeanaDetail() {
                   ))}
                 </div>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Section Block: NLP Model Details */}
           <div className="space-y-4 pt-2">
-            <RevealAnimation direction="down" duration={0.9} delay={0.2} offset={20} animationType="from">
+            <ConditionalReveal direction="down" duration={0.9} delay={0.2} offset={20} animationType="from">
               <h3 className="text-xl font-black tracking-tight text-[#08112a]">
                 NLP Model
               </h3>
-            </RevealAnimation>
+            </ConditionalReveal>
 
-            <RevealAnimation direction="up" duration={1.1} delay={0.35} offset={30} animationType="from">
+            <ConditionalReveal direction="up" duration={1.1} delay={0.35} offset={30} animationType="from">
               <div className="space-y-4 text-[14px] leading-7 text-slate-400 font-normal">
                 <p>
                   We chose between several NLP models to find the one best fitting our technical expertise and project requirements. After some experiments, we decided on GPT-3 (Generative Pre-trained Transformer 3), which demonstrated the best results in our tests. We programmed in Python and Node.js. We fine-tuned the GPT-3 model in our knowledge domain.
@@ -143,7 +167,7 @@ export function DeanaDetail() {
                   As a result, we created a custom NLP model that ran on Nvidia's GeForce 3000 series GPU. Our model required both automatic and manual correction. Humans analysed the answers generated by the model, found errors, and corrected them to improve the model further. In this way, we minimised errors and improved the model's functioning.
                 </p>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
         </div>
@@ -153,7 +177,7 @@ export function DeanaDetail() {
         <div className="pt-12 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
           
           {/* Previous Portfolio Router Link Container */}
-          <RevealAnimation direction="left" duration={1.0} delay={0.4} offset={25} animationType="from">
+          <ConditionalReveal direction="left" duration={1.0} delay={0.4} offset={25} animationType="from">
             <Link 
               href="/portfolio/loan-app" 
               className="group flex items-center gap-5 p-4 rounded-xl border border-slate-100 bg-[#fafbfc]/50 hover:bg-white hover:shadow-[0_15px_35px_rgba(0,0,0,0.03)] w-full sm:w-[360px] transition-all duration-300 block"
@@ -174,10 +198,10 @@ export function DeanaDetail() {
                 </h4>
               </div>
             </Link>
-          </RevealAnimation>
+          </ConditionalReveal>
 
           {/* Next Portfolio Router Link Container */}
-          <RevealAnimation direction="right" duration={1.0} delay={0.4} offset={25} animationType="from">
+          <ConditionalReveal direction="right" duration={1.0} delay={0.4} offset={25} animationType="from">
             <Link 
               href="/portfolio/crypto-app" 
               className="group flex items-center justify-between p-4 rounded-xl border border-slate-100 bg-[#fafbfc]/50 hover:bg-white hover:shadow-[0_15px_35px_rgba(0,0,0,0.03)] w-full sm:w-[360px] transition-all duration-300 block"
@@ -198,7 +222,7 @@ export function DeanaDetail() {
                 />
               </div>
             </Link>
-          </RevealAnimation>
+          </ConditionalReveal>
 
         </div>
 

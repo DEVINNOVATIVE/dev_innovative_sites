@@ -7,6 +7,7 @@ import RevealAnimation from "../animation/RevealAnimation"; // Verify path match
 import innovativeApproachIcon from "@/assets/about/innovative_approch.png"; 
 import qualityAssuranceIcon from "@/assets/about/quality_assurance.png";
 import innovativeSolutionsIcon from "@/assets/about/i_solution.png";
+import { useEffect, useState } from "react";
 
 const infoCards = [
   {
@@ -30,6 +31,31 @@ const infoCards = [
 ];
 
 export function AboutInformation() {
+
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="mx-auto w-full px-4 py-16 sm:px-12 lg:px-18 bg-[#f8fafc]">
       <div className="mx-auto max-w-[1240px] grid gap-8 sm:grid-cols-2 lg:grid-cols-3 pt-6">
@@ -41,7 +67,7 @@ export function AboutInformation() {
           if (index === 2) cardDirection = 'right';
 
           return (
-            <RevealAnimation 
+            <ConditionalReveal 
               key={card.title} 
               direction={cardDirection} 
               duration={1.2}
@@ -80,7 +106,7 @@ export function AboutInformation() {
                 </div>
 
               </article>
-            </RevealAnimation>
+            </ConditionalReveal>
           );
         })}
 

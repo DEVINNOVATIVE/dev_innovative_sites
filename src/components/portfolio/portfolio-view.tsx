@@ -51,7 +51,7 @@
 //                 {/* --- DUAL INTERACTIVE PORTFOLIO ACTIONS GRID --- */}
 //                 <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 items-center">
 //                     {portfolioData.map((project, index) => (
-//                         <RevealAnimation
+//                         <ConditionalReveal
 //                             key={project.id}
 //                             direction="up"
 //                             duration={1.0}
@@ -111,7 +111,7 @@
 //                                 </div>
 
 //                             </div>
-//                         </RevealAnimation>
+//                         </ConditionalReveal>
 //                     ))}
 //                 </div>
 
@@ -183,7 +183,7 @@
 
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Eye, Link2, X, Maximize2, Share2 } from "lucide-react";
 import RevealAnimation from "../animation/RevealAnimation";
@@ -226,6 +226,30 @@ export function PortfolioView() {
         setLightboxTitle("");
     };
 
+      const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
     return (
         <section className="relative text-white py-20 px-4 sm:px-8 lg:px-12 xl:px-16 overflow-hidden select-none">
             <div className="mx-auto max-w-[1240px]">
@@ -233,7 +257,7 @@ export function PortfolioView() {
                 {/* --- DUAL INTERACTIVE PORTFOLIO ACTIONS GRID --- */}
                 <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-center items-center">
                     {portfolioData.map((project, index) => (
-                        <RevealAnimation
+                        <ConditionalReveal
                             key={project.id}
                             direction="up"
                             duration={1.0}
@@ -294,7 +318,7 @@ export function PortfolioView() {
 
                                 </div>
                             </div>
-                        </RevealAnimation>
+                        </ConditionalReveal>
                     ))}
                 </div>
 

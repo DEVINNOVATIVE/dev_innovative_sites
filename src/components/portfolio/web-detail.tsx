@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -26,6 +26,30 @@ const showcaseWebsites = [
 ];
 
 export function WebDetail() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative bg-white text-slate-900 py-20 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       <div className="mx-auto max-w-[1140px] space-y-16">
@@ -33,7 +57,7 @@ export function WebDetail() {
         {/* ================= 1. MULTI-PROJECT WEB DISPLAY GRID ================= */}
         <div className="grid gap-8 sm:grid-cols-2 items-center">
           {showcaseWebsites.map((site, index) => (
-            <RevealAnimation 
+            <ConditionalReveal 
               key={site.id}
               direction={index % 2 === 0 ? "left" : "right"} 
               duration={1.1} 
@@ -50,13 +74,13 @@ export function WebDetail() {
                   priority={index < 2}
                 />
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           ))}
         </div>
 
         {/* ================= 2. VERBATIM TEXT NARRATIVE DESCRIPTION ================= */}
         <div className="max-w-4xl space-y-6 pt-4">
-          <RevealAnimation direction="up" duration={1.0} delay={0.2} offset={30} animationType="from">
+          <ConditionalReveal direction="up" duration={1.0} delay={0.2} offset={30} animationType="from">
             <div className="space-y-6 text-base leading-7 text-slate-400 font-normal">
               <p>
                 Our company has a rich portfolio of web development projects for numerous companies. We have been providing top-notch web development services to our clients for several years, and our expertise in the field is unmatched. Some of the notable companies for which we have provided web development solutions include
@@ -65,14 +89,14 @@ export function WebDetail() {
                 At our company, we are committed to delivering high-quality web development solutions that meet the specific needs of our clients. We work closely with our clients to understand their requirements and create custom web solutions that are tailored to their unique business needs. Contact us today to discuss your web development project and see how we can help your business grow.
               </p>
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         {/* ================= 3. BASELINE BILATERAL NEXT/PREV ROUTER DOCKS ================= */}
         <div className="pt-10 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
           
           {/* Previous Portfolio Link Container */}
-          <RevealAnimation direction="left" duration={1.0} delay={0.3} offset={25} animationType="from">
+          <ConditionalReveal direction="left" duration={1.0} delay={0.3} offset={25} animationType="from">
             <Link 
               href="/portfolio/finance-website"
               className="group flex items-center gap-5 p-4 rounded-xl border border-slate-100 bg-[#fafbfc]/40 hover:bg-white hover:shadow-[0_15px_35px_rgba(0,0,0,0.03)] w-full sm:w-[360px] transition-all duration-300 block"
@@ -93,10 +117,10 @@ export function WebDetail() {
                 </h4>
               </div>
             </Link>
-          </RevealAnimation>
+          </ConditionalReveal>
 
           {/* Next Portfolio Link Container */}
-          <RevealAnimation direction="right" duration={1.0} delay={0.3} offset={25} animationType="from">
+          <ConditionalReveal direction="right" duration={1.0} delay={0.3} offset={25} animationType="from">
             <Link 
               href="/portfolio/custom-crm"
               className="group flex items-center justify-between p-4 rounded-xl border border-slate-100 bg-[#fafbfc]/40 hover:bg-white hover:shadow-[0_15px_35px_rgba(0,0,0,0.03)] w-full sm:w-[360px] transition-all duration-300 block text-right"
@@ -117,7 +141,7 @@ export function WebDetail() {
                 />
               </div>
             </Link>
-          </RevealAnimation>
+          </ConditionalReveal>
 
         </div>
 

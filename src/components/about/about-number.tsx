@@ -5,6 +5,7 @@ import NumberAnimation from "../animation/NumberAnimation";
 import RevealAnimation from "../animation/RevealAnimation";
 
 import numberBg from "@/assets/about/number_bg.png"; 
+import { useEffect, useState } from "react";
 
 const metrics = [
   {
@@ -38,6 +39,31 @@ const metrics = [
 ];
 
 export function AboutNumbers() {
+
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative w-full py-12 md:py-12  text-white overflow-hidden select-none">
       
@@ -71,7 +97,7 @@ export function AboutNumbers() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-6 text-center items-center">
           
           {metrics.map((item, index) => (
-            <RevealAnimation 
+            <ConditionalReveal 
               key={item.label}
               direction="up"
               duration={1.0}
@@ -101,7 +127,7 @@ export function AboutNumbers() {
                 </p>
 
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           ))}
 
         </div>

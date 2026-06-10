@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -11,13 +11,37 @@ import mainHero from "@/assets/digital/main.jpeg"; // Note the verified .jpeg ex
 import crmAsset from "@/assets/digital/crm.jpeg";   // Note the verified .jpeg extension
 
 export function DigitalMarketingDetail() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative bg-white text-slate-900 py-20 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       <div className="mx-auto max-w-[1140px] space-y-16">
         
         {/* ================= 1. LARGE MARKETING HERO ANALYSIS SHOWCASE ================= */}
         <div className="w-full">
-          <RevealAnimation direction="down" duration={1.1} delay={0.0} offset={40} animationType="from">
+          <ConditionalReveal direction="down" duration={1.1} delay={0.0} offset={40} animationType="from">
             <div className="relative w-full aspect-[2.1/1] rounded-2xl overflow-hidden bg-slate-50 border border-slate-100 shadow-sm">
               <Image
                 src={mainHero}
@@ -27,61 +51,61 @@ export function DigitalMarketingDetail() {
                 priority
               />
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         {/* ================= 2. VERBATIM NARRATIVE CASE STUDIES CONTENT ================= */}
         <div className="max-w-4xl space-y-8 mx-auto">
           
           {/* Main Conceptual Abstract Narrative Intro */}
-          <RevealAnimation direction="up" duration={1.0} delay={0.1} offset={25} animationType="from">
+          <ConditionalReveal direction="up" duration={1.0} delay={0.1} offset={25} animationType="from">
             <div className="space-y-4">
               <p className="text-base leading-7 text-slate-500 font-normal">
                 Our company has a proven track record of providing the best digital marketing services to our clients across industries. We help businesses to achieve their marketing goals by providing a comprehensive range of services including search engine optimization, social media marketing, pay-per-click advertising, content marketing, email marketing, and more.
               </p>
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
 
           {/* Detailed Project Case Records Stack */}
           <div className="space-y-8">
             
             {/* Case Study 01: Fashion E-Commerce */}
-            <RevealAnimation direction="up" duration={1.0} delay={0.15} offset={25} animationType="from">
+            <ConditionalReveal direction="up" duration={1.0} delay={0.15} offset={25} animationType="from">
               <div className="space-y-2">
                 <p className="text-base leading-7 text-slate-500 font-normal">
                   A fashion e-commerce brand approached us for increasing their online presence and sales. We developed a tailor-made digital marketing strategy for them that included a combination of SEO, social media marketing, and email marketing. As a result, their website traffic increased by 200% and their sales grew by 300%.
                 </p>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
 
             {/* Case Study 02: B2B Software Company */}
-            <RevealAnimation direction="up" duration={1.0} delay={0.2} offset={25} animationType="from">
+            <ConditionalReveal direction="up" duration={1.0} delay={0.2} offset={25} animationType="from">
               <div className="space-y-2">
                 <p className="text-base leading-7 text-slate-500 font-normal">
                   A B2B software company wanted to increase their visibility in the market and generate leads. We developed a targeted content marketing strategy for them that included blog posts, whitepapers, and case studies. This resulted in a 150% increase in website traffic and a 50% increase in lead generation.
                 </p>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
 
             {/* Case Study 03: Food Delivery Startup */}
-            <RevealAnimation direction="up" duration={1.0} delay={0.25} offset={25} animationType="from">
+            <ConditionalReveal direction="up" duration={1.0} delay={0.25} offset={25} animationType="from">
               <div className="space-y-2">
                 <p className="text-base leading-7 text-slate-500 font-normal">
                   A startup in the food delivery industry approached us for help with their social media marketing. We developed a strategy that included running paid ads on Facebook and Instagram, as well as influencer marketing. As a result, they were able to reach a wider audience and increase their customer base by 40%.
                 </p>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
 
           </div>
 
           {/* Outro Summary Conclusion Paragraph */}
-          <RevealAnimation direction="up" duration={1.0} delay={0.3} offset={25} animationType="from">
+          <ConditionalReveal direction="up" duration={1.0} delay={0.3} offset={25} animationType="from">
             <div className="pt-2">
               <p className="text-base leading-7 text-slate-500 font-normal">
                 Our team of experts uses the latest digital marketing tools and techniques to deliver measurable results to our clients. Contact us today to discuss your digital marketing needs and how we can help you achieve your business goals.
               </p>
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
 
         </div>
 
@@ -89,7 +113,7 @@ export function DigitalMarketingDetail() {
         <div className="pt-10 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-start gap-6">
           
           {/* Linked Target: Previous Case Study Link Container */}
-          <RevealAnimation direction="left" duration={1.0} delay={0.35} offset={25} animationType="from">
+          <ConditionalReveal direction="left" duration={1.0} delay={0.35} offset={25} animationType="from">
             <Link 
               href="/portfolio/custom-crm"
               className="group flex items-center gap-5 p-4 rounded-xl border border-slate-100 bg-[#fafbfc]/40 hover:bg-white hover:shadow-[0_15px_35px_rgba(0,0,0,0.03)] w-full sm:w-[360px] transition-all duration-300 block"
@@ -110,7 +134,7 @@ export function DigitalMarketingDetail() {
                 </h4>
               </div>
             </Link>
-          </RevealAnimation>
+          </ConditionalReveal>
 
         </div>
 

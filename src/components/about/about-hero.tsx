@@ -7,6 +7,7 @@ import RevealAnimation from "../animation/RevealAnimation"; // Verify your folde
 import aboutImg from "@/assets/about/about_hero.png"; 
 import roundTick from "@/assets/about/round_tick.png"; // Dynamic custom check icon asset
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const solutions = [
   {
@@ -22,6 +23,31 @@ const solutions = [
 ];
 
 export function AboutHero() {
+
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative bg-white text-slate-900 md:py-16 py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="mx-auto max-w-310">
@@ -29,7 +55,7 @@ export function AboutHero() {
           
           {/* --- LEFT COLUMN: ILLUSTRATIVE GRAPHIC CANVAS (Slides from Left + Auto float) --- */}
           <div className="lg:col-span-6 flex justify-center w-full">
-            <RevealAnimation direction="left" duration={1.2} delay={0.1} offset={60} animationType="from">
+            <ConditionalReveal direction="left" duration={1.2} delay={0.1} offset={60} animationType="from">
               {/* Injected custom hardware-accelerated float keyframe layout utility */}
               <div 
                 className="relative w-full max-w-135 aspect-[1.15/1] transform-gpu"
@@ -43,7 +69,7 @@ export function AboutHero() {
                   priority
                 />
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* --- RIGHT COLUMN: TEXT LAYOUT & CHECKLIST (Slides from Right) --- */}
@@ -51,29 +77,29 @@ export function AboutHero() {
             
             {/* Header Text Group Animations */}
             <div className="space-y-4">
-              <RevealAnimation direction="right" duration={1.1} delay={0.2} offset={40} animationType="from">
+              <ConditionalReveal direction="right" duration={1.1} delay={0.2} offset={40} animationType="from">
                 <span className="text-lg font-bold text-[#104cba] tracking-wider uppercase  block">
                   About Company
                 </span>
-              </RevealAnimation>
+              </ConditionalReveal>
 
-              <RevealAnimation direction="right" duration={1.1} delay={0.3} offset={40} animationType="from">
+              <ConditionalReveal direction="right" duration={1.1} delay={0.3} offset={40} animationType="from">
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-[#08112a] leading-[1.25]">
                   Transforming Your Business <br /> With Innovative Software & <br /> IT Solutions
                 </h2>
-              </RevealAnimation>
+              </ConditionalReveal>
 
-              <RevealAnimation direction="right" duration={1.1} delay={0.4} offset={30} animationType="from">
+              <ConditionalReveal direction="right" duration={1.1} delay={0.4} offset={30} animationType="from">
                 <p className="text-[15px] leading-7 text-slate-400 font-normal max-w-2xl">
                   Our company specializes in providing innovative software and IT solutions to businesses of all sizes, across a range of industries. We understand that every business is unique, and we work closely with our clients to develop customized solutions that meet their specific needs and goals.
                 </p>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* Checklist Items: Staggered upward transitions */}
             <div className="space-y-6">
               {solutions.map((item, index) => (
-                <RevealAnimation 
+                <ConditionalReveal 
                   key={item.title} 
                   direction="up" 
                   duration={1.0} 
@@ -98,12 +124,12 @@ export function AboutHero() {
                       <p className="text-[14px] leading-6 text-slate-400 font-normal">{item.description}</p>
                     </div>
                   </div>
-                </RevealAnimation>
+                </ConditionalReveal>
               ))}
             </div>
 
             {/* Company Profile Action CTA Button */}
-            <RevealAnimation direction="up" duration={1.1} delay={0.75} offset={25} animationType="from">
+            <ConditionalReveal direction="up" duration={1.1} delay={0.75} offset={25} animationType="from">
               <div className="pt-2">
                 <Link
                   href="/our-portfolio"
@@ -112,7 +138,7 @@ export function AboutHero() {
                   Company Profile
                 </Link>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
 
           </div>
 
