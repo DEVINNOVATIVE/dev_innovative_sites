@@ -37,7 +37,7 @@ export function DeanaDetail() {
     return <RevealAnimation {...props}>{children}</RevealAnimation>;
   };
   return (
-    <section className="relative bg-white text-slate-900 py-20 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
+    <section className="relative bg-white text-slate-900 py-8 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       <div className="mx-auto max-w-[1140px] space-y-12">
         
         {/* ================= 1. TOP MAIN TECH HEADER BANNER ================= */}
