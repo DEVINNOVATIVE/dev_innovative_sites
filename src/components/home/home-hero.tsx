@@ -521,12 +521,12 @@ export function HomeHero() {
                             <div className="text-xl sm:text-2xl font-extrabold text-white">Next-Gen Elite Engineering</div>
 
                             <h1 className="text-[20px] sm:text-3xl whitespace-nowrap leading-tight font-extrabold tracking-tight md:text-4xl lg:text-5xl sm:whitespace-normal">
-                                Consensus AI & <br className="hidden sm:block" />
+                                Consensus AI &<br className="hidden sm:block" />
                                 
                                 {/* Responsive Text swapper block wrapper preventing string wrap collisions */}
                                 <span className="inline-block relative overflow-hidden align-bottom">
                                     <span
-                                        className={`inline-block transition-all w-[11ch]  duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                                        className={`inline-block transition-all w-[12ch] lg:w-[11ch]  duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                                             animateText 
                                                 ? "opacity-100 translate-y-0 text-[#50a2ff]" 
                                                 : "opacity-0 -translate-y-2 text-orange-400"
@@ -534,7 +534,7 @@ export function HomeHero() {
                                     >
                                         {currentWord}
                                     </span>
-                                </span>{" "}
+                                </span>
                                 Engineering
                             </h1>
                             
