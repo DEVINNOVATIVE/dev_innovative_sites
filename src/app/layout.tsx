@@ -167,7 +167,7 @@ export const metadata: Metadata = {
   title: "Dev innovative - Your Trusted Partner for Software Solutions",
   description: "Transform your business with Dev innovative, Specializing in software web, mobile app dev, blockchain, AI, & cloud solutions... Contact us",
   alternates: {
-    canonical: "https://devinnovative.com/",
+    canonical: "https://devinnovative.com",
   },
   formatDetection: {
     telephone: false,
@@ -190,7 +190,7 @@ export const metadata: Metadata = {
     type: "website",
     title: "Dev innovative - Your Trusted Partner for Software Solutions",
     description: "Transform your business with Dev innovative, Specializing in software web, mobile app dev, blockchain, AI, & cloud solutions... Contact us",
-    url: "https://devinnovative.com/",
+    url: "https://devinnovative.com",
     siteName: "Dev iNN | Development Services Provider",
     images: [
       {
