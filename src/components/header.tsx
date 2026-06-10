@@ -97,7 +97,7 @@ export function Header() {
               <div key={item.label} className="relative group flex items-center h-full">
                 {hasChildren ? (
                   <div
-                    className={`px-4 py-2 text-[15px] font-bold tracking-wide transition-colors inline-flex items-center gap-1.5 rounded-lg cursor-pointer ${
+                    className={`px-4 py-2 text-base font-bold tracking-wide transition-colors inline-flex items-center gap-1.5 rounded-lg cursor-pointer ${
                       itemActive ? "text-blue-400 bg-white/[0.03]" : "text-white/80 hover:text-white hover:bg-white/[0.02]"
                     }`}
                   >
@@ -107,7 +107,7 @@ export function Header() {
                 ) : (
                   <Link
                     href={item.href}
-                    className={`px-4 py-2 text-[15px] font-bold tracking-wide transition-colors inline-flex items-center gap-1.5 rounded-lg ${
+                    className={`px-4 py-2 text-base font-bold tracking-wide transition-colors inline-flex items-center gap-1.5 rounded-lg ${
                       itemActive ? "text-blue-400 bg-white/[0.03]" : "text-white/80 hover:text-white hover:bg-white/[0.02]"
                     }`}
                   >
@@ -125,7 +125,7 @@ export function Header() {
                           <Link
                             key={child.label}
                             href={child.href}
-                            className={`block px-4 py-2.5 text-[14px] font-bold rounded-xl transition-all ${
+                            className={`block px-4 py-2.5 text-[15px] font-bold rounded-xl transition-all ${
                               childActive ? "text-blue-600 bg-blue-50/60" : "text-neutral-600 hover:text-blue-600 hover:bg-neutral-50"
                             }`}
                           >
@@ -214,7 +214,7 @@ export function Header() {
                         <Link
                           key={child.label}
                           href={child.href}
-                          className={`block py-2.5 text-[14px] font-medium transition-colors ${
+                          className={`block py-2.5 text-[15px] font-medium transition-colors ${
                             childActive ? "text-blue-400 font-bold" : "text-white/60 hover:text-white"
                           }`}
                         >
