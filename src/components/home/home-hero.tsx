@@ -415,7 +415,7 @@ import dummyHeroImage from "@/assets/hero.webp";
 
 export function HomeHero() {
     const [activeAccent, setActiveAccent] = useState<"blue" | "orange" | null>(null);
-    const [currentWord, setCurrentWord] = useState("Cryptographic");
+    const [currentWord, setCurrentWord] = useState("Architectural");
     const [animateText, setAnimateText] = useState(true);
 
     useEffect(() => {
@@ -426,7 +426,7 @@ export function HomeHero() {
             setTimeout(() => {
                 // 2. Toggle the string parameter values smoothly mid-transition
                 setCurrentWord((prev) => 
-                    prev === "Cryptographic" ? "Decentralized" : "Cryptographic"
+                    prev === "Architectural" ? "Decentralized" : "Architectural"
                 );
                 // 3. Mount text slide-in animation sequence
                 setAnimateText(true);
@@ -526,7 +526,7 @@ export function HomeHero() {
                                 {/* Responsive Text swapper block wrapper preventing string wrap collisions */}
                                 <span className="inline-block relative overflow-hidden align-bottom">
                                     <span
-                                        className={`inline-block transition-all w-[12ch] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                                        className={`inline-block transition-all w-[11ch]  duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                                             animateText 
                                                 ? "opacity-100 translate-y-0 text-[#50a2ff]" 
                                                 : "opacity-0 -translate-y-2 text-orange-400"
