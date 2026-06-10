@@ -348,15 +348,6 @@ const teamData = [
     socials: { linkedin: "#", github: "#" }
   },
   {
-<<<<<<< Updated upstream
-    name: "Mohsin Ali Solangi",
-    role: "Blockchain Developer",
-    image: leaderImg,
-    socials: { linkedin: "#", github: "#" }
-  },
-   {
-=======
->>>>>>> Stashed changes
     name: "Saud Gul",
     role: "Full Stack Developer",
     image: saudImg,
