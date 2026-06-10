@@ -1,6 +1,6 @@
 "use client"; // <--- ADD THIS LINE AT THE VERY TOP
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Send } from "lucide-react";
 import RevealAnimation from "../animation/RevealAnimation";
 
@@ -9,6 +9,30 @@ export function LeaveReplyForm() {
     e.preventDefault();
     console.log("Form submitted securely on the client!");
   };
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="w-full bg-[#fafafa] py-16 px-4 sm:px-6 lg:px-8 border-t border-neutral-100 select-none">
@@ -16,23 +40,23 @@ export function LeaveReplyForm() {
         
         {/* Form Header */}
         <div className="text-center space-y-2 mb-10">
-          <RevealAnimation direction="down" duration={0.8} delay={0.0} offset={15} animationType="from">
+          <ConditionalReveal direction="down" duration={0.8} delay={0.0} offset={15} animationType="from">
             <h2 className="text-2xl font-bold tracking-tight text-neutral-900">
               Leave A Reply
             </h2>
-          </RevealAnimation>
-          <RevealAnimation direction="down" duration={0.8} delay={0.05} offset={10} animationType="from">
+          </ConditionalReveal>
+          <ConditionalReveal direction="down" duration={0.8} delay={0.05} offset={10} animationType="from">
             <p className="text-sm text-neutral-400">
               Your email address will not be published. Required fields are marked <span className="text-rose-500 font-bold">*</span>
             </p>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         {/* Form Body */}
         <form className="space-y-6" onSubmit={handleSubmit}>
           
           {/* Comment Input */}
-          <RevealAnimation direction="up" duration={0.9} delay={0.1} offset={20} animationType="from">
+          <ConditionalReveal direction="up" duration={0.9} delay={0.1} offset={20} animationType="from">
             <div className="flex flex-col space-y-1.5">
               <label htmlFor="comment" className="text-xs font-bold uppercase tracking-wider text-neutral-400 px-1">
                 Your Comment <span className="text-rose-500">*</span>
@@ -45,11 +69,11 @@ export function LeaveReplyForm() {
                 className="w-full rounded-2xl border border-neutral-200 bg-[#fdfdfe] px-4 py-3.5 text-base text-neutral-800 placeholder-neutral-300 outline-none transition-all duration-300 hover:border-neutral-300 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 resize-y min-h-[120px]"
               />
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
 
           {/* Grid Fields */}
           <div className="grid gap-6 md:grid-cols-3">
-            <RevealAnimation direction="up" duration={0.9} delay={0.15} offset={20} animationType="from">
+            <ConditionalReveal direction="up" duration={0.9} delay={0.15} offset={20} animationType="from">
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="name" className="text-xs font-bold uppercase tracking-wider text-neutral-400 px-1">
                   Name <span className="text-rose-500">*</span>
@@ -62,9 +86,9 @@ export function LeaveReplyForm() {
                   className="w-full rounded-2xl border border-neutral-200 bg-[#fdfdfe] px-4 py-3.5 text-base text-neutral-800 placeholder-neutral-300 outline-none transition-all duration-300 hover:border-neutral-300 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
                 />
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
 
-            <RevealAnimation direction="up" duration={0.9} delay={0.2} offset={20} animationType="from">
+            <ConditionalReveal direction="up" duration={0.9} delay={0.2} offset={20} animationType="from">
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-neutral-400 px-1">
                   Email <span className="text-rose-500">*</span>
@@ -77,9 +101,9 @@ export function LeaveReplyForm() {
                   className="w-full rounded-2xl border border-neutral-200 bg-[#fdfdfe] px-4 py-3.5 text-base text-neutral-800 placeholder-neutral-300 outline-none transition-all duration-300 hover:border-neutral-300 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
                 />
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
 
-            <RevealAnimation direction="up" duration={0.9} delay={0.25} offset={20} animationType="from">
+            <ConditionalReveal direction="up" duration={0.9} delay={0.25} offset={20} animationType="from">
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="website" className="text-xs font-bold uppercase tracking-wider text-neutral-400 px-1">
                   Website
@@ -91,11 +115,11 @@ export function LeaveReplyForm() {
                   className="w-full rounded-2xl border border-neutral-200 bg-[#fdfdfe] px-4 py-3.5 text-base text-neutral-800 placeholder-neutral-300 outline-none transition-all duration-300 hover:border-neutral-300 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
                 />
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Cookie Save Checkbox */}
-          <RevealAnimation direction="up" duration={0.9} delay={0.3} offset={15} animationType="from">
+          <ConditionalReveal direction="up" duration={0.9} delay={0.3} offset={15} animationType="from">
             <label className="flex items-start gap-3 group cursor-pointer pt-2">
               <div className="relative flex items-center h-5 mt-0.5">
                 <input type="checkbox" defaultChecked className="peer sr-only" />
@@ -114,10 +138,10 @@ export function LeaveReplyForm() {
                 Save my name, email, and website in this browser for the next time I comment.
               </span>
             </label>
-          </RevealAnimation>
+          </ConditionalReveal>
 
           {/* Submit Button */}
-          <RevealAnimation direction="up" duration={1.0} delay={0.35} offset={15} animationType="from">
+          <ConditionalReveal direction="up" duration={1.0} delay={0.35} offset={15} animationType="from">
             <div className="flex justify-center pt-4">
               <button
                 type="submit"
@@ -128,7 +152,7 @@ export function LeaveReplyForm() {
                 <Send className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
 
         </form>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Clock, ChevronRight } from "lucide-react";
@@ -9,6 +9,30 @@ import { blogPosts } from "@/utils/blogData";
 
 export function BlogView() {
   const postsArray = Object.values(blogPosts);
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="relative bg-[#fafafa] text-neutral-900 py-8 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
@@ -21,7 +45,7 @@ export function BlogView() {
         {/* ================= UNIFORM GRID LAYOUT (ALL AS STANDARD CARDS) ================= */}
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 items-start">
           {postsArray.map((post, index) => (
-            <RevealAnimation
+            <ConditionalReveal
               key={post.slug}
               direction="up"
               duration={1.0}
@@ -89,7 +113,7 @@ export function BlogView() {
                 </div>
 
               </Link>
-            </RevealAnimation>
+            </ConditionalReveal>
           ))}
         </div>
 
