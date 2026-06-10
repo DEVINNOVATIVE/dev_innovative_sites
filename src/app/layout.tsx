@@ -271,6 +271,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://devinnovative.com",
   },
+ icons: {
+    icon: "/favicon.ico", // Points to public/app directory structures
+    shortcut: "/favicon.ico",
+  },
   
   openGraph: {
     locale: "en_US",
@@ -307,12 +311,12 @@ const getStructuredData = () => {
     "name": "Dev innovative",
     "alternateName": "Dev iNN | Solutions Global",
     "url": "https://devinnovative.com",
-    "logo": "https://devinnovative.com/logo.webp", 
+    "logo": "https://devinnovative.com/og-banner.png", 
     "sameAs": [
       "https://github.com/DEVINNOVATIVE",
       "https://x.com/Devvinnovative",
-      "https://www.linkedin.com/company/dev-innovative",
-      "https://www.instagram.com/devinnovative"
+      "https://www.linkedin.com/company/dev-innovative/",
+      "https://www.instagram.com/devinnovative/"
     ],
     "contactPoint": {
       "@type": "ContactPoint",

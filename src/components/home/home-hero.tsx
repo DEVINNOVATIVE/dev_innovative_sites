@@ -526,7 +526,7 @@ export function HomeHero() {
                                 {/* Responsive Text swapper block wrapper preventing string wrap collisions */}
                                 <span className="inline-block relative overflow-hidden align-bottom">
                                     <span
-                                        className={`inline-block transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                                        className={`inline-block transition-all w-[12ch] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                                             animateText 
                                                 ? "opacity-100 translate-y-0 text-[#50a2ff]" 
                                                 : "opacity-0 -translate-y-2 text-orange-400"
@@ -534,12 +534,14 @@ export function HomeHero() {
                                     >
                                         {currentWord}
                                     </span>
-                                </span>{" "}
+                                </span>
+
+                  
                                 Engineering
                             </h1>
                             
                             <p className="max-w-[560px] text-sm text-[#cbd5e1] font-normal">
-                                Next-Gen Elite Engineering. We build intelligent, secure, and highly scalable digital ecosystems using Consensus AI & Sovereign Systems Engineering. Moving businesses from standard web deployment to robust enterprise infrastructure.
+                               We build intelligent, secure, and highly scalable digital ecosystems using Consensus AI & Sovereign Systems Engineering. Moving businesses from standard web deployment to robust enterprise infrastructure.
                             </p>
                             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
                                 <Link href="/contact-us" className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-[#ff6b4a] to-[#ff3b2d] px-5 py-3 text-sm font-semibold text-white shadow-lg">Contact Us</Link>
