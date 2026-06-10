@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import RevealAnimation from "../animation/RevealAnimation";
 
@@ -24,6 +24,30 @@ const servicesData = [
 ];
 
 export function ProminentITServices() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative w-full bg-gradient-to-br from-[#0c0533] via-[#0b1040] to-[#104cba] text-white py-24 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       
@@ -35,23 +59,23 @@ export function ProminentITServices() {
         
         {/* ================= SECTION HEADER ================= */}
         <div className="text-center space-y-3">
-          <RevealAnimation direction="down" duration={0.8} delay={0.0} offset={15} animationType="from">
+          <ConditionalReveal direction="down" duration={0.8} delay={0.0} offset={15} animationType="from">
             <span className="text-xl font-bold tracking-wider text-white uppercase block">
               Services We offer
             </span>
-          </RevealAnimation>
+          </ConditionalReveal>
           
-          <RevealAnimation direction="down" duration={0.9} delay={0.05} offset={20} animationType="from">
+          <ConditionalReveal direction="down" duration={0.9} delay={0.05} offset={20} animationType="from">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight">
               Prominent IT Services
             </h2>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         {/* ================= SERVICE GRID LAYOUT ================= */}
         <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto pt-4">
           {servicesData.map((service, index) => (
-            <RevealAnimation
+            <ConditionalReveal
               key={index}
               direction="up"
               duration={0.85}
@@ -82,7 +106,7 @@ export function ProminentITServices() {
                 </div>
 
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           ))}
         </div>
 

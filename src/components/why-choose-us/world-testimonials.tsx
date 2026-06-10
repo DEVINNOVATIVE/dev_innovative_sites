@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Quote } from "lucide-react";
 import RevealAnimation from "../animation/RevealAnimation";
@@ -38,10 +38,34 @@ const testimonialsDataset = [
 export function WorldTestimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
   const current = testimonialsDataset[activeIndex];
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({
+    children,
+    ...props
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="relative overflow-hidden bg-white px-4 py-24 sm:px-6 lg:px-8 text-slate-900 min-h-[680px] flex items-center select-none">
-      
+
       {/* ================= 1. WORLD CONNECT MAP CANVAS LAYER ================= */}
       <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
         <Image
@@ -55,7 +79,7 @@ export function WorldTestimonials() {
 
       {/* ================= 2. SPATIAL PERIPHERAL BACKGROUND AVATARS MATRIX ================= */}
       <div className="absolute inset-0 z-10 pointer-events-none hidden md:block max-w-[1400px] mx-auto">
-        
+
         {/* Left Peripheral Clusters */}
         <div className="absolute top-[26%] left-[15%] w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-[0_8px_30px_rgba(0,0,0,0.06)] animate-[float_7s_ease-in-out_infinite] opacity-75">
           <Image src={user4} alt="Network node user 4" fill className="object-cover" />
@@ -81,7 +105,7 @@ export function WorldTestimonials() {
         {/* ================= GEOMETRIC DECORATIVE MICRONODES (image_0ee1a1.jpg) ================= */}
         <span className="absolute top-[32%] left-[22%] w-2 h-2 rounded-full bg-rose-500 opacity-60 animate-pulse duration-[3000ms]" />
         <span className="absolute top-[24%] right-[25%] w-1.5 h-1.5 rounded-full bg-blue-500 opacity-60 animate-ping duration-[4000ms]" />
-        
+
         {/* Floating Pink Micro-donut Ring */}
         <div className="absolute top-[42%] right-[28%] w-5 h-5 rounded-full border-[3.5px] border-rose-400/80 opacity-75 animate-bounce duration-[6000ms] flex items-center justify-center" />
 
@@ -89,31 +113,31 @@ export function WorldTestimonials() {
 
       {/* ================= 3. CENTRAL CAROUSEL INTERACTION ENGINE ================= */}
       <div className="relative z-20 mx-auto max-w-[1140px] w-full text-center space-y-12">
-        
+
         {/* Static Header Group block */}
         <div className="space-y-3 max-w-3xl mx-auto">
-          <RevealAnimation direction="down" duration={0.8} delay={0.0} offset={15} animationType="from">
+          <ConditionalReveal direction="down" duration={0.8} delay={0.0} offset={15} animationType="from">
             <span className=" tracking-wider text-lg font-bold text-[#104cba] uppercase block">
               Client Testimonials
             </span>
-          </RevealAnimation>
-          
-          <RevealAnimation direction="down" duration={0.9} delay={0.05} offset={25} animationType="from">
+          </ConditionalReveal>
+
+          <ConditionalReveal direction="down" duration={0.9} delay={0.05} offset={25} animationType="from">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#08112a] leading-tight">
               What People Say About Us
             </h2>
-          </RevealAnimation>
+          </ConditionalReveal>
 
-          <RevealAnimation direction="up" duration={1.0} delay={0.1} offset={20} animationType="from">
+          <ConditionalReveal direction="up" duration={1.0} delay={0.1} offset={20} animationType="from">
             <p className="text-sm sm:text-base leading-6 text-neutral-400 max-w-2xl mx-auto font-normal">
               We believe that the feedback from our clients and customers is invaluable. That&apos;s why we&apos;re proud to share what people have to say about our services.
             </p>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         {/* Dynamic Display Target Sandbox Area */}
         <div className="max-w-3xl mx-auto space-y-8 flex flex-col items-center">
-          
+
           {/* Animated Main Image Core Framework Node */}
           <div className="relative h-32 w-32 rounded-full border-4 border-white shadow-[0_10px_40px_rgba(0,0,0,0.08)] flex shrink-0 group transition-all duration-500">
             <Image
@@ -128,7 +152,7 @@ export function WorldTestimonials() {
               Positions perfectly at the bottom right intersection boundary point 
               to seamlessly match the requested design theme frame.
             */}
-            <div 
+            <div
               className="absolute bottom-[-2px] right-[-2px] h-9 w-9 rounded-full flex items-center justify-center text-white shadow-md transform scale-100 group-hover:scale-105 transition-transform duration-300"
               style={{ background: "linear-gradient(135deg, #ff4b2b 0%, #ff6a00 100%)" }}
             >
@@ -160,11 +184,10 @@ export function WorldTestimonials() {
                 key={dotIdx}
                 onClick={() => setActiveIndex(dotIdx)}
                 aria-label={`Navigate testimonial slide slot track context index position node ${dotIdx + 1}`}
-                className={`h-2.5 rounded-full transition-all duration-500 cursor-pointer ${
-                  activeIndex === dotIdx 
-                    ? "w-6 bg-blue-600 shadow-[0_2px_8px_rgba(37,99,235,0.4)]" 
+                className={`h-2.5 rounded-full transition-all duration-500 cursor-pointer ${activeIndex === dotIdx
+                    ? "w-6 bg-blue-600 shadow-[0_2px_8px_rgba(37,99,235,0.4)]"
                     : "w-2.5 bg-neutral-200 hover:bg-neutral-300"
-                }`}
+                  }`}
               />
             ))}
           </div>

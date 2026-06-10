@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import RevealAnimation from "../animation/RevealAnimation";
 
 const benefitsTimelineData = [
@@ -37,6 +37,31 @@ const benefitsTimelineData = [
 ];
 
 export function CompanyBenefitsTimeline() {
+
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative bg-[#ffffff] text-neutral-900 py-8  md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       
@@ -48,23 +73,23 @@ export function CompanyBenefitsTimeline() {
         
         {/* ================= SECTION HEADER ================= */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <RevealAnimation direction="down" duration={0.8} delay={0.0} offset={15} animationType="from">
+          <ConditionalReveal direction="down" duration={0.8} delay={0.0} offset={15} animationType="from">
             <span className="text-lg font-bold text-[#104cba] tracking-wider  uppercase block">
               Why Choose Us ?
             </span>
-          </RevealAnimation>
+          </ConditionalReveal>
           
-          <RevealAnimation direction="down" duration={0.9} delay={0.05} offset={20} animationType="from">
+          <ConditionalReveal direction="down" duration={0.9} delay={0.05} offset={20} animationType="from">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0f172a] max-w-2xl mx-auto leading-tight">
               The Benefits Of Partnering With Our Company
             </h2>
-          </RevealAnimation>
+          </ConditionalReveal>
 
-          <RevealAnimation direction="up" duration={1.0} delay={0.1} offset={25} animationType="from">
+          <ConditionalReveal direction="up" duration={1.0} delay={0.1} offset={25} animationType="from">
             <p className="text-base leading-7 text-neutral-400 font-normal pt-2 max-w-4xl mx-auto">
               Looking for reliable and top-quality services for your web and app development needs? Choose our company and experience a seamless and hassle-free process, from the initial consultation to the final delivery. We provide innovative solutions tailored to meet your specific requirements.
             </p>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         {/* ================= TIMELINE TRACK GRID ================= */}
@@ -96,7 +121,7 @@ export function CompanyBenefitsTimeline() {
 
                   {/* Layout Box Splitter */}
                   <div className="w-full md:w-[calc(50%-32px)] pl-12 md:pl-0">
-                    <RevealAnimation 
+                    <ConditionalReveal 
                       direction={isRight ? "right" : "left"} 
                       duration={0.85} 
                       delay={index * 0.05} 
@@ -121,7 +146,7 @@ export function CompanyBenefitsTimeline() {
                         </div>
 
                       </div>
-                    </RevealAnimation>
+                    </ConditionalReveal>
                   </div>
 
                 </div>

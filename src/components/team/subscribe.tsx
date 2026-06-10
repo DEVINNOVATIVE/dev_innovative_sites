@@ -1,9 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RevealAnimation from "../animation/RevealAnimation"; // Verify your folder path configuration matches
 
 export function SubscribeNewsletter() {
+
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   const [email, setEmail] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -23,21 +48,21 @@ export function SubscribeNewsletter() {
 
       {/* Floating Design Geometric Rings with entry physics + organic loop animations */}
       <div className="absolute top-12 left-[15%] md:left-[22%] z-10 text-xl font-bold select-none pointer-events-none transform-gpu">
-        <RevealAnimation direction="up" duration={1.2} delay={0.4} offset={40} animationType="from">
+        <ConditionalReveal direction="up" duration={1.2} delay={0.4} offset={40} animationType="from">
           <div style={{ animation: "accentFloatLeft 7s ease-in-out infinite" }}>
             <span className="text-pink-500 font-black">〇</span>
             <span className="text-cyan-400 text-xs ml-[-6px] absolute top-[-4px]">●</span>
           </div>
-        </RevealAnimation>
+        </ConditionalReveal>
       </div>
 
       <div className="absolute top-16 right-[15%] md:right-[22%] z-10 text-xl font-bold select-none pointer-events-none transform-gpu">
-        <RevealAnimation direction="up" duration={1.2} delay={0.5} offset={40} animationType="from">
+        <ConditionalReveal direction="up" duration={1.2} delay={0.5} offset={40} animationType="from">
           <div style={{ animation: "accentFloatRight 6s ease-in-out infinite" }}>
             <span className="text-pink-500 font-black">〇</span>
             <span className="text-indigo-600 text-xs ml-[-4px] absolute bottom-[-4px]">●</span>
           </div>
-        </RevealAnimation>
+        </ConditionalReveal>
       </div>
 
 
@@ -46,25 +71,25 @@ export function SubscribeNewsletter() {
         
         {/* Copy text branding stack with reveal sequence */}
         <div className="space-y-3 max-w-xl mx-auto">
-          <RevealAnimation direction="down" duration={1.0} delay={0.0} offset={25} animationType="from">
+          <ConditionalReveal direction="down" duration={1.0} delay={0.0} offset={25} animationType="from">
             <h2 className="text-4xl font-bold sm:text-5xl tracking-tight text-[#08112a] leading-tight">
               Subscribe To Our <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ff3636] via-[#ff5b26] to-[#ff7e40]">
                 Newsletter
               </span>
             </h2>
-          </RevealAnimation>
+          </ConditionalReveal>
           
-          <RevealAnimation direction="down" duration={1.1} delay={0.15} offset={20} animationType="from">
+          <ConditionalReveal direction="down" duration={1.1} delay={0.15} offset={20} animationType="from">
             <p className="text-[15px] leading-7 text-slate-400 font-normal">
               Sign up to stay updated with our latest news and promotions
             </p>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         {/* --- 3. HIGH-END DRIBBBLE-STYLE INTEGRATED FORM FIELD --- */}
         <div className="max-w-xl mx-auto w-full">
-          <RevealAnimation direction="up" duration={1.0} delay={0.3} offset={35} animationType="from">
+          <ConditionalReveal direction="up" duration={1.0} delay={0.3} offset={35} animationType="from">
             <form 
               onSubmit={handleSubmit}
               className="w-full transition-all duration-300 focus-within:scale-[1.01]"
@@ -89,7 +114,7 @@ export function SubscribeNewsletter() {
 
               </div>
             </form>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
       </div>
