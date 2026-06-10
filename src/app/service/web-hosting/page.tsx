@@ -10,7 +10,7 @@ import WebHostingOverView from "@/components/services/web-hosting/web-hosting-ov
 export default function WebHostingPage() {
   return (
       <main className="bg-background text-foreground">
-          {/* <PageHeader title="Web Hosting" /> */}
+          <PageHeader title="Web Hosting" />
           <HostingHero/>
           <HostingFeatures/>
           <HostingBenefits/>

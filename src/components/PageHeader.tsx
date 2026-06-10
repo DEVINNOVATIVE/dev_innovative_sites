@@ -39,7 +39,7 @@ export function PageHeader({ title, currentPage, parentPage }: PageHeaderProps) 
           
           {/* Main Title Animation (Reveals Smoothly Downwards) */}
           <RevealAnimation direction="down" duration={1.1} delay={0.0} offset={40} animationType="from">
-            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl drop-shadow-sm capitalize">
+            <h1 className="text-2xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl drop-shadow-sm capitalize">
               {title}
             </h1>
           </RevealAnimation>
