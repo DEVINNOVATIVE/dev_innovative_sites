@@ -68,7 +68,7 @@
 //       {/* ================= FORM HEADER ================= */}
 //       <div className="space-y-3 mb-8 text-left">
 //         {badgeText && (
-//           <RevealAnimation direction="down" duration={0.8} delay={0.1} offset={15} animationType="from">
+//           <ConditionalReveal direction="down" duration={0.8} delay={0.1} offset={15} animationType="from">
 //             <div className="flex items-center gap-2">
 //               <span className="tracking-wider text-lg font-bold text-[#104cba] uppercase block">
 //                 {badgeText}
@@ -77,21 +77,21 @@
 //                 <div className="h-2 w-2 rounded-full bg-[#ff4b2b] animate-pulse" />
 //               )}
 //             </div>
-//           </RevealAnimation>
+//           </ConditionalReveal>
 //         )}
 
-//         <RevealAnimation direction="right" duration={1.0} delay={0.15} offset={25} animationType="from">
+//         <ConditionalReveal direction="right" duration={1.0} delay={0.15} offset={25} animationType="from">
 //           <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#08112a] leading-tight">
 //             {title}
 //           </h3>
-//         </RevealAnimation>
+//         </ConditionalReveal>
 //       </div>
 
 //       {/* ================= INTERACTIVE FORM INPUTS ================= */}
 //       <form className="space-y-5" onSubmit={handleSubmit}>
         
 //         {/* Name Field */}
-//         <RevealAnimation direction="up" duration={0.9} delay={0.2} offset={15} animationType="from">
+//         <ConditionalReveal direction="up" duration={0.9} delay={0.2} offset={15} animationType="from">
 //           <div className="relative w-full">
 //             <input
 //               type="text"
@@ -102,10 +102,10 @@
 //               className="w-full rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 outline-none transition-all duration-300 hover:border-neutral-300 focus:border-blue-600 focus:bg-white focus:ring-1 focus:ring-blue-600 disabled:opacity-60 disabled:cursor-not-allowed"
 //             />
 //           </div>
-//         </RevealAnimation>
+//         </ConditionalReveal>
 
 //         {/* Email Field */}
-//         <RevealAnimation direction="up" duration={0.9} delay={0.25} offset={15} animationType="from">
+//         <ConditionalReveal direction="up" duration={0.9} delay={0.25} offset={15} animationType="from">
 //           <div className="relative w-full">
 //             <input
 //               type="email"
@@ -116,10 +116,10 @@
 //               className="w-full rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 outline-none transition-all duration-300 hover:border-neutral-300 focus:border-blue-600 focus:bg-white focus:ring-1 focus:ring-blue-600 disabled:opacity-60 disabled:cursor-not-allowed"
 //             />
 //           </div>
-//         </RevealAnimation>
+//         </ConditionalReveal>
 
 //         {/* Phone No Field */}
-//         <RevealAnimation direction="up" duration={0.9} delay={0.3} offset={15} animationType="from">
+//         <ConditionalReveal direction="up" duration={0.9} delay={0.3} offset={15} animationType="from">
 //           <div className="relative w-full">
 //             <input
 //               type="tel"
@@ -130,10 +130,10 @@
 //               className="w-full rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 outline-none transition-all duration-300 hover:border-neutral-300 focus:border-blue-600 focus:bg-white focus:ring-1 focus:ring-blue-600 disabled:opacity-60 disabled:cursor-not-allowed"
 //             />
 //           </div>
-//         </RevealAnimation>
+//         </ConditionalReveal>
 
 //         {/* Message TextArea Box */}
-//         <RevealAnimation direction="up" duration={0.9} delay={0.35} offset={15} animationType="from">
+//         <ConditionalReveal direction="up" duration={0.9} delay={0.35} offset={15} animationType="from">
 //           <div className="relative w-full">
 //             <textarea
 //               name="message"
@@ -144,10 +144,10 @@
 //               className="w-full rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 outline-none transition-all duration-300 hover:border-neutral-300 focus:border-blue-600 focus:bg-white focus:ring-1 focus:ring-blue-600 resize-none min-h-[100px] disabled:opacity-60 disabled:cursor-not-allowed"
 //             />
 //           </div>
-//         </RevealAnimation>
+//         </ConditionalReveal>
 
 //         {/* Google reCAPTCHA Render Layer Anchor Box */}
-//         <RevealAnimation direction="up" duration={0.9} delay={0.38} offset={10} animationType="from">
+//         <ConditionalReveal direction="up" duration={0.9} delay={0.38} offset={10} animationType="from">
 //           <div className="w-full flex justify-start overflow-x-auto py-1">
           
 //             <ReCAPTCHA
@@ -156,7 +156,7 @@
 //               onChange={handleCaptchaChange}
 //             />
 //           </div>
-//         </RevealAnimation>
+//         </ConditionalReveal>
 
 //         {/* Feedback Alert Status Logs */}
 //         {formFeedback && (
@@ -172,7 +172,7 @@
 //         )}
 
 //         {/* Submit Call-To-Action Button */}
-//         <RevealAnimation direction="up" duration={1.0} delay={0.4} offset={15} animationType="from">
+//         <ConditionalReveal direction="up" duration={1.0} delay={0.4} offset={15} animationType="from">
 //           <div className="pt-2 text-left">
 //             <button
 //               type="submit"
@@ -195,7 +195,7 @@
 //               )}
 //             </button>
 //           </div>
-//         </RevealAnimation>
+//         </ConditionalReveal>
 
 //       </form>
 //     </div>
@@ -206,7 +206,7 @@
 
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Send, Loader2 } from "lucide-react";
 import ReCAPTCHA from "react-google-recaptcha";
 import RevealAnimation from "./animation/RevealAnimation";
@@ -226,6 +226,30 @@ export function ContactFormCard({
   const [isPending, setIsPending] = useState(false);
   const [formFeedback, setFormFeedback] = useState<{ success: boolean; message: string } | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 

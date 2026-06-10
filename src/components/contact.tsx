@@ -61,6 +61,30 @@ export function ContactUsForm() {
         // Handle form submission logic here
         console.log("Submitted Data: ", formData);
     };
+      const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
     return (
         <section className="relative w-full bg-white px-4 sm:px-8 lg:px-10 py-8 sm:py-16 text-slate-900 select-none overflow-hidden">
@@ -71,7 +95,7 @@ export function ContactUsForm() {
 
                     {/* Left Column: Floating Floating Abstract Vector Art */}
                     <div className="w-full flex justify-center items-center relative order-last lg:order-first">
-                        {/* <RevealAnimation direction={isDesktop ? "left" : "up"} duration={1.0} delay={0.1} offset={40} animationType="from"> */}
+                        {/* <ConditionalReveal direction={isDesktop ? "left" : "up"} duration={1.0} delay={0.1} offset={40} animationType="from"> */}
                             <div className="relative w-full max-w-[500px] aspect-[1.15/1]">
                                 <Image
                                     src={contactIllustration}
@@ -82,7 +106,7 @@ export function ContactUsForm() {
                                     priority
                                 />
                             </div>
-                        {/* </RevealAnimation> */}
+                        {/* </ConditionalReveal> */}
 
                         {/* Geometric Decorative Scatter Ring Elements from image_03ae23.png */}
                         <div className="absolute top-[-5%] right-[25%] hidden lg:block text-cyan-400 text-3xl opacity-40 animate-pulse">○</div>
@@ -104,21 +128,21 @@ export function ContactUsForm() {
 
                     {/* Section Subsection Headers */}
                     <div className="text-center max-w-3xl mx-auto space-y-4">
-                        <RevealAnimation direction="down" duration={0.9} delay={0.1} offset={25} animationType="from">
+                        <ConditionalReveal direction="down" duration={0.9} delay={0.1} offset={25} animationType="from">
                             <span className=" tracking-wider text-lg font-bold text-[#104cba] uppercase block">
                                 Connect With Us Today
                             </span>
-                        </RevealAnimation>
-                        <RevealAnimation direction="down" duration={0.9} delay={0.2} offset={30} animationType="from">
+                        </ConditionalReveal>
+                        <ConditionalReveal direction="down" duration={0.9} delay={0.2} offset={30} animationType="from">
                             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 leading-tight">
                                 Contact Us Via Our Email Or Phone Number!
                             </h3>
-                        </RevealAnimation>
-                        <RevealAnimation direction="up" duration={0.9} delay={0.35} offset={25} animationType="from">
+                        </ConditionalReveal>
+                        <ConditionalReveal direction="up" duration={0.9} delay={0.35} offset={25} animationType="from">
                             <p className="text-xs sm:text-sm leading-relaxed text-slate-400 font-normal max-w-2xl mx-auto">
                                 Our team is always ready to help answer any questions you may have about our services or assist with any concerns you may encounter. Fill out the form below, and we'll get back to you as soon as possible.
                             </p>
-                        </RevealAnimation>
+                        </ConditionalReveal>
                     </div>
 
                     {/* Informational Connection Metric Cards */}
@@ -126,7 +150,7 @@ export function ContactUsForm() {
                         {infoCards.map((card, idx) => {
                             const CardIcon = card.Icon;
                             return (
-                                <RevealAnimation
+                                <ConditionalReveal
                                     key={card.title}
                                     direction="up"
                                     duration={0.9}
@@ -147,7 +171,7 @@ export function ContactUsForm() {
                                             </p>
                                         </div>
                                     </div>
-                                </RevealAnimation>
+                                </ConditionalReveal>
                             );
                         })}
                     </div>
