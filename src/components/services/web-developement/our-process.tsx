@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import RevealAnimation from "../../animation/RevealAnimation";
 
@@ -24,6 +24,30 @@ const processSteps = [
 ];
 
 export function OurProcess() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative w-full bg-white px-4 sm:px-8 lg:px-12 xl:px-16 pb-16 sm:pb-24 text-slate-900 select-none overflow-hidden">
       <div className="mx-auto max-w-[1240px]">
@@ -36,29 +60,29 @@ export function OurProcess() {
             
             {/* Header Text Stack */}
             <div className="space-y-3">
-              <RevealAnimation direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
+              <ConditionalReveal direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
                 <span className="text-lg font-bold text-[#104cba] tracking-wide uppercase block">
                   Our Process
                 </span>
-              </RevealAnimation>
+              </ConditionalReveal>
               
-              <RevealAnimation direction="up" duration={0.9} delay={0.15} offset={25} animationType="from">
+              <ConditionalReveal direction="up" duration={0.9} delay={0.15} offset={25} animationType="from">
                 <h2 className="text-2xl sm:text-4xl xl:text-[42px] font-bold tracking-tight text-[#08112a] leading-tight">
                   Generating New <br className="hidden sm:inline" /> Business Growth Plans
                 </h2>
-              </RevealAnimation>
+              </ConditionalReveal>
 
-              <RevealAnimation direction="up" duration={1.0} delay={0.2} offset={20} animationType="from">
+              <ConditionalReveal direction="up" duration={1.0} delay={0.2} offset={20} animationType="from">
                 <p className="text-[14px] sm:text-[15px] xl:text-base leading-relaxed text-slate-400 font-normal pt-2">
                   We follow a comprehensive process to ensure that we deliver high-quality web and IT solutions that meet our clients' needs.
                 </p>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* List Loop Section Wrapper */}
             <div className="space-y-6 w-full pt-2">
               {processSteps.map((step, idx) => (
-                <RevealAnimation 
+                <ConditionalReveal 
                   key={step.title}
                   direction="up" 
                   duration={0.9} 
@@ -95,7 +119,7 @@ export function OurProcess() {
 
                     </div>
                   </div>
-                </RevealAnimation>
+                </ConditionalReveal>
               ))}
             </div>
 
@@ -103,7 +127,7 @@ export function OurProcess() {
 
           {/* ================= RIGHT COLUMN: GRAPHICS ROCKET ILLUSTRATION ================= */}
           <div className="w-full flex justify-center items-center order-first lg:order-last">
-            <RevealAnimation direction="up" duration={1.1} delay={0.1} offset={35} animationType="from">
+            <ConditionalReveal direction="up" duration={1.1} delay={0.1} offset={35} animationType="from">
               <div className="w-full flex justify-center items-center">
                 {/* ADDED: 'group' parent container to isolate rocket translation transitions on desktop frames */}
                 <div className="group relative cursor-pointer">
@@ -124,7 +148,7 @@ export function OurProcess() {
                   
                 </div>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
         </div>

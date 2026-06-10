@@ -19,16 +19,31 @@ const featureCards = [
 ];
 
 export function BlockchainAndroidOS() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
+
 
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-2 sm:px-6 lg:px-8 lg:py-4 bg-white text-slate-900 select-none overflow-hidden">
@@ -44,7 +59,7 @@ export function BlockchainAndroidOS() {
                 
                 {/* Desktop Layer Layout Grid Boxes (Staggered Translations matching blueprint blueprint) */}
                 <div className={`hidden lg:block h-full ${card.offsetClass}`}>
-                  <RevealAnimation 
+                  <ConditionalReveal 
                     direction="up" 
                     duration={0.85} 
                     delay={0.1 + index * 0.12} 
@@ -59,7 +74,7 @@ export function BlockchainAndroidOS() {
                         {card.title}
                       </h4>
                     </div>
-                  </RevealAnimation>
+                  </ConditionalReveal>
                 </div>
 
                 {/* Mobile View Flat Grid Blocks (Built-In Tailwind Touch Accelerators) */}
@@ -86,23 +101,23 @@ export function BlockchainAndroidOS() {
           
           {/* Desktop Content Entrance Paths */}
           <div className="hidden lg:block space-y-4">
-            <RevealAnimation direction="right" duration={0.9} delay={0.1} offset={25} animationType="from">
+            <ConditionalReveal direction="right" duration={0.9} delay={0.1} offset={25} animationType="from">
               <span className="text-xs sm:text-lg font-bold tracking-wider text-[#104cba] uppercase block">
                 Let's Collaborate to Build Your App
               </span>
-            </RevealAnimation>
+            </ConditionalReveal>
             
-            <RevealAnimation direction="right" duration={1.0} delay={0.18} offset={30} animationType="from">
+            <ConditionalReveal direction="right" duration={1.0} delay={0.18} offset={30} animationType="from">
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#08112a] leading-tight">
                 Blockchain Android & IOS <br /> Development
               </h2>
-            </RevealAnimation>
+            </ConditionalReveal>
             
-            <RevealAnimation direction="right" duration={1.1} delay={0.25} offset={20} animationType="from">
+            <ConditionalReveal direction="right" duration={1.1} delay={0.25} offset={20} animationType="from">
               <p className="text-base leading-relaxed text-slate-500 font-normal">
                 Our company specializes in providing agile blockchain mobile application development services, including both Android and iOS platforms. Our team of experienced developers works closely with clients to understand their unique requirements and design apps that meet their business needs.
               </p>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Mobile Text Output Structure */}
@@ -124,7 +139,7 @@ export function BlockchainAndroidOS() {
             {/* Checked Item Row 1 */}
             <div className="w-full">
               <div className="hidden lg:block">
-                <RevealAnimation direction="up" duration={0.85} delay={0.35} offset={15} animationType="from">
+                <ConditionalReveal direction="up" duration={0.85} delay={0.35} offset={15} animationType="from">
                   <div className="flex gap-4 items-start group">
                     <CheckCircle2 className="h-5 w-5 text-[#104cba] shrink-0 mt-1 transition-transform duration-300 group-hover:scale-110" />
                     <div className="space-y-1">
@@ -136,7 +151,7 @@ export function BlockchainAndroidOS() {
                       </p>
                     </div>
                   </div>
-                </RevealAnimation>
+                </ConditionalReveal>
               </div>
 
               <div className="block lg:hidden">
@@ -153,7 +168,7 @@ export function BlockchainAndroidOS() {
             {/* Checked Item Row 2 */}
             <div className="w-full">
               <div className="hidden lg:block">
-                <RevealAnimation direction="up" duration={0.85} delay={0.45} offset={15} animationType="from">
+                <ConditionalReveal direction="up" duration={0.85} delay={0.45} offset={15} animationType="from">
                   <div className="flex gap-4 items-start group">
                     <CheckCircle2 className="h-5 w-5 text-[#104cba] shrink-0 mt-1 transition-transform duration-300 group-hover:scale-110" />
                     <div className="space-y-1">
@@ -165,7 +180,7 @@ export function BlockchainAndroidOS() {
                       </p>
                     </div>
                   </div>
-                </RevealAnimation>
+                </ConditionalReveal>
               </div>
 
               <div className="block lg:hidden">

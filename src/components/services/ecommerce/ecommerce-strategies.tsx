@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CreditCard, Layers, ShoppingBag } from "lucide-react";
 import RevealAnimation from "../../animation/RevealAnimation";
@@ -37,6 +37,31 @@ const strategyCards = [
 ];
 
 export function EcommerceStrategies() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24 bg-white text-slate-900 select-none">
       
@@ -45,16 +70,16 @@ export function EcommerceStrategies() {
           ====================================================================== */}
       <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 lg:mb-24">
         <div className="hidden lg:block space-y-3">
-          <RevealAnimation direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
+          <ConditionalReveal direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
             <span className="text-xs sm:text-lg font-bold tracking-wider text-[#104cba]  block">
               Our Innovative Strategies
             </span>
-          </RevealAnimation>
-          <RevealAnimation direction="up" duration={0.9} delay={0.16} offset={25} animationType="from">
+          </ConditionalReveal>
+          <ConditionalReveal direction="up" duration={0.9} delay={0.16} offset={25} animationType="from">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#08112a]">
               Discover Our Passion For Digital Innovation
             </h2>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         <div className="block lg:hidden space-y-2 px-2">
@@ -78,7 +103,7 @@ export function EcommerceStrategies() {
               
               {/* Desktop View Card System */}
               <div className="hidden lg:block h-full relative">
-                <RevealAnimation 
+                <ConditionalReveal 
                   direction="up" 
                   duration={0.9} 
                   delay={0.15 + index * 0.12} 
@@ -109,7 +134,7 @@ export function EcommerceStrategies() {
                    
 
                   </div>
-                </RevealAnimation>
+                </ConditionalReveal>
               </div>
 
               {/* Mobile View Card System */}

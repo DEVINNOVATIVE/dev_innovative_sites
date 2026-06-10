@@ -12,16 +12,30 @@ import imgShapeBacking from "@/assets/services/application_developement/Img-14-1
 import Link from "next/link";
 
 export function AppDevelopmentBenefits() {
-  const [isDesktop, setIsDesktop] = useState(false);
+   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <div className="w-full bg-white text-slate-900 select-none overflow-hidden">
@@ -87,25 +101,25 @@ export function AppDevelopmentBenefits() {
             
             {/* Desktop Entrance Flow (GSAP Triggered Above Breakpoint) */}
             <div className="hidden lg:block space-y-5">
-              <RevealAnimation direction="right" duration={0.9} delay={0.1} offset={25} animationType="from">
+              <ConditionalReveal direction="right" duration={0.9} delay={0.1} offset={25} animationType="from">
                 <span className="text-lg font-bold tracking-wider text-[#104cba] uppercase block">
                   Why You Need An App !
                 </span>
-              </RevealAnimation>
-              <RevealAnimation direction="right" duration={1.0} delay={0.18} offset={30} animationType="from">
+              </ConditionalReveal>
+              <ConditionalReveal direction="right" duration={1.0} delay={0.18} offset={30} animationType="from">
                 <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-[#08112a] leading-tight">
                   Why Mobile Applications Are <br /> Crucial For Your Business ?
                 </h2>
-              </RevealAnimation>
-              <RevealAnimation direction="right" duration={1.1} delay={0.25} offset={20} animationType="from">
+              </ConditionalReveal>
+              <ConditionalReveal direction="right" duration={1.1} delay={0.25} offset={20} animationType="from">
                 <p className="text-[14.5px] leading-relaxed text-slate-500 font-normal">
                   Mobile applications provide businesses with a direct way to engage with their customers and increase their brand visibility. They also offer features like push notifications and personalized content that can help increase customer engagement and brand loyalty.
                 </p>
-              </RevealAnimation>
+              </ConditionalReveal>
 
               {/* Point Items Stacks */}
               <div className="space-y-5 pt-3 border-t border-slate-100">
-                <RevealAnimation direction="up" duration={0.85} delay={0.35} offset={15} animationType="from">
+                <ConditionalReveal direction="up" duration={0.85} delay={0.35} offset={15} animationType="from">
                   <div className="flex gap-4 items-start group">
                     <CheckCircle2 className="h-5 w-5 text-[#ff5c3d] shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-110" />
                     <div className="space-y-1">
@@ -113,9 +127,9 @@ export function AppDevelopmentBenefits() {
                       <p className="text-[13.5px] leading-relaxed text-slate-400">Mobile applications allow businesses to interact with their customers in real-time, providing personalized, relevant content that enhances experience indices.</p>
                     </div>
                   </div>
-                </RevealAnimation>
+                </ConditionalReveal>
 
-                <RevealAnimation direction="up" duration={0.85} delay={0.45} offset={15} animationType="from">
+                <ConditionalReveal direction="up" duration={0.85} delay={0.45} offset={15} animationType="from">
                   <div className="flex gap-4 items-start group">
                     <CheckCircle2 className="h-5 w-5 text-[#ff5c3d] shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-110" />
                     <div className="space-y-1">
@@ -123,16 +137,16 @@ export function AppDevelopmentBenefits() {
                       <p className="text-[13.5px] leading-relaxed text-slate-400">A mobile application can significantly enhance your brand visibility and recognition, allowing you to showcase products seamlessly anywhere.</p>
                     </div>
                   </div>
-                </RevealAnimation>
+                </ConditionalReveal>
               </div>
 
-              <RevealAnimation direction="up" duration={0.9} delay={0.55} offset={15} animationType="from">
+              <ConditionalReveal direction="up" duration={0.9} delay={0.55} offset={15} animationType="from">
                 <div className="pt-2">
                   <Link href="/contact-us" className="inline-flex h-11 items-center justify-center rounded-xl bg-[#ff5c3d] lg:hover:bg-[#e84c2e] px-8 text-sm font-bold text-white shadow-md active:scale-[0.98] transition-all">
                     Contact Us
                   </Link>
                 </div>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* Mobile Native Fluid Flow (Built-in Tailwind Animations / Zero Flash) */}
@@ -182,7 +196,7 @@ export function AppDevelopmentBenefits() {
         
         {/* Desktop Version with GSAP Slide Entrance */}
         <div className="hidden lg:block max-w-[1240px] mx-auto">
-          <RevealAnimation direction="up" duration={1.0} delay={0.1} offset={30} animationType="from">
+          <ConditionalReveal direction="up" duration={1.0} delay={0.1} offset={30} animationType="from">
             <div className="w-full rounded-2xl bg-[#0a0f24] text-white p-8 px-10 flex items-center justify-between gap-6 relative overflow-hidden shadow-xl">
               
               {/* Internal Accent Matrix Dots */}
@@ -208,7 +222,7 @@ export function AppDevelopmentBenefits() {
               </div>
 
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         {/* Mobile Safe Layout Alternative Block with hardware transitions */}

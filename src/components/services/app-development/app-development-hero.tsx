@@ -25,6 +25,30 @@ export function AppDevelopmentHero() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-6 sm:px-6 lg:px-8 lg:py-12 bg-white text-slate-900 select-none relative overflow-hidden">
       
@@ -40,26 +64,26 @@ export function AppDevelopmentHero() {
         
         {/* Left Side: Copywriting Content Blocks */}
         <div className="max-w-[560px] space-y-6 text-left">
-          <RevealAnimation direction="left" duration={0.9} delay={0.1} offset={30} animationType="from">
+          <ConditionalReveal direction="left" duration={0.9} delay={0.1} offset={30} animationType="from">
             <span className="text-lg font-bold tracking-wider text-[#104cba]  block">
               Innovative Solutions For Business Transformation
             </span>
-          </RevealAnimation>
+          </ConditionalReveal>
 
-          <RevealAnimation direction="left" duration={1.0} delay={0.18} offset={35} animationType="from">
+          <ConditionalReveal direction="left" duration={1.0} delay={0.18} offset={35} animationType="from">
             <h1 className="text-3xl font-bold tracking-tight text-[#08112a] sm:text-5xl lg:text-6xl leading-[1.1]">
               Mobile App <br /> Development
             </h1>
-          </RevealAnimation>
+          </ConditionalReveal>
 
-          <RevealAnimation direction="left" duration={1.1} delay={0.25} offset={25} animationType="from">
+          <ConditionalReveal direction="left" duration={1.1} delay={0.25} offset={25} animationType="from">
             <p className="text-[15px] sm:text-base leading-relaxed text-slate-500 font-normal">
               Transform your vision into an astounding mobile application today. From concept design to expert application development services with user-centric functionality built inside high-performance native ecosystems.
             </p>
-          </RevealAnimation>
+          </ConditionalReveal>
 
           {/* Call-to-Actions Row */}
-          <RevealAnimation direction="up" duration={1.0} delay={0.4} offset={20} animationType="from">
+          <ConditionalReveal direction="up" duration={1.0} delay={0.4} offset={20} animationType="from">
             <div className="flex items-center gap-6 pt-2">
               <Link
                 href="/contact-us"
@@ -79,7 +103,7 @@ export function AppDevelopmentHero() {
                 </div>
               </div>
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         {/* Right Side: Composited Canvas Artwork matching image_5dcede.png layout properties */}

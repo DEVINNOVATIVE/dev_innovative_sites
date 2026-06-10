@@ -31,6 +31,30 @@ const strategyItems = [
 ];
 
 export function EcommerceWideStrategy() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
 
   return (
@@ -44,16 +68,16 @@ export function EcommerceWideStrategy() {
         <div className="text-center max-w-2xl mx-auto space-y-3">
           {/* Desktop Animating Path */}
           <div className="hidden lg:block space-y-2">
-            <RevealAnimation direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
+            <ConditionalReveal direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
               <span className="text-xs sm:text-lg font-bold tracking-widest text-[#4e9cf7] uppercase block">
                 What We Do
               </span>
-            </RevealAnimation>
-            <RevealAnimation direction="up" duration={0.9} delay={0.16} offset={25} animationType="from">
+            </ConditionalReveal>
+            <ConditionalReveal direction="up" duration={0.9} delay={0.16} offset={25} animationType="from">
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white">
                 We Offer A Wide Range Of Strategy
               </h2>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Mobile Static Path */}
@@ -72,7 +96,7 @@ export function EcommerceWideStrategy() {
               
               {/* Desktop Dynamic Grid Block (Staggered Animation Entry) */}
               <div className="hidden lg:block h-full">
-                <RevealAnimation 
+                <ConditionalReveal 
                   direction="up" 
                   duration={0.9} 
                   delay={0.15 + index * 0.12} 
@@ -110,7 +134,7 @@ export function EcommerceWideStrategy() {
                     </div>
 
                   </div>
-                </RevealAnimation>
+                </ConditionalReveal>
               </div>
 
               {/* Mobile View Flat Grid Block (Instant Hardware Accent Rendering) */}

@@ -10,16 +10,30 @@ import heroIllustration from "@/assets/services/web_hosting/demo15-img2.png";
 import Link from "next/link";
 
 export function HostingHero() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-8 sm:px-6 lg:px-8 lg:pb-8 lg:pt-4 bg-white text-slate-900 select-none overflow-hidden">
@@ -31,7 +45,7 @@ export function HostingHero() {
         
         {/* Left Side: Animated Illustration with subtle float */}
         <div className="flex justify-center lg:justify-start">
-          <RevealAnimation direction="left" duration={1.1} delay={0.1} offset={40} animationType="from">
+          <ConditionalReveal direction="left" duration={1.1} delay={0.1} offset={40} animationType="from">
             <div className="relative w-full max-w-[550px] aspect-[1.15/1]">
               <Image
                 src={heroIllustration}
@@ -43,31 +57,31 @@ export function HostingHero() {
                 priority
               />
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         {/* Right Side: Copywriting Text Blocks */}
         <div className="max-w-[560px] space-y-6 text-left">
-          <RevealAnimation direction="right" duration={0.9} delay={0.15} offset={30} animationType="from">
+          <ConditionalReveal direction="right" duration={0.9} delay={0.15} offset={30} animationType="from">
             <span className="text-[13px] sm:text-lg font-bold tracking-wider text-[#104cba] uppercase block">
               Cloud & web hosting Services
             </span>
-          </RevealAnimation>
+          </ConditionalReveal>
 
-          <RevealAnimation direction="right" duration={1.0} delay={0.2} offset={35} animationType="from">
+          <ConditionalReveal direction="right" duration={1.0} delay={0.2} offset={35} animationType="from">
             <h1 className="text-3xl font-bold tracking-tight text-[#08112a] sm:text-5xl leading-[1.12]">
               Welcome to our <br /> web hosting services
             </h1>
-          </RevealAnimation>
+          </ConditionalReveal>
 
-          <RevealAnimation direction="right" duration={1.1} delay={0.25} offset={25} animationType="from">
+          <ConditionalReveal direction="right" duration={1.1} delay={0.25} offset={25} animationType="from">
             <p className="text-[15px] sm:text-base leading-relaxed text-slate-500 font-normal">
               We provide reliable and secure web hosting solutions to ensure your website stays up and running 24/7. Our team of experts is committed to delivering exceptional results that drive performance.
             </p>
-          </RevealAnimation>
+          </ConditionalReveal>
 
           {/* Action Row */}
-          <RevealAnimation direction="up" duration={1.0} delay={0.4} offset={20} animationType="from">
+          <ConditionalReveal direction="up" duration={1.0} delay={0.4} offset={20} animationType="from">
             <div className="flex items-center gap-6 pt-2">
               <Link
                 href="/contact-us"
@@ -87,7 +101,7 @@ export function HostingHero() {
                 </div>
               </div>
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
       </div>

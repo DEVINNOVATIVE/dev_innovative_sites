@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import RevealAnimation from "../../animation/RevealAnimation";
 
@@ -28,6 +28,30 @@ const featuresData = [
 ];
 
 export function HeroSection() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative w-full bg-white px-4 sm:px-8 lg:px-12 xl:px-16 py-16 sm:py-24 text-slate-900 select-none overflow-hidden">
       <div className="mx-auto max-w-[1240px]">
@@ -41,7 +65,7 @@ export function HeroSection() {
             and prevent any browser layout jittering without needing JavaScript screen queries.
           */}
           <div className="w-full flex justify-center items-center">
-            <RevealAnimation direction="up" duration={1.0} delay={0.1} offset={30} animationType="from">
+            <ConditionalReveal direction="up" duration={1.0} delay={0.1} offset={30} animationType="from">
               <div className="relative w-[85vw] sm:w-[460px] lg:w-[520px] xl:w-[560px] aspect-[1.12/1]">
                 <Image
                   src={mainIllustration}
@@ -52,7 +76,7 @@ export function HeroSection() {
                   priority
                 />
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* ================= RIGHT COLUMN: CONTENT & FEATURE CARDS ================= */}
@@ -60,29 +84,29 @@ export function HeroSection() {
             
             {/* Header Labels */}
             <div className="space-y-3">
-              <RevealAnimation direction="up" duration={0.8} delay={0.15} offset={20} animationType="from">
+              <ConditionalReveal direction="up" duration={0.8} delay={0.15} offset={20} animationType="from">
                 <span className="text-lg font-bold text-[#104cba] tracking-wide uppercase block">
                   Services We Offer
                 </span>
-              </RevealAnimation>
+              </ConditionalReveal>
               
-              <RevealAnimation direction="up" duration={0.9} delay={0.2} offset={25} animationType="from">
+              <ConditionalReveal direction="up" duration={0.9} delay={0.2} offset={25} animationType="from">
                 <h2 className="text-2xl sm:text-4xl xl:text-[42px] font-bold tracking-tight text-[#08112a] leading-tight">
                   Web Application Development
                 </h2>
-              </RevealAnimation>
+              </ConditionalReveal>
 
-              <RevealAnimation direction="up" duration={1.0} delay={0.25} offset={20} animationType="from">
+              <ConditionalReveal direction="up" duration={1.0} delay={0.25} offset={20} animationType="from">
                 <p className="text-[14px] sm:text-base xl:text-md leading-relaxed text-slate-500 font-normal pt-2">
                   Our Web Application Development service provides customized, agile, and user-friendly web applications that are designed to meet our clients' specific needs and requirements. We prioritize UX design and scalability, and we provide ongoing maintenance and support to ensure that our clients' web applications continue to function properly over time.
                 </p>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* Features Sub-grid Layout Array: 1 column on mobile, 2 columns on tablet/desktop */}
             <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 w-full pt-2">
               {featuresData.map((item, idx) => (
-                <RevealAnimation 
+                <ConditionalReveal 
                   key={item.title}
                   direction="up" 
                   duration={0.9} 
@@ -114,7 +138,7 @@ export function HeroSection() {
                     </div>
 
                   </div>
-                </RevealAnimation>
+                </ConditionalReveal>
               ))}
             </div>
 

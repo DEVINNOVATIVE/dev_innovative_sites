@@ -28,16 +28,30 @@ import ser07 from "@/assets/services/web_hosting/Ser07.png";
 import ser08 from "@/assets/services/web_hosting/Ser08.png";
 
 export default function WebHostingOverView() {
-  const [isDesktop, setIsDesktop] = useState(false);
+   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <div className="w-full bg-white text-slate-900 overflow-x-hidden">
@@ -48,28 +62,28 @@ export default function WebHostingOverView() {
       <section className="mx-auto max-w-[1400px] px-4 py-12 sm:px-6 lg:px-8 lg:py-20 bg-white select-none">
         <div className="hidden lg:grid items-center gap-12 grid-cols-2 lg:gap-16 mb-20">
           <div className="flex justify-center lg:justify-start">
-            <RevealAnimation direction="left" duration={1.0} delay={0.1} offset={40} animationType="from">
+            <ConditionalReveal direction="left" duration={1.0} delay={0.1} offset={40} animationType="from">
               <div className="relative w-full max-w-[540px] aspect-[1.15/1]">
                 <Image src={demoImg2} alt="Web hosting top illustration" fill className="object-contain" priority />
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
           <div className="max-w-[560px] space-y-6 text-left">
-            <RevealAnimation direction="right" duration={0.9} delay={0.1} offset={20} animationType="from">
+            <ConditionalReveal direction="right" duration={0.9} delay={0.1} offset={20} animationType="from">
               <span className="text-sm font-bold tracking-wider text-[#104cba] uppercase block">Cloud & Web Hosting Services</span>
-            </RevealAnimation>
-            <RevealAnimation direction="right" duration={1.0} delay={0.15} offset={25} animationType="from">
+            </ConditionalReveal>
+            <ConditionalReveal direction="right" duration={1.0} delay={0.15} offset={25} animationType="from">
               <h1 className="text-5xl font-black tracking-tight text-[#08112a] leading-tight">Welcome to our <br /> web hosting services</h1>
-            </RevealAnimation>
-            <RevealAnimation direction="right" duration={1.1} delay={0.2} offset={20} animationType="from">
+            </ConditionalReveal>
+            <ConditionalReveal direction="right" duration={1.1} delay={0.2} offset={20} animationType="from">
               <p className="text-base leading-relaxed text-slate-500">Provide reliable, fast, and secure web hosting solutions tailored to ensure your website is always open to your potential clients. Expand parameters smoothly.</p>
-            </RevealAnimation>
-            <RevealAnimation direction="up" duration={1.0} delay={0.3} offset={15} animationType="from">
+            </ConditionalReveal>
+            <ConditionalReveal direction="up" duration={1.0} delay={0.3} offset={15} animationType="from">
               <div className="flex items-center gap-6 pt-2">
                 <a href="#pricing" className="inline-flex h-12 items-center justify-center rounded-xl bg-[#ff5c3d] hover:bg-[#e84c2e] px-7 text-[15px] font-bold text-white shadow-lg shadow-orange-500/10 transition-all duration-200">Contact Us</a>
                 <div className="text-left"><p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Call us for details</p><a href="tel:+1234567890" className="text-sm font-bold text-[#08112a] hover:text-[#104cba]">+1 (234) 567-890</a></div>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
         </div>
 

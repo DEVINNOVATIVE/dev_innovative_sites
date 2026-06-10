@@ -11,7 +11,30 @@ import imgSection2Hero from "@/assets/services/ecommerce/MicrosoftTeams-image-5.
 import imgSection3Hero from "@/assets/services/ecommerce/MicrosoftTeams-image-2.png"; 
 
 export function EcommercePlatformDetails() {
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <div className="w-full bg-white text-slate-900 select-none overflow-hidden">
@@ -25,21 +48,21 @@ export function EcommercePlatformDetails() {
           {/* Left Column Content Block */}
           <div className="lg:col-span-6 space-y-6 text-left max-w-[540px] mx-auto lg:mx-0">
             <div className="hidden lg:block space-y-4">
-              <RevealAnimation direction="left" duration={0.9} delay={0.1} offset={25} animationType="from">
+              <ConditionalReveal direction="left" duration={0.9} delay={0.1} offset={25} animationType="from">
                 <span className="text-xs sm:text-lg font-bold tracking-wider text-[#104cba] uppercase block">
                   Ecommerce Solutions
                 </span>
-              </RevealAnimation>
-              <RevealAnimation direction="left" duration={1.0} delay={0.18} offset={30} animationType="from">
+              </ConditionalReveal>
+              <ConditionalReveal direction="left" duration={1.0} delay={0.18} offset={30} animationType="from">
                 <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#08112a] leading-tight">
                   Revolutionize Your Online <br /> Business With Our Expert !
                 </h2>
-              </RevealAnimation>
-              <RevealAnimation direction="left" duration={1.1} delay={0.25} offset={20} animationType="from">
+              </ConditionalReveal>
+              <ConditionalReveal direction="left" duration={1.1} delay={0.25} offset={20} animationType="from">
                 <p className="text-base leading-relaxed text-slate-500 font-normal">
                   Our comprehensive e-commerce development solutions build custom, lightweight setups tailored to extend your brand reach. Our team of expert developers and designers works closely with clients to ensure setups match business operational metrics.
                 </p>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* Mobile Fallback Header */}
@@ -59,12 +82,12 @@ export function EcommercePlatformDetails() {
               ].map((item, idx) => (
                 <div key={item} className="h-full">
                   <div className="hidden lg:block">
-                    <RevealAnimation direction="up" duration={0.8} delay={0.3 + idx * 0.08} offset={15} animationType="from">
+                    <ConditionalReveal direction="up" duration={0.8} delay={0.3 + idx * 0.08} offset={15} animationType="from">
                       <div className="flex gap-2.5 items-center group">
                         <Check className="h-[18px] w-[18px] text-[#ff5c3d] stroke-[3px] shrink-0" />
                         <span className="text-[14px] font-bold text-[#08112a] group-hover:text-[#104cba] transition-colors">{item}</span>
                       </div>
-                    </RevealAnimation>
+                    </ConditionalReveal>
                   </div>
                   <div className="block lg:hidden flex gap-2.5 items-center">
                     <Check className="h-4 w-4 text-[#ff5c3d] stroke-[3px] shrink-0" />
@@ -101,21 +124,21 @@ export function EcommercePlatformDetails() {
           {/* Right Column Context Content Block */}
           <div className="lg:col-span-6 space-y-6 text-left max-w-[540px] mx-auto lg:mx-0 order-1 lg:order-2">
             <div className="hidden lg:block space-y-4">
-              <RevealAnimation direction="right" duration={0.9} delay={0.1} offset={25} animationType="from">
+              <ConditionalReveal direction="right" duration={0.9} delay={0.1} offset={25} animationType="from">
                 <span className="text-xs sm:text-lg font-bold tracking-wider text-[#104cba] uppercase block">
                   Creative E-Com App Design
                 </span>
-              </RevealAnimation>
-              <RevealAnimation direction="right" duration={1.0} delay={0.18} offset={30} animationType="from">
+              </ConditionalReveal>
+              <ConditionalReveal direction="right" duration={1.0} delay={0.18} offset={30} animationType="from">
                 <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#08112a] leading-tight">
                   Innovative And Creative <br /> Designs For Ecommerce Apps
                 </h2>
-              </RevealAnimation>
-              <RevealAnimation direction="right" duration={1.1} delay={0.25} offset={20} animationType="from">
+              </ConditionalReveal>
+              <ConditionalReveal direction="right" duration={1.1} delay={0.25} offset={20} animationType="from">
                 <p className="text-base leading-relaxed text-slate-500 font-normal">
                   We believe that the design of your e-commerce storefront app is crucial to its success. That's why our experienced UI/UX setup creates modern interfaces built to increase retention channels.
                 </p>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* Mobile Fallback Header */}
@@ -133,12 +156,12 @@ export function EcommercePlatformDetails() {
               ].map((text, idx) => (
                 <div key={idx} className="w-full">
                   <div className="hidden lg:block">
-                    <RevealAnimation direction="up" duration={0.85} delay={0.35 + idx * 0.1} offset={15} animationType="from">
+                    <ConditionalReveal direction="up" duration={0.85} delay={0.35 + idx * 0.1} offset={15} animationType="from">
                       <div className="flex gap-3.5 items-start bg-white p-4 rounded-2xl border border-slate-100/60 shadow-[0_4px_20px_rgba(15,23,42,0.01)] hover:shadow-sm transition-all">
                         <CheckCircle className="h-5 w-5 text-[#ff5c3d] shrink-0 mt-0.5" />
                         <p className="text-base leading-relaxed text-slate-400 font-normal">{text}</p>
                       </div>
-                    </RevealAnimation>
+                    </ConditionalReveal>
                   </div>
                   <div className="block lg:hidden flex gap-3.5 items-start bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
                     <CheckCircle className="h-5 w-5 text-[#ff5c3d] shrink-0 mt-0.5" />
@@ -162,21 +185,21 @@ export function EcommercePlatformDetails() {
           {/* Left Column Structured Sequential Content Steps Container */}
           <div className="lg:col-span-7 space-y-6 text-left max-w-[620px] mx-auto lg:mx-0">
             <div className="hidden lg:block space-y-4">
-              <RevealAnimation direction="left" duration={0.9} delay={0.1} offset={25} animationType="from">
+              <ConditionalReveal direction="left" duration={0.9} delay={0.1} offset={25} animationType="from">
                 <span className="text-xs sm:text-lg font-bold tracking-wider text-[#104cba] uppercase block">
                   Ecommerce Conversion
                 </span>
-              </RevealAnimation>
-              <RevealAnimation direction="left" duration={1.0} delay={0.18} offset={30} animationType="from">
+              </ConditionalReveal>
+              <ConditionalReveal direction="left" duration={1.0} delay={0.18} offset={30} animationType="from">
                 <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#08112a] leading-tight">
                   We Strive To Make Your <br /> Business Get High Conversion !
                 </h2>
-              </RevealAnimation>
-              <RevealAnimation direction="left" duration={1.1} delay={0.25} offset={20} animationType="from">
+              </ConditionalReveal>
+              <ConditionalReveal direction="left" duration={1.1} delay={0.25} offset={20} animationType="from">
                 <p className="text-base leading-relaxed text-slate-500 font-normal">
                   Optimization elements inside checkout tunnels turn visitors into loyal buyers. We inject data tracking components into strategic framework paths to expand order frequency parameters cleanly.
                 </p>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* Mobile Fallback Header */}
@@ -195,12 +218,12 @@ export function EcommercePlatformDetails() {
               ].map((text, idx) => (
                 <div key={idx} className="w-full">
                   <div className="hidden lg:block">
-                    <RevealAnimation direction="up" duration={0.85} delay={0.3 + idx * 0.08} offset={15} animationType="from">
+                    <ConditionalReveal direction="up" duration={0.85} delay={0.3 + idx * 0.08} offset={15} animationType="from">
                       <div className="flex gap-4 items-start text-left group">
                         <span className="text-lg font-bold text-[#104cba] transition-colors pt-0.5 select-none">{idx + 1}.</span>
                         <p className="text-base leading-relaxed text-slate-400 font-normal transition-colors duration-300 group-hover:text-slate-500">{text}</p>
                       </div>
-                    </RevealAnimation>
+                    </ConditionalReveal>
                   </div>
                   <div className="block lg:hidden flex gap-3 items-start text-left">
                     <span className="text-lg font-bold text-[#104cba] pt-0.5">{idx + 1}.</span>

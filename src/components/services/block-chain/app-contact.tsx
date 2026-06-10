@@ -10,16 +10,30 @@ import imgWorkplaceTeam from "@/assets/services/block_chain/vec03.png";
 import shapeTriangleRed from "@/assets/services/block_chain/Home5-15.png";
 
 export function AppDevelopmentContact() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24 bg-white text-slate-900 select-none overflow-hidden">
@@ -57,7 +71,7 @@ export function AppDevelopmentContact() {
 
           {/* Desktop Responsive Split Execution Path */}
           <div className="hidden lg:block w-full text-left">
-            <RevealAnimation direction="right" duration={1.0} delay={0.15} offset={35} animationType="from">
+            <ConditionalReveal direction="right" duration={1.0} delay={0.15} offset={35} animationType="from">
               <div className="w-full mx-auto max-w-xl lg:max-w-none">
                 <ContactFormCard
                   badgeText="Get A Free Quote"
@@ -65,7 +79,7 @@ export function AppDevelopmentContact() {
                   showLiveIndicator={true}
                 />
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Mobile Safe Instant Hardware Rendering Fallback Path */}

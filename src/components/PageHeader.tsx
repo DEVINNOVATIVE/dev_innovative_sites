@@ -6,6 +6,7 @@ import RevealAnimation from "./animation/RevealAnimation"; // Verify your folder
 
 // Using the connect map texture from your assets for the background design context
 import connectBg from "@/assets/connect_bg.webp";
+import { useEffect, useState } from "react";
 
 interface PageHeaderProps {
   title: string;
@@ -16,6 +17,30 @@ interface PageHeaderProps {
   };
 }
 export function PageHeader({ title, currentPage, parentPage }: PageHeaderProps) {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative overflow-hidden bg-[#071033] py-8 md:py-14 text-center flex items-center justify-center min-h-60 md:min-h-80 border-b border-white/5">
       
@@ -38,14 +63,14 @@ export function PageHeader({ title, currentPage, parentPage }: PageHeaderProps) 
         <div className="space-y-5">
           
           {/* Main Title Animation (Reveals Smoothly Downwards) */}
-          <RevealAnimation direction="down" duration={1.1} delay={0.0} offset={40} animationType="from">
+          <ConditionalReveal direction="down" duration={1.1} delay={0.0} offset={40} animationType="from">
             <h1 className="text-2xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl drop-shadow-sm capitalize">
               {title}
             </h1>
-          </RevealAnimation>
+          </ConditionalReveal>
 
           {/* Breadcrumb Links Navigation Animation (Reveals Smoothly Upwards) */}
-          <RevealAnimation direction="up" duration={1.1} delay={0.2} offset={30} animationType="from">
+          <ConditionalReveal direction="up" duration={1.1} delay={0.2} offset={30} animationType="from">
             <nav className="inline-flex items-center justify-center gap-2.5 px-5 py-2 rounded-full bg-white/[0.03] border border-white/5 backdrop-blur-md text-sm font-medium text-slate-400 shadow-inner">
               
               <Link 
@@ -77,7 +102,7 @@ export function PageHeader({ title, currentPage, parentPage }: PageHeaderProps) 
               </span>
 
             </nav>
-          </RevealAnimation>
+          </ConditionalReveal>
 
         </div>
       </div>

@@ -26,16 +26,30 @@ const marketingBenefits = [
 ];
 
 export function WhyDigitalMarketing() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-8 sm:px-6 lg:px-8 lg:py-14 bg-white text-slate-900 select-none overflow-hidden">
@@ -48,29 +62,29 @@ export function WhyDigitalMarketing() {
         {/* Left Side Column: Copywriting Blocks and Styled Bullets (7/12 Grid) */}
         <div className="col-span-7 space-y-6 text-left max-w-[620px]">
           <div className="space-y-4">
-            <RevealAnimation direction="left" duration={0.9} delay={0.1} offset={25} animationType="from">
+            <ConditionalReveal direction="left" duration={0.9} delay={0.1} offset={25} animationType="from">
               <span className="text-xs sm:text-lg font-bold tracking-wider text-[#104cba]  block">
                 Why You Need Digital Marketing !
               </span>
-            </RevealAnimation>
+            </ConditionalReveal>
             
-            <RevealAnimation direction="left" duration={1.0} delay={0.18} offset={30} animationType="from">
+            <ConditionalReveal direction="left" duration={1.0} delay={0.18} offset={30} animationType="from">
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#08112a] leading-tight">
                 Why Digital Marketing Is <br /> Crucial For Your Business
               </h2>
-            </RevealAnimation>
+            </ConditionalReveal>
             
-            <RevealAnimation direction="left" duration={1.1} delay={0.25} offset={20} animationType="from">
+            <ConditionalReveal direction="left" duration={1.1} delay={0.25} offset={20} animationType="from">
               <p className="text-base leading-relaxed text-slate-500 font-normal">
                 In today's fast-paced digital world, mobile applications have become an essential tool for businesses of all sizes. Here are some reasons why mobile applications are crucial for your business:
               </p>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Staggered Row Service Point Bullets */}
           <div className="space-y-5 pt-4 border-t border-slate-100">
             {marketingBenefits.map((benefit, index) => (
-              <RevealAnimation 
+              <ConditionalReveal 
                 key={benefit.title} 
                 direction="up" 
                 duration={0.8} 
@@ -89,14 +103,14 @@ export function WhyDigitalMarketing() {
                     </p>
                   </div>
                 </div>
-              </RevealAnimation>
+              </ConditionalReveal>
             ))}
           </div>
         </div>
 
         {/* Right Side Column: Isometric App Ecosystem Vector (5/12 Grid) */}
         <div className="col-span-5 flex justify-end w-full relative">
-          <RevealAnimation direction="right" duration={1.1} delay={0.2} offset={45} animationType="from">
+          <ConditionalReveal direction="right" duration={1.1} delay={0.2} offset={45} animationType="from">
             <div className="relative w-full max-w-[440px] aspect-[1.1/1]" style={{ animation: "marketingIllustrationFloat 6s ease-in-out infinite" }}>
               <Image 
                 src={marketingHeroIllustration} 
@@ -106,7 +120,7 @@ export function WhyDigitalMarketing() {
                 sizes="440px"
               />
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
       </div>

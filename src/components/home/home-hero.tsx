@@ -91,7 +91,7 @@
 //             <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-12 px-10 pt-32 pb-12 sm:px-6 lg:grid-cols-2 lg:px-8 lg:items-start">
 
 //                 {/* Left Column Text content wrapped in a RevealAnimation */}
-//                 <RevealAnimation direction="left" delay={0.1} offset={60} animationType="from">
+//                 <ConditionalReveal direction="left" delay={0.1} offset={60} animationType="from">
 //                     <div className="max-w-[720px] space-y-6 self-start">
 //                         <div className="text-2xl font-medium text-white font-extrabold ">Technology & software Development</div>
 
@@ -110,10 +110,10 @@
 //                             <Link href="/service" className="inline-flex items-center gap-2 rounded-md bg-white/10 px-5 py-3 text-sm font-medium text-white">Our Services</Link>
 //                         </div>
 //                     </div>
-//                 </RevealAnimation>
+//                 </ConditionalReveal>
 
 //                 {/* Right Column Canvas graphic wrapped in a RevealAnimation */}
-//                 <RevealAnimation direction="right" delay={0.3} offset={60} animationType="from">
+//                 <ConditionalReveal direction="right" delay={0.3} offset={60} animationType="from">
 //                     <div className="relative h-[420px] w-[420px] justify-self-center lg:justify-self-start">
 //                         {/* blue curved shape (behind) */}
 //                         <div
@@ -154,7 +154,7 @@
 
 //                         <div className="absolute inset-0 z-20 rounded-full border border-white/5 pointer-events-none" />
 //                     </div>
-//                 </RevealAnimation>
+//                 </ConditionalReveal>
 
 //             </div>
 
@@ -293,7 +293,7 @@
 
 //                 {/* Left Column Text content wrapped in a RevealAnimation */}
 //                 <div className="w-full md:col-span-7 flex flex-col items-center md:items-start text-center md:text-left mx-auto max-w-[720px]">
-//                     <RevealAnimation direction="left" delay={0.1} offset={60} animationType="from">
+//                     <ConditionalReveal direction="left" delay={0.1} offset={60} animationType="from">
 //                         <div className="space-y-6 flex flex-col items-center md:items-start w-full">
 //                             <div className="text-xl sm:text-2xl font-medium text-white font-extrabold">Next-Gen Elite Engineering</div>
 
@@ -308,12 +308,12 @@
 //                                 <Link href="/service/web-development" className="inline-flex items-center gap-2 rounded-md bg-white/10 px-5 py-3 text-sm font-medium text-white">Our Services</Link>
 //                             </div>
 //                         </div>
-//                     </RevealAnimation>
+//                     </ConditionalReveal>
 //                 </div>
 
 //                 {/* Right Column Canvas graphic wrapped in a RevealAnimation */}
 //                 <div className="w-full md:col-span-5 flex justify-center items-center relative pt-8 md:pt-0">
-//                     <RevealAnimation direction="right" delay={0.3} offset={60} animationType="from">
+//                     <ConditionalReveal direction="right" delay={0.3} offset={60} animationType="from">
 
 //                         {/* Fluid Graphic container that switches sizing scale constraints across breakpoints */}
 //                         <div className="relative w-[75vw] h-[75vw] sm:w-[320px] sm:h-[320px] md:w-[360px] md:h-[360px] lg:w-[420px] lg:h-[420px] justify-self-center lg:justify-self-start shrink-0">
@@ -356,7 +356,7 @@
 
 //                             <div className="absolute inset-0 z-20 rounded-full border border-white/5 pointer-events-none" />
 //                         </div>
-//                     </RevealAnimation>
+//                     </ConditionalReveal>
 //                 </div>
 
 //             </div>
@@ -437,6 +437,31 @@ export function HomeHero() {
         return () => clearInterval(interval);
     }, []);
 
+      const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
+
     return (
         <section className="relative pb-18 mx-auto flex justify-center overflow-hidden bg-gradient-to-b from-[#071033] to-[#0b1630] text-white">
             <div className="absolute left-0 top-0 h-full w-full bg-[url('/src/assets/hero.webp')] bg-cover bg-center opacity-6 mix-blend-overlay pointer-events-none" />
@@ -516,7 +541,7 @@ export function HomeHero() {
 
                 {/* Left Column Text content wrapped in a RevealAnimation */}
                 <div className="w-full md:col-span-7 flex flex-col items-center md:items-start text-center md:text-left mx-auto max-w-[720px]">
-                    <RevealAnimation direction="left" delay={0.1} offset={60} animationType="from">
+                    <ConditionalReveal direction="left" delay={0.1} offset={60} animationType="from">
                         <div className="space-y-6 flex flex-col items-center md:items-start w-full">
                             <div className="text-xl sm:text-2xl font-extrabold text-white">Next-Gen Elite Engineering</div>
 
@@ -546,12 +571,12 @@ export function HomeHero() {
                                 <Link href="/service/web-development" className="inline-flex items-center gap-2 rounded-md bg-white/10 px-5 py-3 text-sm font-medium text-white">Our Services</Link>
                             </div>
                         </div>
-                    </RevealAnimation>
+                    </ConditionalReveal>
                 </div>
 
                 {/* Right Column Canvas graphic wrapped in a RevealAnimation */}
                 <div className="w-full md:col-span-5 flex justify-center items-center relative pt-8 md:pt-0">
-                    <RevealAnimation direction="right" delay={0.3} offset={60} animationType="from">
+                    <ConditionalReveal direction="right" delay={0.3} offset={60} animationType="from">
 
                         {/* Fluid Graphic container that switches sizing scale constraints across breakpoints */}
                         <div className="relative w-[75vw] h-[75vw] sm:w-[320px] sm:h-[320px] md:w-[360px] md:h-[360px] lg:w-[420px] lg:h-[420px] justify-self-center lg:justify-self-start shrink-0">
@@ -594,7 +619,7 @@ export function HomeHero() {
 
                             <div className="absolute inset-0 z-20 rounded-full border border-white/5 pointer-events-none" />
                         </div>
-                    </RevealAnimation>
+                    </ConditionalReveal>
                 </div>
 
             </div>

@@ -48,16 +48,30 @@ const featureBlocks = [
 ];
 
 export function AppDevelopmentFeatures() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-2 sm:px-6 lg:px-4 lg:py-12 bg-white text-slate-900 select-none relative overflow-hidden">
@@ -76,29 +90,29 @@ export function AppDevelopmentFeatures() {
           
           {/* Desktop Entrance Paths */}
           <div className="hidden lg:block space-y-5">
-            <RevealAnimation direction="left" duration={0.9} delay={0.1} offset={25} animationType="from">
+            <ConditionalReveal direction="left" duration={0.9} delay={0.1} offset={25} animationType="from">
               <span className="text-lg font-bold tracking-wider text-[#104cba] uppercase block">
                 Innovative App Developments
               </span>
-            </RevealAnimation>
-            <RevealAnimation direction="left" duration={1.0} delay={0.18} offset={30} animationType="from">
+            </ConditionalReveal>
+            <ConditionalReveal direction="left" duration={1.0} delay={0.18} offset={30} animationType="from">
               <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-[#08112a] leading-[1.2]">
                 Experience The Power Of <br /> Top-Tier App <br /> Development
               </h2>
-            </RevealAnimation>
-            <RevealAnimation direction="left" duration={1.1} delay={0.25} offset={25} animationType="from">
+            </ConditionalReveal>
+            <ConditionalReveal direction="left" duration={1.1} delay={0.25} offset={25} animationType="from">
               <div className="space-y-4 text-[14.5px] leading-relaxed text-slate-500 font-normal">
                 <p>In today's fast-paced digital world, mobile applications have become an essential tool for business productivity. More than ever, clients require customized software structures suited uniquely to their business scope.</p>
                 <p>Our company specializes in constructing premier cross-platform apps using robust hybrid frames. Our developers work intimately with endpoints to realize unique features natively.</p>
               </div>
-            </RevealAnimation>
-            <RevealAnimation direction="up" duration={1.0} delay={0.4} offset={20} animationType="from">
+            </ConditionalReveal>
+            <ConditionalReveal direction="up" duration={1.0} delay={0.4} offset={20} animationType="from">
               <div className="pt-2">
                 <Link href="/contact-us" className="inline-flex h-12 items-center justify-center rounded-xl bg-[#ff5c3d] hover:bg-[#e84c2e] px-8 text-[15px] font-bold text-white shadow-lg shadow-orange-500/10 active:scale-[0.98] transition-all duration-200">
                   Get A Free Quote
                 </Link>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Mobile Text Output Configuration */}
@@ -131,7 +145,7 @@ export function AppDevelopmentFeatures() {
                 
                 {/* Desktop Grid Layout Blocks (Premium Hover Aesthetics) */}
                 <div className="hidden lg:block h-full">
-                  <RevealAnimation 
+                  <ConditionalReveal 
                     direction="up" 
                     duration={0.85} 
                     delay={0.2 + index * 0.12} 
@@ -153,7 +167,7 @@ export function AppDevelopmentFeatures() {
                         {feat.description}
                       </p>
                     </div>
-                  </RevealAnimation>
+                  </ConditionalReveal>
                 </div>
 
                 {/* Mobile Framework Render (Tailwind Hardware Accelerated Tap Animation) */}

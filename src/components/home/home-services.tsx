@@ -42,14 +42,14 @@
 //       <div className="hidden lg:block w-full">
         
 //         {/* Header Block Container */}
-//         <RevealAnimation direction="down" duration={1.0} delay={0.1} offset={25} animationType="from">
+//         <ConditionalReveal direction="down" duration={1.0} delay={0.1} offset={25} animationType="from">
 //           <div className="mx-auto mb-16 text-center max-w-[980px]">
 //             <p className="text-lg font-bold uppercase tracking-[0.35em] text-[#104cba]">Our Services</p>
 //             <h2 className="mt-3 text-4xl font-bold text-[#08112a] tracking-tight leading-tight">
 //               Innovative Solutions for Businesses
 //             </h2>
 //           </div>
-//         </RevealAnimation>
+//         </ConditionalReveal>
 
 //         {/* 3-Column Desktop Grid Matrix Layout */}
 //         <div className="grid gap-10 lg:grid-cols-3 pt-4">
@@ -59,7 +59,7 @@
 //             if (index === 2) cardDirection = 'right';
 
 //             return (
-//               <RevealAnimation 
+//               <ConditionalReveal 
 //                 key={service.title} 
 //                 direction={cardDirection} 
 //                 duration={1.0}
@@ -109,7 +109,7 @@
 //                   </div>
 
 //                 </article>
-//               </RevealAnimation>
+//               </ConditionalReveal>
 //             );
 //           })}
 //         </div>
@@ -179,7 +179,7 @@
 
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link"; // Imported Next.js Router Link Linkage Block
 import { ArrowRight } from "lucide-react";
@@ -214,6 +214,30 @@ const services = [
 ];
 
 export function HomeServices() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="mx-auto w-full px-4 sm:px-8 lg:px-10 py-8 md:py-16 bg-slate-50/50 overflow-hidden select-none">
       
@@ -223,14 +247,14 @@ export function HomeServices() {
       <div className="hidden lg:block w-full">
         
         {/* Header Block Container */}
-        <RevealAnimation direction="down" duration={1.0} delay={0.1} offset={25} animationType="from">
+        <ConditionalReveal direction="down" duration={1.0} delay={0.1} offset={25} animationType="from">
           <div className="mx-auto mb-16 text-center max-w-[980px]">
             <p className="text-lg font-bold uppercase tracking-[0.35em] text-[#104cba]">Our Services</p>
             <h2 className="mt-3 text-4xl font-bold text-[#08112a] tracking-tight leading-tight">
               Innovative Solutions for Businesses
             </h2>
           </div>
-        </RevealAnimation>
+        </ConditionalReveal>
 
         {/* 3-Column Desktop Grid Matrix Layout */}
         <div className="grid gap-10 lg:grid-cols-3 pt-4">
@@ -240,7 +264,7 @@ export function HomeServices() {
             if (index === 2) cardDirection = 'right';
 
             return (
-              <RevealAnimation 
+              <ConditionalReveal 
                 key={service.title} 
                 direction={cardDirection} 
                 duration={1.0}
@@ -285,7 +309,7 @@ export function HomeServices() {
                   </div>
 
                 </article>
-              </RevealAnimation>
+              </ConditionalReveal>
             );
           })}
         </div>

@@ -17,16 +17,31 @@ import dotPattern from "@/assets/services/application_developement/dot-18.png";
 import Link from "next/link";
 
 export function AppDevelopmentTechAndOS() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
+
 
   return (
     <div className="w-full bg-white text-slate-900 select-none overflow-hidden">
@@ -42,23 +57,23 @@ export function AppDevelopmentTechAndOS() {
             
             {/* Desktop Reveal Paths */}
             <div className="hidden lg:block space-y-4">
-              <RevealAnimation direction="left" duration={0.9} delay={0.1} offset={25} animationType="from">
+              <ConditionalReveal direction="left" duration={0.9} delay={0.1} offset={25} animationType="from">
                 <span className="text-xs sm:text-lg font-bold tracking-wider text-[#104cba] uppercase block">
                   Let's Collaborate to Build Your App
                 </span>
-              </RevealAnimation>
+              </ConditionalReveal>
               
-              <RevealAnimation direction="left" duration={1.0} delay={0.18} offset={30} animationType="from">
+              <ConditionalReveal direction="left" duration={1.0} delay={0.18} offset={30} animationType="from">
                 <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#08112a] leading-tight">
                   Android & IOS Development
                 </h2>
-              </RevealAnimation>
+              </ConditionalReveal>
               
-              <RevealAnimation direction="left" duration={1.1} delay={0.25} offset={20} animationType="from">
+              <ConditionalReveal direction="left" duration={1.1} delay={0.25} offset={20} animationType="from">
                 <p className="text-[14.5px] leading-relaxed text-slate-500 font-normal">
                   Our company provides custom mobile application development services for both Android and iOS frameworks. We have a proven track record of creating customer-centric, lightweight apps that match your exact business operational metrics.
                 </p>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* Mobile Title View Block */}
@@ -80,7 +95,7 @@ export function AppDevelopmentTechAndOS() {
               {/* Process Row 1 */}
               <div className="h-full">
                 <div className="hidden lg:block">
-                  <RevealAnimation direction="up" duration={0.85} delay={0.35} offset={15} animationType="from">
+                  <ConditionalReveal direction="up" duration={0.85} delay={0.35} offset={15} animationType="from">
                     <div className="flex gap-4 items-start group">
                       <div className="h-9 w-9 shrink-0 rounded-full bg-[#104cba] text-white flex items-center justify-center font-bold text-xs shadow-sm shadow-blue-500/10 transition-transform duration-300 group-hover:scale-110">
                         1
@@ -90,7 +105,7 @@ export function AppDevelopmentTechAndOS() {
                         <p className="text-[13.5px] leading-relaxed text-slate-400">Experienced designers craft intuitive interfaces that align with your business branding rules across all device viewports.</p>
                       </div>
                     </div>
-                  </RevealAnimation>
+                  </ConditionalReveal>
                 </div>
                 
                 <div className="block lg:hidden">
@@ -109,7 +124,7 @@ export function AppDevelopmentTechAndOS() {
               {/* Process Row 2 */}
               <div className="h-full">
                 <div className="hidden lg:block">
-                  <RevealAnimation direction="up" duration={0.85} delay={0.45} offset={15} animationType="from">
+                  <ConditionalReveal direction="up" duration={0.85} delay={0.45} offset={15} animationType="from">
                     <div className="flex gap-4 items-start group">
                       <div className="h-9 w-9 shrink-0 rounded-full bg-slate-50 border border-slate-200 text-slate-400 flex items-center justify-center font-bold text-xs transition-transform duration-300 group-hover:scale-110">
                         2
@@ -119,7 +134,7 @@ export function AppDevelopmentTechAndOS() {
                         <p className="text-[13.5px] leading-relaxed text-slate-400">We incorporate native encryption protocols into backend connection logic, ensuring user confidential data is well protected.</p>
                       </div>
                     </div>
-                  </RevealAnimation>
+                  </ConditionalReveal>
                 </div>
 
                 <div className="block lg:hidden">
@@ -200,23 +215,23 @@ export function AppDevelopmentTechAndOS() {
             
             {/* Desktop Header Reveal Elements */}
             <div className="hidden lg:block space-y-4">
-              <RevealAnimation direction="right" duration={0.9} delay={0.1} offset={25} animationType="from">
+              <ConditionalReveal direction="right" duration={0.9} delay={0.1} offset={25} animationType="from">
                 <span className="text-lg font-bold text-[#104cba] tracking-wider uppercase block">
                   Application Technology Solutions
                 </span>
-              </RevealAnimation>
+              </ConditionalReveal>
               
-              <RevealAnimation direction="right" duration={1.0} delay={0.18} offset={30} animationType="from">
+              <ConditionalReveal direction="right" duration={1.0} delay={0.18} offset={30} animationType="from">
                 <h2 className="text-2xl sm:text-4xl font-bold text-[#08112a] tracking-tight leading-tight">
                   Cutting-Edge Technology Solutions For Application Development
                 </h2>
-              </RevealAnimation>
+              </ConditionalReveal>
               
-              <RevealAnimation direction="right" duration={1.1} delay={0.25} offset={20} animationType="from">
+              <ConditionalReveal direction="right" duration={1.1} delay={0.25} offset={20} animationType="from">
                 <p className="text-sm sm:text-base leading-relaxed text-slate-400 font-normal">
                   We are dedicated to providing our clients with the best technology solution frameworks. Our multi-tiered engineering setups are authorized on state-of-the-art server arrays.
                 </p>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* Mobile Typography Flow */}
@@ -235,7 +250,7 @@ export function AppDevelopmentTechAndOS() {
             {/* Dual Column Statistics Card Grid Block */}
             <div className="w-full">
               <div className="hidden lg:block">
-                <RevealAnimation direction="up" duration={1.0} delay={0.4} offset={25} animationType="from">
+                <ConditionalReveal direction="up" duration={1.0} delay={0.4} offset={25} animationType="from">
                   <div className="grid grid-cols-2 gap-6 bg-white border border-slate-100/70 rounded-3xl p-6 sm:p-8 shadow-[0_10px_35px_rgba(15,23,42,0.02)]">
                     <div className="space-y-2 border-r border-slate-100 pr-2 text-left">
                       <div className="text-3xl sm:text-4xl font-black text-[#ff5c3d] tracking-tight">09+</div>
@@ -248,7 +263,7 @@ export function AppDevelopmentTechAndOS() {
                       <p className="text-[12.5px] leading-relaxed text-slate-400 font-normal">Focus on absolute client satisfaction and long-term tech support pipelines.</p>
                     </div>
                   </div>
-                </RevealAnimation>
+                </ConditionalReveal>
               </div>
 
               <div className="block lg:hidden">
@@ -279,13 +294,13 @@ export function AppDevelopmentTechAndOS() {
           {/* Left Column Content Wrapper: Text and Direct Telephone Row */}
           <div className="space-y-6 text-center lg:text-left max-w-[520px] mx-auto lg:mx-0">
             <div className="hidden lg:block space-y-4">
-              <RevealAnimation direction="left" duration={1.0} delay={0.1} offset={30} animationType="from">
+              <ConditionalReveal direction="left" duration={1.0} delay={0.1} offset={30} animationType="from">
                 <h3 className="text-3xl lg:text-4xl font-black tracking-tight text-[#08112a] leading-tight">
                   Are Your Ready To Build <br /> Stunning App Today ?
                 </h3>
-              </RevealAnimation>
+              </ConditionalReveal>
 
-              <RevealAnimation direction="left" duration={1.1} delay={0.2} offset={20} animationType="from">
+              <ConditionalReveal direction="left" duration={1.1} delay={0.2} offset={20} animationType="from">
                 <div className="flex items-center justify-center lg:justify-start gap-4 pt-2">
                   <div className="h-11 w-11 rounded-xl bg-red-50 text-[#ff5c3d] flex items-center justify-center shrink-0 shadow-sm animate-pulse">
                     <PhoneCall className="h-5 w-5" />
@@ -294,7 +309,7 @@ export function AppDevelopmentTechAndOS() {
                     +1 (689) 267-4506
                   </a>
                 </div>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* Mobile Native Output Configuration */}

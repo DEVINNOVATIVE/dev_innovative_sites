@@ -58,16 +58,31 @@ const blockchainCards = [
 ];
 
 export function BlockchainFeatures() {
-  const [isDesktop, setIsDesktop] = useState(false);
+   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
+
 
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-8 sm:px-6 lg:px-8 lg:py-12 bg-white text-slate-900 select-none">
@@ -77,21 +92,21 @@ export function BlockchainFeatures() {
           ====================================================================== */}
       <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 lg:mb-20">
         <div className="hidden lg:block space-y-3">
-          <RevealAnimation direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
+          <ConditionalReveal direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
             <span className="text-xs sm:text-lg font-bold tracking-wider text-[#104cba]  block">
               Innovative Blockchain Solutions For Business Transformation
             </span>
-          </RevealAnimation>
-          <RevealAnimation direction="up" duration={0.9} delay={0.15} offset={25} animationType="from">
+          </ConditionalReveal>
+          <ConditionalReveal direction="up" duration={0.9} delay={0.15} offset={25} animationType="from">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#08112a]">
               Blockchain Development
             </h2>
-          </RevealAnimation>
-          <RevealAnimation direction="up" duration={1.0} delay={0.2} offset={20} animationType="from">
+          </ConditionalReveal>
+          <ConditionalReveal direction="up" duration={1.0} delay={0.2} offset={20} animationType="from">
             <p className="text-sm sm:text-base leading-relaxed text-slate-400 font-normal max-w-2xl mx-auto">
               We provide innovative and cutting-edge blockchain development services that help businesses handle challenges with absolute security metrics. Our developers complete customized projects across various sectors.
             </p>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         {/* Mobile Safe Static Fallback Header Layer */}
@@ -117,7 +132,7 @@ export function BlockchainFeatures() {
             
             {/* Desktop View Map Grid Block (GSAP Directional Stagger Entrance) */}
             <div className="hidden lg:block h-full">
-              <RevealAnimation 
+              <ConditionalReveal 
                 direction="up" 
                 duration={0.85} 
                 delay={0.15 + (index % 3) * 0.12} 
@@ -145,7 +160,7 @@ export function BlockchainFeatures() {
                     {card.description}
                   </p>
                 </div>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* Mobile View Map Grid Block (Tailwind Hardware Touch Scale Optimizations) */}

@@ -10,7 +10,30 @@ import imgDashboardChart from "@/assets/services/ecommerce/MicrosoftTeams-image-
 import Link from "next/link";
 
 export function EcommerceHero() {
- 
+   const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="relative w-full bg-[#071033] text-white overflow-hidden select-none flex items-center px-4 sm:px-6 lg:px-8 py-8 ">
@@ -24,31 +47,31 @@ export function EcommerceHero() {
           
           {/* Desktop Entrance Paths (GSAP Triggers) */}
           <div className="hidden lg:block space-y-4">
-            <RevealAnimation direction="left" duration={0.9} delay={0.1} offset={25} animationType="from">
+            <ConditionalReveal direction="left" duration={0.9} delay={0.1} offset={25} animationType="from">
               <span className="text-xs sm:text-lg font-bold tracking-widest text-[#4e9cf7] uppercase block">
                 E-commerce Development & Solution Provider
               </span>
-            </RevealAnimation>
+            </ConditionalReveal>
             
-            <RevealAnimation direction="left" duration={1.0} delay={0.18} offset={30} animationType="from">
+            <ConditionalReveal direction="left" duration={1.0} delay={0.18} offset={30} animationType="from">
               <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold tracking-tight text-white leading-[1.15]">
                 Boost Your Sales Online with Our E-commerce Solutions
               </h1>
-            </RevealAnimation>
+            </ConditionalReveal>
             
-            <RevealAnimation direction="left" duration={1.1} delay={0.25} offset={20} animationType="from">
+            <ConditionalReveal direction="left" duration={1.1} delay={0.25} offset={20} animationType="from">
               <p className="text-[14.5px] sm:text-base leading-relaxed text-white/80 font-normal">
                 At our company, we specialize in delivering cutting-edge e-commerce platforms and solutions that help businesses unlock to match their full potential in the digital market world.
               </p>
-            </RevealAnimation>
+            </ConditionalReveal>
             
-            <RevealAnimation direction="up" duration={0.9} delay={0.35} offset={15} animationType="from">
+            <ConditionalReveal direction="up" duration={0.9} delay={0.35} offset={15} animationType="from">
               <div className="pt-4">
                 <Link href="/contact-us" className="inline-flex h-12 items-center justify-center rounded-xl bg-[#ff5c3d] hover:bg-[#e84c2e] px-8 text-sm font-bold text-white shadow-lg shadow-orange-500/20 active:scale-[0.98] transition-all duration-200">
                   Get A Free Quote
                 </Link>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Mobile Safe Typography Flow (Built-In Zero Flash Styles) */}

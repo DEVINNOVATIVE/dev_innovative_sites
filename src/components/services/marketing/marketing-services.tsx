@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import RevealAnimation from "../../animation/RevealAnimation";
 
@@ -31,6 +31,30 @@ const marketingCards = [
 ];
 
 export function DigitalMarketingServices() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-12 sm:px-6 lg:px-8 lg:py-24 bg-white text-slate-900 select-none">
       
@@ -40,21 +64,21 @@ export function DigitalMarketingServices() {
       <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 md:mb-20">
         {/* Desktop Animating Header Block */}
         <div className="hidden lg:block space-y-3">
-          <RevealAnimation direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
+          <ConditionalReveal direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
             <span className="text-sm sm:text-lg font-bold tracking-wider text-[#104cba]  block">
               Discover Our Range Of Services To Boost Your Business
             </span>
-          </RevealAnimation>
-          <RevealAnimation direction="up" duration={0.9} delay={0.16} offset={25} animationType="from">
+          </ConditionalReveal>
+          <ConditionalReveal direction="up" duration={0.9} delay={0.16} offset={25} animationType="from">
             <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-bold tracking-tight text-[#08112a]">
               Digital Marketing Services
             </h2>
-          </RevealAnimation>
-          <RevealAnimation direction="up" duration={1.0} delay={0.22} offset={20} animationType="from">
+          </ConditionalReveal>
+          <ConditionalReveal direction="up" duration={1.0} delay={0.22} offset={20} animationType="from">
             <p className="text-sm sm:text-base leading-relaxed text-slate-400 font-normal max-w-2xl mx-auto">
               Our digital marketing services are designed to help businesses of all sizes increase their online visibility, attract more traffic to their website, and ultimately drive more conversions and revenue.
             </p>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         {/* Mobile Static Fast Paint Header Block */}
@@ -80,7 +104,7 @@ export function DigitalMarketingServices() {
             
             {/* Desktop View Card System Layer (GSAP Trigger Enabled) */}
             <div className="hidden lg:block h-full relative">
-              <RevealAnimation 
+              <ConditionalReveal 
                 direction="up" 
                 duration={0.9} 
                 delay={0.15 + index * 0.12} 
@@ -114,7 +138,7 @@ export function DigitalMarketingServices() {
                   </div>
 
                 </div>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* Mobile View Card System Layer (Instant Hardware Paint Taps) */}

@@ -72,16 +72,30 @@ const plans = [
 ];
 
 export function HostingPricing() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section id="pricing" className="mx-auto w-full max-w-[1400px] px-4 py-16 sm:px-6 lg:px-8 bg-white text-slate-900 select-none overflow-hidden">
@@ -101,7 +115,7 @@ export function HostingPricing() {
           ====================================================================== */}
       <div className="hidden lg:grid gap-8 grid-cols-3 items-stretch max-w-6xl mx-auto pt-4">
         {plans.map((plan, index) => (
-          <RevealAnimation 
+          <ConditionalReveal 
             key={plan.title}
             direction="up" 
             duration={0.9} 
@@ -152,7 +166,7 @@ export function HostingPricing() {
                 {plan.buttonText}
               </button>
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
         ))}
       </div>
 

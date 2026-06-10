@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import RevealAnimation from "../../animation/RevealAnimation";
 
@@ -34,6 +34,30 @@ const servicesGrid = [
 ];
 
 export function FeaturedServices() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative w-full bg-white px-4 sm:px-8 lg:px-12 xl:px-16 pb-16 sm:pb-24 text-slate-900 select-none overflow-hidden">
       
@@ -44,17 +68,17 @@ export function FeaturedServices() {
         
         {/* ================= HEADER SECTION ================= */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <RevealAnimation direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
+          <ConditionalReveal direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
             <span className="text-lg font-bold text-[#104cba] tracking-wide uppercase block">
               Featured Services
             </span>
-          </RevealAnimation>
+          </ConditionalReveal>
           
-          <RevealAnimation direction="up" duration={0.9} delay={0.15} offset={25} animationType="from">
+          <ConditionalReveal direction="up" duration={0.9} delay={0.15} offset={25} animationType="from">
             <h2 className="text-2xl sm:text-4xl xl:text-[42px] font-bold tracking-tight text-[#08112a] leading-tight px-2">
               Unleashing The Potential Of <br className="hidden sm:inline" /> Technology
             </h2>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         {/* ================= SERVICES ROW GRID ================= */}
@@ -63,7 +87,7 @@ export function FeaturedServices() {
         */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xl:gap-10 items-start">
           {servicesGrid.map((service, idx) => (
-            <RevealAnimation 
+            <ConditionalReveal 
               key={service.title}
               direction="up" 
               duration={0.9} 
@@ -99,7 +123,7 @@ export function FeaturedServices() {
                   </div>
                 </div>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           ))}
         </div>
 

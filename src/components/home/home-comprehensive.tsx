@@ -143,7 +143,7 @@
           
 //           {/* ================= LEFT COLUMN: IMAGE WITH LIQUID WATER RIPPLE ANIMATION ================= */}
 //           <div className="relative flex justify-center lg:justify-start w-full order-first">
-//             <RevealAnimation direction={isDesktop ? "left" : "up"} duration={1.0} delay={0.1} offset={40} animationType="from">
+//             <ConditionalReveal direction={isDesktop ? "left" : "up"} duration={1.0} delay={0.1} offset={40} animationType="from">
               
 //               {/* FIXED FLUID WIDTH MATRIX: Wrapped inside a single node structure */}
 //               <div className="relative">
@@ -174,12 +174,12 @@
 //                 />
 //               </div>
 
-//             </RevealAnimation>
+//             </ConditionalReveal>
 //           </div>
 
 //           {/* ================= RIGHT COLUMN: COPY CONTENT & PROGRESS TRACKS ================= */}
 //           <div className="w-full mx-auto max-w-xl lg:max-w-none text-left">
-//             <RevealAnimation direction={isDesktop ? "right" : "up"} duration={1.0} delay={0.2} offset={40} animationType="from">
+//             <ConditionalReveal direction={isDesktop ? "right" : "up"} duration={1.0} delay={0.2} offset={40} animationType="from">
               
 //               {/* FIXED PROPS EXPECTATION: Enclosed inside a single core parent div shell to safely receive class injection */}
 //               <div className="space-y-6">
@@ -203,7 +203,7 @@
 //                 {/* Progress Bars Container */}
 //                 <div className="pt-2 space-y-5 w-full">
 //                   {metrics.map((item, metricIdx) => (
-//                     <RevealAnimation 
+//                     <ConditionalReveal 
 //                       key={item.label}
 //                       direction="up" 
 //                       duration={0.85} 
@@ -225,12 +225,12 @@
 //                           />
 //                         </div>
 //                       </div>
-//                     </RevealAnimation>
+//                     </ConditionalReveal>
 //                   ))}
 //                 </div>
 
 //               </div>
-//             </RevealAnimation>
+//             </ConditionalReveal>
 //           </div>
 
 //         </div>
@@ -259,7 +259,7 @@
 
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import RevealAnimation from '../animation/RevealAnimation';
 
@@ -272,6 +272,30 @@ const metrics = [
 ];
 
 export function ComprehensiveSolution() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative overflow-hidden bg-white px-4 sm:px-8 lg:px-10 py-8 md:py-16 text-slate-900 select-none">
       <div className="relative z-10 mx-auto max-w-[1240px]">
@@ -283,7 +307,7 @@ export function ComprehensiveSolution() {
           
           {/* Left Column: Animated Liquid Water Image Canvas */}
           <div className="relative flex justify-center lg:justify-start w-full">
-            <RevealAnimation direction="left" duration={1.0} delay={0.1} offset={40} animationType="from">
+            <ConditionalReveal direction="left" duration={1.0} delay={0.1} offset={40} animationType="from">
               <div className="relative">
                 <div 
                   className="relative w-[460px] h-[460px] overflow-hidden p-3 bg-gradient-to-tr from-blue-600 via-blue-400 to-purple-400 shadow-[0_20px_50px_rgba(59,130,246,0.12)] animate-[waterFluidLoop_14s_ease-in-out_infinite] shrink-0"
@@ -308,7 +332,7 @@ export function ComprehensiveSolution() {
                   style={{ borderRadius: "42% 58% 70% 30% / 45% 45% 55% 55%" }}
                 />
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Right Column: Copywriting Content & Staggered Progress Bars */}
@@ -331,7 +355,7 @@ export function ComprehensiveSolution() {
             {/* Progress Bars Stack */}
             <div className="pt-2 space-y-5 w-full">
               {metrics.map((item, metricIdx) => (
-                <RevealAnimation 
+                <ConditionalReveal 
                   key={item.label}
                   direction="up" 
                   duration={0.85} 
@@ -352,7 +376,7 @@ export function ComprehensiveSolution() {
                       />
                     </div>
                   </div>
-                </RevealAnimation>
+                </ConditionalReveal>
               ))}
             </div>
           </div>

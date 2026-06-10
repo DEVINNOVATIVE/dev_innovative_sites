@@ -10,16 +10,30 @@ import { ContactFormCard } from "../../contact-us";
 import imgPlant from "@/assets/services/web_hosting/demo15-img14.png";
 
 export function HostingContact() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-16 sm:px-6 lg:px-8 bg-white text-slate-900 select-none overflow-hidden">
@@ -84,7 +98,7 @@ export function HostingContact() {
           
           {/* Desktop Responsive Split Implementation */}
           <div className="hidden lg:block flex-1 w-full">
-            <RevealAnimation direction="right" duration={1.0} delay={0.2} offset={40} animationType="from">
+            <ConditionalReveal direction="right" duration={1.0} delay={0.2} offset={40} animationType="from">
               <div className="w-full mx-auto max-w-xl lg:max-w-none text-left">
                 <ContactFormCard
                   badgeText="Get in Touch"
@@ -92,7 +106,7 @@ export function HostingContact() {
                   showLiveIndicator={true}
                 />
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Mobile Safe Instant Hardware Rendering Fallback */}

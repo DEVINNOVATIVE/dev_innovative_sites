@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import RevealAnimation from "../../animation/RevealAnimation";
 import { ContactFormCard } from "@/components/contact-us"; // Importing your existing dynamic form card component
@@ -9,6 +9,30 @@ import { ContactFormCard } from "@/components/contact-us"; // Importing your exi
 import assistanceIllustration from "@/assets/services/web_developement/contact.png"; 
 
 export function NeedAssistanceSection() {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
   return (
     <section className="relative w-full bg-white px-4 sm:px-8 lg:px-12 xl:px-16 py-8 sm:py-16 text-slate-900 select-none overflow-hidden">
       <div className="mx-auto max-w-[1240px]">
@@ -22,7 +46,7 @@ export function NeedAssistanceSection() {
               Switches order on mobile devices to allow the header text and inputs to ride on top naturally.
           */}
           <div className="w-full flex justify-center items-center order-last lg:order-first">
-            <RevealAnimation direction="up" duration={1.1} delay={0.1} offset={35} animationType="from">
+            <ConditionalReveal direction="up" duration={1.1} delay={0.1} offset={35} animationType="from">
               <div className="group relative">
                 
                 {/* Illustration Wrapper Box: 
@@ -40,7 +64,7 @@ export function NeedAssistanceSection() {
                 </div>
                 
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* ================= RIGHT COLUMN: SECURITY INTEGRATED CONTACT FORM ================= */}

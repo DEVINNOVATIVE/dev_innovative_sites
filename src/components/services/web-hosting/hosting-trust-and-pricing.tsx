@@ -17,16 +17,30 @@ const trustedCards = [
 ];
 
 export function HostingTrustAndPricing() {
-  const [isDesktop, setIsDesktop] = useState(false);
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <div className="w-full bg-white text-slate-900 select-none">
@@ -38,7 +52,7 @@ export function HostingTrustAndPricing() {
         
         {/* Desktop Animated Version */}
         <div className="hidden lg:block">
-          <RevealAnimation direction="up" duration={1.0} delay={0.1} offset={35} animationType="from">
+          <ConditionalReveal direction="up" duration={1.0} delay={0.1} offset={35} animationType="from">
             <div className="relative overflow-hidden rounded-3xl bg-slate-50 border border-slate-100 p-12 text-center max-w-[1240px] mx-auto">
               <div className="absolute top-0 right-0 w-32 h-32 opacity-10 pointer-events-none">
                 <Image src={decoBackdrop} alt="Decorative geometry mesh" fill className="object-contain" />
@@ -64,7 +78,7 @@ export function HostingTrustAndPricing() {
                 </form>
               </div>
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
         {/* Mobile / Tablet Instant Flat Version */}
@@ -120,7 +134,7 @@ export function HostingTrustAndPricing() {
           {/* ================= DESKTOP VIEW CARDS GRID MATRIX ================= */}
           <div className="hidden lg:grid gap-8 lg:grid-cols-3 text-slate-950">
             {trustedCards.map((card, index) => (
-              <RevealAnimation 
+              <ConditionalReveal 
                 key={card.title} 
                 direction="up" 
                 duration={0.9} 
@@ -142,7 +156,7 @@ export function HostingTrustAndPricing() {
                     {card.title}
                   </h4>
                 </div>
-              </RevealAnimation>
+              </ConditionalReveal>
             ))}
           </div>
 

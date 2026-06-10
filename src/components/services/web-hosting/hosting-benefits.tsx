@@ -8,16 +8,30 @@ import RevealAnimation from "../../animation/RevealAnimation";
 import infoIllustration from "@/assets/services/web_hosting/demo15-img4.png";
 
 export function HostingBenefits() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-16 sm:px-8 lg:px-10 bg-white select-none overflow-hidden">
@@ -29,28 +43,28 @@ export function HostingBenefits() {
         
         {/* Left Column: Copywriting & Numbered Lists */}
         <div className="space-y-6 text-left max-w-[540px]">
-          <RevealAnimation direction="left" duration={0.9} delay={0.1} offset={30} animationType="from">
+          <ConditionalReveal direction="left" duration={0.9} delay={0.1} offset={30} animationType="from">
             <span className="text-lg font-bold text-[#104cba] tracking-wider uppercase block">
               Why Choose our web hosting?
             </span>
-          </RevealAnimation>
+          </ConditionalReveal>
 
-          <RevealAnimation direction="left" duration={1.0} delay={0.18} offset={35} animationType="from">
+          <ConditionalReveal direction="left" duration={1.0} delay={0.18} offset={35} animationType="from">
             <h2 className="text-4xl font-bold text-[#08112a] tracking-tight leading-tight">
               Best Reliable Web Hosting Services
             </h2>
-          </RevealAnimation>
+          </ConditionalReveal>
 
-          <RevealAnimation direction="left" duration={1.1} delay={0.25} offset={25} animationType="from">
+          <ConditionalReveal direction="left" duration={1.1} delay={0.25} offset={25} animationType="from">
             <p className="text-[15px] leading-relaxed text-slate-500 font-normal">
               We provide easy-to-use and reliable hosting solutions for custom sites as well as blogs. Our platform is built on modern infrastructure layouts that allow you to focus on creating your website, online store, or blog, without worrying about the technical aspects of hosting.
             </p>
-          </RevealAnimation>
+          </ConditionalReveal>
           
           {/* Detailed Points Container */}
           <div className="space-y-6 pt-4 border-t border-slate-100">
             {/* Point 01 */}
-            <RevealAnimation direction="up" duration={0.85} delay={0.4} offset={20} animationType="from">
+            <ConditionalReveal direction="up" duration={0.85} delay={0.4} offset={20} animationType="from">
               <div className="flex gap-4 items-start group">
                 <div className="h-10 w-10 shrink-0 rounded-full bg-red-50 text-[#ff5c3d] flex items-center justify-center font-bold text-sm transition-transform duration-300 group-hover:scale-105">
                   01
@@ -64,10 +78,10 @@ export function HostingBenefits() {
                   </p>
                 </div>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
 
             {/* Point 02 */}
-            <RevealAnimation direction="up" duration={0.85} delay={0.5} offset={20} animationType="from">
+            <ConditionalReveal direction="up" duration={0.85} delay={0.5} offset={20} animationType="from">
               <div className="flex gap-4 items-start group">
                 <div className="h-10 w-10 shrink-0 rounded-full bg-red-50 text-[#ff5c3d] flex items-center justify-center font-bold text-sm transition-transform duration-300 group-hover:scale-105">
                   02
@@ -81,13 +95,13 @@ export function HostingBenefits() {
                   </p>
                 </div>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
         </div>
 
         {/* Right Column: Animated Illustration Canvas */}
         <div className="flex justify-center w-full">
-          <RevealAnimation direction="right" duration={1.1} delay={0.2} offset={40} animationType="from">
+          <ConditionalReveal direction="right" duration={1.1} delay={0.2} offset={40} animationType="from">
             <div className="relative w-full max-w-[480px] aspect-[1.12/1]">
               <Image 
                 src={infoIllustration} 
@@ -97,7 +111,7 @@ export function HostingBenefits() {
                 sizes="480px"
               />
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
       </div>

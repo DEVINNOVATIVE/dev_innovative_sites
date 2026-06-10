@@ -10,16 +10,30 @@ import imgCtaIllustration from "@/assets/services/ecommerce/MicrosoftTeams-image
 import Link from "next/link";
 
 export function EcommerceCallToAction() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24 bg-white text-slate-900 select-none overflow-hidden relative">
@@ -37,36 +51,36 @@ export function EcommerceCallToAction() {
           {/* Desktop Intercept Entry Paths */}
           <div className="hidden lg:block space-y-5">
             {/* Pulsing Phone Circle Icon Accent */}
-            <RevealAnimation direction="up" duration={0.8} delay={0.1} offset={15} animationType="from">
+            <ConditionalReveal direction="up" duration={0.8} delay={0.1} offset={15} animationType="from">
               <div className="mx-auto h-12 w-12 rounded-full bg-red-50 text-[#ff5c3d] flex items-center justify-center border border-red-100 shadow-sm animate-pulse">
                 <PhoneCall className="h-8 w-8" />
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
 
-            <RevealAnimation direction="up" duration={0.9} delay={0.18} offset={25} animationType="from">
+            <ConditionalReveal direction="up" duration={0.9} delay={0.18} offset={25} animationType="from">
               <h2 className="text-3xl xl:text-[34px] font-bold tracking-tight text-[#08112a] leading-tight">
                 Are Your Ready To Build <br /> Ecommerce Web & App <br /> Today ?
               </h2>
-            </RevealAnimation>
+            </ConditionalReveal>
             
             <div className="space-y-1 pt-1">
-              <RevealAnimation direction="up" duration={1.0} delay={0.24} offset={15} animationType="from">
+              <ConditionalReveal direction="up" duration={1.0} delay={0.24} offset={15} animationType="from">
                 <span className="text-[11px] font-bold tracking-widest text-slate-400 uppercase block">
                   Contact Us For More Details !
                 </span>
-              </RevealAnimation>
+              </ConditionalReveal>
               
-              <RevealAnimation direction="up" duration={1.0} delay={0.3} offset={20} animationType="from">
+              <ConditionalReveal direction="up" duration={1.0} delay={0.3} offset={20} animationType="from">
                 <span
                 
                   className="text-2xl xl:text-3xl font-black tracking-tight text-[#08112a] hover:text-[#104cba] transition-colors duration-300 block"
                 >
                   +1 (689) 267-4506
                 </span>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
-            <RevealAnimation direction="up" duration={0.9} delay={0.4} offset={15} animationType="from">
+            <ConditionalReveal direction="up" duration={0.9} delay={0.4} offset={15} animationType="from">
               <div className="pt-4 flex justify-center">
                 <Link
                   href="/contact-us" 
@@ -75,7 +89,7 @@ export function EcommerceCallToAction() {
                   Contact Us Today
                 </Link>
               </div>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Mobile Safe Zero Flash Fallback Structure */}

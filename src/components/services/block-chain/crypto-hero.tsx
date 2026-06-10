@@ -31,16 +31,30 @@ const icoServices = [
 ];
 
 export function CryptoICOServices() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-8 sm:px-6 lg:px-8 lg:py-12 bg-white text-slate-900 select-none overflow-hidden">
@@ -53,29 +67,29 @@ export function CryptoICOServices() {
         {/* Left Side: Text and Bulleted Content (7/12 Grid Columns) */}
         <div className="col-span-7 space-y-6 text-left max-w-[620px]">
           <div className="space-y-4">
-            <RevealAnimation direction="left" duration={0.9} delay={0.1} offset={25} animationType="from">
+            <ConditionalReveal direction="left" duration={0.9} delay={0.1} offset={25} animationType="from">
               <span className="text-xs sm:text-lg font-bold tracking-wider text-[#104cba] uppercase block">
                 Crypto ICO Services !
               </span>
-            </RevealAnimation>
+            </ConditionalReveal>
             
-            <RevealAnimation direction="left" duration={1.0} delay={0.18} offset={30} animationType="from">
+            <ConditionalReveal direction="left" duration={1.0} delay={0.18} offset={30} animationType="from">
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#08112a] leading-tight">
                 Our Crypto ICO Services <br /> Include !
               </h2>
-            </RevealAnimation>
+            </ConditionalReveal>
             
-            <RevealAnimation direction="left" duration={1.1} delay={0.25} offset={20} animationType="from">
+            <ConditionalReveal direction="left" duration={1.1} delay={0.25} offset={20} animationType="from">
               <p className="text-base leading-relaxed text-slate-500 font-normal">
                 We provide end-to-end solutions for launching initial coin offerings (ICOs) and marketing campaigns. Our team of experts has extensive experience in the crypto industry, and we are well-versed in the latest trends and technologies.
               </p>
-            </RevealAnimation>
+            </ConditionalReveal>
           </div>
 
           {/* Staggered Row Service Bullets */}
           <div className="space-y-5 pt-4 border-t border-slate-100">
             {icoServices.map((service, index) => (
-              <RevealAnimation 
+              <ConditionalReveal 
                 key={service.title} 
                 direction="up" 
                 duration={0.8} 
@@ -94,14 +108,14 @@ export function CryptoICOServices() {
                     </p>
                   </div>
                 </div>
-              </RevealAnimation>
+              </ConditionalReveal>
             ))}
           </div>
         </div>
 
         {/* Right Side: Fluid Isometric Crypto App Illustration (5/12 Grid Columns) */}
         <div className="col-span-5 flex justify-end w-full relative">
-          <RevealAnimation direction="right" duration={1.1} delay={0.2} offset={45} animationType="from">
+          <ConditionalReveal direction="right" duration={1.1} delay={0.2} offset={45} animationType="from">
             <div className="relative w-full max-w-[440px] aspect-[1.1/1]" style={{ animation: "subtleFloat 6s ease-in-out infinite" }}>
               <Image 
                 src={icoIllustration} 
@@ -111,7 +125,7 @@ export function CryptoICOServices() {
                 sizes="440px"
               />
             </div>
-          </RevealAnimation>
+          </ConditionalReveal>
         </div>
 
       </div>

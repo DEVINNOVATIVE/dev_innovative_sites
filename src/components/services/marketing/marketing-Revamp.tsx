@@ -57,16 +57,30 @@ const analyticMetrics = [
 ];
 
 export function DigitalMarketingRevamp() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <div className="w-full bg-white text-slate-900 select-none overflow-hidden">
@@ -88,21 +102,21 @@ export function DigitalMarketingRevamp() {
           {/* Header Description Stack */}
           <div className="text-center max-w-3xl mx-auto space-y-4">
             <div className="hidden lg:block space-y-3">
-              <RevealAnimation direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
+              <ConditionalReveal direction="up" duration={0.8} delay={0.1} offset={20} animationType="from">
                 <span className="text-xs sm:text-lg font-bold tracking-wider text-[#104cba]  block">
                   Services To Build Your Brand !
                 </span>
-              </RevealAnimation>
-              <RevealAnimation direction="up" duration={0.9} delay={0.16} offset={25} animationType="from">
+              </ConditionalReveal>
+              <ConditionalReveal direction="up" duration={0.9} delay={0.16} offset={25} animationType="from">
                 <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-bold tracking-tight text-[#08112a] leading-tight">
                   Revamp Your Online Presence With Our <br /> Digital Marketing Services
                 </h2>
-              </RevealAnimation>
-              <RevealAnimation direction="up" duration={1.0} delay={0.22} offset={20} animationType="from">
+              </ConditionalReveal>
+              <ConditionalReveal direction="up" duration={1.0} delay={0.22} offset={20} animationType="from">
                 <p className="text-sm sm:text-base leading-relaxed text-slate-400 font-normal max-w-2xl mx-auto">
                   Our company provides a comprehensive range of digital marketing services to help businesses boost their online presence and reach their target audience. Here are some of the digital marketing services we offer:
                 </p>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             <div className="block lg:hidden space-y-2.5 px-2">
@@ -125,7 +139,7 @@ export function DigitalMarketingRevamp() {
                 
                 {/* Desktop Premium Card Render Cell */}
                 <div className="hidden lg:block h-full">
-                  <RevealAnimation 
+                  <ConditionalReveal 
                     direction="up" 
                     duration={0.85} 
                     delay={0.15 + (index % 3) * 0.1} 
@@ -148,7 +162,7 @@ export function DigitalMarketingRevamp() {
                         </p>
                       </div>
                     </div>
-                  </RevealAnimation>
+                  </ConditionalReveal>
                 </div>
 
                 {/* Mobile Tap Clean Framework Optimization Fallback */}
@@ -191,7 +205,7 @@ export function DigitalMarketingRevamp() {
           {/* Desktop Sync Grid Counters */}
           <div className="relative z-10 hidden lg:grid grid-cols-4 gap-4 text-center items-center divide-x divide-white/10">
             {analyticMetrics.map((item, index) => (
-              <RevealAnimation 
+              <ConditionalReveal 
                 key={`banner-desktop-${item.label}`}
                 direction="up" 
                 duration={1.0} 
@@ -206,7 +220,7 @@ export function DigitalMarketingRevamp() {
                   </div>
                   <p className="text-xs font-bold text-white/80 uppercase tracking-widest">{item.label}</p>
                 </div>
-              </RevealAnimation>
+              </ConditionalReveal>
             ))}
           </div>
 

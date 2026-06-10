@@ -38,16 +38,30 @@ const featureData = [
 ];
 
 export function HostingFeatures() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    // Check screen size on mount
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // 1024px matches Tailwind's 'lg' breakpoint
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Helper component to conditionally wrap children with RevealAnimation
+  const ConditionalReveal = ({ 
+    children, 
+    ...props 
+  }: React.ComponentProps<typeof RevealAnimation> & { children: React.ReactNode }) => {
+    if (!isLargeScreen) {
+      return <>{children}</>;
+    }
+    return <RevealAnimation {...props}>{children}</RevealAnimation>;
+  };
 
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-4 sm:px-6 lg:px-8 bg-white select-none">
@@ -59,7 +73,7 @@ export function HostingFeatures() {
             
             {/* ================= DESKTOP SIDE: GSAP SCROLLTRIGGER ENTRY ================= */}
             <div className="hidden lg:block h-full">
-              <RevealAnimation 
+              <ConditionalReveal 
                 direction="up" 
                 duration={0.8} 
                 delay={0.1 + index * 0.12} 
@@ -86,7 +100,7 @@ export function HostingFeatures() {
                   </p>
                   
                 </div>
-              </RevealAnimation>
+              </ConditionalReveal>
             </div>
 
             {/* ================= MOBILE SIDE: INSTANT HARDWARE PAINT ================= */}
