@@ -519,28 +519,63 @@ export function HomeHero() {
                     <RevealAnimation direction="left" delay={0.1} offset={60} animationType="from">
                         <div className="space-y-6 flex flex-col items-center md:items-start w-full">
                             <div className="text-xl sm:text-2xl font-extrabold text-white">Next-Gen Elite Engineering</div>
+                            {/* <h1 className="text-[20px] sm:text-3xl whitespace-nowrap  leading-tight font-extrabold tracking-tight md:text-5xl sm:whitespace-normal">
 
-                            <h1 className="text-[20px] sm:text-4xl md:text-2xl lg:text-5xl font-extrabold tracking-tight leading-tight whitespace-nowrap md:whitespace-normal">
-                                {/* First line on desktop, inline on mobile */}
-                                <span className="inline md:block md:mb-1">Consensus AI &</span>
+                                Consensus AI &<br className="hidden sm:block" />
 
-                                {/* Locked horizontal row container */}
-                                <span className="inline-flex">
-                                    <span className="relative inline-block  w-34 md:w-40 lg:w-[313px]   overflow-hidden align-bottom">
-                                        <span
-                                            className={`inline-block transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${animateText
+
+                                <span className="px-px md:px-0 inline-block relative align-bottom">
+                                    <span className="invisible select-none" aria-hidden="true">
+                                        Decentralized
+                                    </span>
+                                    <span
+                                        className={`absolute inset-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${animateText
                                                 ? "opacity-100 translate-y-0 text-[#50a2ff]"
                                                 : "opacity-0 -translate-y-2 text-orange-400"
-                                                }`}
-                                        >
-                                            {currentWord}
-                                        </span>
+                                            }`}
+                                    >
+                                        {currentWord}
+                                    </span>
+                                </span>
+
+                                Engineering
+
+                            </h1> */}
+
+                            <h1 className="text-[20px] sm:text-3xl whitespace-nowrap leading-tight font-extrabold tracking-tight md:text-5xl sm:whitespace-normal">
+                                Consensus AI &<br className="hidden sm:block" />
+
+                                <span className="inline-block relative align-bottom">
+                                    {/* Holds width of widest word — never visible */}
+                                    <span className="invisible select-none px-1 md:pr-1" aria-hidden="true">
+                                        Decentralized
                                     </span>
 
-                                    {/* This text is now completely locked in place */}
-                                    <span className="shrink-0">Engineering</span>
+                                    {/* Word A — Decentralized */}
+                                    <span
+                                        className={`absolute inset-0 text-[#50a2ff] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${currentWord === "Decentralized" && animateText
+                                                ? "opacity-100 translate-y-0"
+                                                : "opacity-0 -translate-y-3"
+                                            }`}
+                                    >
+                                        Decentralized
+                                    </span>
+
+                                    {/* Word B — Architectural */}
+                                    <span
+                                        className={`absolute inset-0 text-[#50a2ff] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${currentWord === "Architectural" && animateText
+                                                ? "opacity-100 translate-y-0"
+                                                : "opacity-0 -translate-y-3"
+                                            }`}
+                                    >
+                                        Architectural
+                                    </span>
                                 </span>
+
+                                <span>Engineering</span>
                             </h1>
+
+
 
                             <p className="max-w-[560px] text-sm text-[#cbd5e1] font-normal">
                                 We build intelligent, secure, and highly scalable digital ecosystems using Consensus AI & Sovereign Systems Engineering. Moving businesses from standard web deployment to robust enterprise infrastructure.
