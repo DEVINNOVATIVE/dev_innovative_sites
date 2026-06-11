@@ -524,7 +524,7 @@ export function HomeHero() {
                                 Consensus AI &<br className="hidden sm:block" />
                                 
                                 {/* Responsive Text swapper block wrapper preventing string wrap collisions */}
-                                <span className="px-0.5 md:px-0 inline-block relative overflow-hidden align-bottom">
+                                <span className="px-px md:px-0 inline-block relative overflow-hidden align-bottom">
                                     <span
                                         className={`inline-block transition-all w-[11ch]  duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                                             animateText 
