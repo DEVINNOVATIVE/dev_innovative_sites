@@ -42,6 +42,7 @@ const navItems: NavItem[] = [
       { label: "Blockchain Development", href: "/service/blockchain-development" },
       { label: "Digital Marketing", href: "/service/digital-marketing" },
       { label: "Ecommerce Development", href: "/service/ecommerce-development" },
+      { label: "Cyber Resilience Engineering", href: "/service/cyber-resilience-engineering" },
     ],
   },
   { label: "Hire Developer", href: "/hire-developer" },
@@ -125,7 +126,7 @@ export function Header() {
                           <Link
                             key={child.label}
                             href={child.href}
-                            className={`block px-4 py-2.5 text-[15px] font-bold rounded-xl transition-all ${
+                            className={`block px-4 py-2.5 text-nowrap text-[15px] font-bold rounded-xl transition-all ${
                               childActive ? "text-blue-600 bg-blue-50/60" : "text-neutral-600 hover:text-blue-600 hover:bg-neutral-50"
                             }`}
                           >
