@@ -520,13 +520,13 @@ export function HomeHero() {
                         <div className="space-y-6 flex flex-col items-center md:items-start w-full">
                             <div className="text-xl sm:text-2xl font-extrabold text-white">Next-Gen Elite Engineering</div>
 
-                            <h1 className="text-[20px] sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight whitespace-nowrap md:whitespace-normal">
+                            <h1 className="text-[20px] sm:text-4xl md:text-2xl lg:text-5xl font-extrabold tracking-tight leading-tight whitespace-nowrap md:whitespace-normal">
                                 {/* First line on desktop, inline on mobile */}
                                 <span className="inline md:block md:mb-1">Consensus AI &</span>
 
                                 {/* Locked horizontal row container */}
                                 <span className="inline-flex">
-                                    <span className="relative inline-block w-[11ch]  overflow-hidden align-bottom">
+                                    <span className="relative inline-block  w-34 md:w-40 lg:w-[313px]   overflow-hidden align-bottom">
                                         <span
                                             className={`inline-block transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${animateText
                                                 ? "opacity-100 translate-y-0 text-[#50a2ff]"
