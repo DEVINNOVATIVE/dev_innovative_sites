@@ -425,13 +425,13 @@ export function HomeHero() {
 
             setTimeout(() => {
                 // 2. Toggle the string parameter values smoothly mid-transition
-                setCurrentWord((prev) => 
+                setCurrentWord((prev) =>
                     prev === "Architectural" ? "Decentralized" : "Architectural"
                 );
                 // 3. Mount text slide-in animation sequence
                 setAnimateText(true);
             }, 300); // Matches the midpoint of our 500ms transition curve
-            
+
         }, 3000); // Trigger word swaps every 3 seconds
 
         return () => clearInterval(interval);
@@ -520,26 +520,30 @@ export function HomeHero() {
                         <div className="space-y-6 flex flex-col items-center md:items-start w-full">
                             <div className="text-xl sm:text-2xl font-extrabold text-white">Next-Gen Elite Engineering</div>
 
-                            <h1 className="text-[20px] sm:text-3xl whitespace-nowrap  md:pr-0 leading-tight font-extrabold tracking-tight md:text-4xl lg:text-5xl sm:whitespace-normal">
-                                Consensus AI &<br className="hidden sm:block" />
-                                
-                                {/* Responsive Text swapper block wrapper preventing string wrap collisions */}
-                                <span className="px-px md:px-0 inline-block relative overflow-hidden align-bottom">
-                                    <span
-                                        className={`inline-block transition-all w-[11ch]  duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                                            animateText 
-                                                ? "opacity-100 translate-y-0 text-[#50a2ff]" 
+                            <h1 className="text-[20px] sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight whitespace-nowrap md:whitespace-normal">
+                                {/* First line on desktop, inline on mobile */}
+                                <span className="inline md:block md:mb-1">Consensus AI &</span>
+
+                                {/* Locked horizontal row container */}
+                                <span className="inline-flex">
+                                    <span className="relative inline-block w-[11ch]  overflow-hidden align-bottom">
+                                        <span
+                                            className={`inline-block transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${animateText
+                                                ? "opacity-100 translate-y-0 text-[#50a2ff]"
                                                 : "opacity-0 -translate-y-2 text-orange-400"
-                                        }`}
-                                    >
-                                        {currentWord}
+                                                }`}
+                                        >
+                                            {currentWord}
+                                        </span>
                                     </span>
+
+                                    {/* This text is now completely locked in place */}
+                                    <span className="shrink-0">Engineering</span>
                                 </span>
-                                Engineering
                             </h1>
-                            
+
                             <p className="max-w-[560px] text-sm text-[#cbd5e1] font-normal">
-                               We build intelligent, secure, and highly scalable digital ecosystems using Consensus AI & Sovereign Systems Engineering. Moving businesses from standard web deployment to robust enterprise infrastructure.
+                                We build intelligent, secure, and highly scalable digital ecosystems using Consensus AI & Sovereign Systems Engineering. Moving businesses from standard web deployment to robust enterprise infrastructure.
                             </p>
                             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
                                 <Link href="/contact-us" className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-[#ff6b4a] to-[#ff3b2d] px-5 py-3 text-sm font-semibold text-white shadow-lg">Contact Us</Link>
@@ -575,10 +579,10 @@ export function HomeHero() {
                             {/* image tint overlay (appears when hovering color shapes) */}
                             <div
                                 className={`absolute inset-0 z-40 rounded-full transition-opacity duration-300 pointer-events-none ${activeAccent === "blue"
-                                        ? "bg-[#3557ff]/18"
-                                        : activeAccent === "orange"
-                                            ? "bg-[#ff4b34]/18"
-                                            : "bg-transparent"
+                                    ? "bg-[#3557ff]/18"
+                                    : activeAccent === "orange"
+                                        ? "bg-[#ff4b34]/18"
+                                        : "bg-transparent"
                                     }`}
                             />
 
