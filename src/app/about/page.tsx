@@ -18,6 +18,7 @@ import { AboutHistory } from "@/components/about/about-history";
 import {AboutNumbers} from "@/components/about/about-number"
 import { OurTeam } from "@/components/about/our-team";
 import { FAQSection } from "@/components/about/faq-section";
+import { DevInnovativeEcosystem } from "@/components/about/dev-innovative-ecosystem";
 
 
 export default function About() {
@@ -27,6 +28,7 @@ export default function About() {
       <AboutHero />
       <AboutInformation/>
       <AboutHistory/>
+      <DevInnovativeEcosystem/>
       <AboutNumbers/>
       <OurTeam/>
       <FAQSection/>
