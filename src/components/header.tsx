@@ -520,8 +520,8 @@ export function Header() {
           <div className="pt-5 sm:hidden">
             <Link
               href="/contact-us?source=header-mobile-cta"
-              className="w-full inline-flex items-center justify-center gap-1.5 text-xs font-bold tracking-wider text-white uppercase rounded-xl py-3.5 text-center"
-              style={{ backgroundColor: "#ff6036" }}
+              className="w-full inline-flex bg-gradient-to-r from-[#ff6b4a] to-[#ff3b2d] items-center justify-center gap-1.5 text-xs font-bold tracking-wider text-white uppercase rounded-xl py-3.5 text-center"
+             
             >
               <span>Get in Touch</span>
               <ArrowRight size={14} />
