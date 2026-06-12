@@ -1,11 +1,19 @@
-import { RoutePage } from "@/components/route-page";
+import React from "react";
+import type { Metadata } from "next";
+import { ServicesCarouselHero } from "@/components/services/services-carousel-hero";
+import { PageHeader } from "@/components/PageHeader";
 
-export default function ServicePage() {
+export const metadata: Metadata = {
+  title: "Our Engineering Services | DevInnovative",
+  description: "Explore our automated storefront architectures, zero-trust cybersecurity, custom AI systems, and high-performance full-stack ecosystem deployments.",
+};
+
+export default function ServicesPage() {
   return (
-    <RoutePage
-      eyebrow="Service"
-      title="Services designed around product delivery and growth."
-      description="Open this page from the Service nav item or use the child pages under the dropdown menu."
-    />
+    <main className="bg-background text-foreground">
+      <PageHeader title="Our Services" />
+
+      <ServicesCarouselHero />
+    </main>
   );
 }

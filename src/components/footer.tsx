@@ -87,7 +87,7 @@ export function Footer() {
               <ul className="space-y-4 text-[15px] font-semibold text-slate-200/95">
                 <li><Link href="/" className="hover:text-orange-400 transition-colors">Home</Link></li>
                 <li><Link href="/about" className="hover:text-orange-400 transition-colors">About Us</Link></li>
-                <li><Link href="/service/web-development" className="hover:text-orange-400 transition-colors">Services</Link></li>
+                <li><Link href="/service" className="hover:text-orange-400 transition-colors">Services</Link></li>
                 <li><Link href="/contact-us" className="hover:text-orange-400 transition-colors">Contact Us</Link></li>
               </ul>
             </div>
