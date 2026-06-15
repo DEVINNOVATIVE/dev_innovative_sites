@@ -2,6 +2,9 @@ import React from "react";
 import type { Metadata } from "next";
 import { ServicesCarouselHero } from "@/components/services/services-carousel-hero";
 import { PageHeader } from "@/components/PageHeader";
+import { ServicesFAQ } from "@/components/services/services-FAQ";
+import { ServicesTechDashboard } from "@/components/services/services-tech";
+
 
 export const metadata: Metadata = {
   title: "Our Engineering Services | DevInnovative",
@@ -26,6 +29,10 @@ export default function ServicesPage() {
       <PageHeader title="Our Services" />
 
       <ServicesCarouselHero />
+      <ServicesTechDashboard/>
+    
+      <ServicesFAQ />
+
     </main>
   );
 }

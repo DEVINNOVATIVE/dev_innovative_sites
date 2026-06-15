@@ -202,14 +202,14 @@ const services = [
     description:
       "Our AI services empower businesses to leverage the latest advances in machine learning and data analysis to gain insights, optimize operations, and improve customer experience.",
     image: artifical_intelligence,
-    href: "#",
+    href: "/service/ai-solutions",
   },
   {
     title: "Software Development",
     description:
       "Our software development services help businesses create custom software solutions that meet their unique needs and requirements, from web and mobile apps to enterprise software and more.",
     image: software_development,
-    href: "#",
+    href: "/service/custom-software-development",
   },
 ];
 
