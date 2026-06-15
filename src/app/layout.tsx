@@ -131,6 +131,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import "./globals.css";
+import { CookieConsent } from "@/components/cookie-consent";
 
 // Font Definitions matching standard boilerplate definitions
 const geistSans = Geist({
@@ -252,6 +253,7 @@ export default function RootLayout({
         </main>
         
         <Footer />
+        <CookieConsent />
       </body>
     </html>
   );

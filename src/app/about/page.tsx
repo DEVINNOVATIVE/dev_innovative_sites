@@ -19,7 +19,24 @@ import {AboutNumbers} from "@/components/about/about-number"
 import { OurTeam } from "@/components/about/our-team";
 import { FAQSection } from "@/components/about/faq-section";
 import { DevInnovativeEcosystem } from "@/components/about/dev-innovative-ecosystem";
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "About DevInnovative - Our Story, Team & Mission",
+  description: "Learn about DevInnovative - a focused team building innovative web products, hosting solutions, and marketing systems. Discover our history, team, and mission.",
+  keywords: ["about", "company", "team", "history", "mission", "web development", "hosting", "marketing"],
+  openGraph: {
+    title: "About DevInnovative - Our Story, Team & Mission",
+    description: "Learn about DevInnovative - a focused team building innovative web products, hosting solutions, and marketing systems.",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About DevInnovative - Our Story, Team & Mission",
+    description: "Learn about DevInnovative - a focused team building innovative web products, hosting solutions, and marketing systems.",
+  },
+};
 
 export default function About() {
   return (

@@ -15,6 +15,17 @@ export const metadata: Metadata = {
     alternates: {
         canonical: "https://devinnovative.com/services/cyber-resilience-engineering",
     },
+    openGraph: {
+        title: "Cyber Resilience & Advanced Software Engineering | Dev Innovative",
+        description: "Move beyond standard web development. Dev Innovative builds AI-native, secure digital ecosystems using Consensus AI & zero-trust cyber resilience engineering.",
+        type: "website",
+        locale: "en_US",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Cyber Resilience & Advanced Software Engineering | Dev Innovative",
+        description: "Move beyond standard web development. Dev Innovative builds AI-native, secure digital ecosystems using Consensus AI & zero-trust cyber resilience engineering.",
+    },
 };
 
 export default function CyberResiliencePage() {

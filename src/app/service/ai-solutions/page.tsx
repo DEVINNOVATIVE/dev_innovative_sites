@@ -8,6 +8,18 @@ import { PageHeader } from "@/components/PageHeader";
 export const metadata: Metadata = {
     title: "Artificial Intelligence & Machine Learning Solutions | DevInnovative",
     description: "Transform raw data into actionable intelligence with custom Generative AI, LLMs, predictive analytics, and enterprise MLOps infrastructure.",
+    keywords: ["AI", "artificial intelligence", "machine learning", "LLM", "generative AI", "MLOps", "predictive analytics", "enterprise AI"],
+    openGraph: {
+        title: "Artificial Intelligence & Machine Learning Solutions | DevInnovative",
+        description: "Transform raw data into actionable intelligence with custom Generative AI, LLMs, predictive analytics, and enterprise MLOps infrastructure.",
+        type: "website",
+        locale: "en_US",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Artificial Intelligence & Machine Learning Solutions | DevInnovative",
+        description: "Transform raw data into actionable intelligence with custom Generative AI, LLMs, predictive analytics, and enterprise MLOps infrastructure.",
+    },
 };
 
 export default function AiSolutionsPage() {
