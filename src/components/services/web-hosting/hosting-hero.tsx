@@ -94,8 +94,8 @@ export function HostingHero() {
                   <PhoneCall className="h-4 w-4" />
                 </div>
                 <div>
-                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Call us: +1 (234) 567-890</p>
-                  <a href="tel:+1234567890" className="text-sm font-bold text-[#08112a] hover:text-[#104cba] transition-colors">
+                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Call us: +923070761555</p>
+                  <a href="tel:+923070761555" className="text-sm font-bold text-[#08112a] hover:text-[#104cba] transition-colors">
                     For any question
                   </a>
                 </div>
@@ -132,7 +132,7 @@ export function HostingHero() {
               Contact Us
             </Link>
             <a 
-              href="tel:+1234567890" 
+              href="tel:+923070761555" 
               className="inline-flex h-12 w-full sm:w-auto items-center justify-center rounded-xl border border-slate-200 bg-white text-sm font-bold text-[#08112a] gap-2 shadow-sm"
             >
               <PhoneCall className="h-4 w-4 text-[#104cba]" />

@@ -196,7 +196,7 @@ const getStructuredData = () => {
     ],
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+1 (689) 267-4506",
+      "telephone": "+923070761555",
       "contactType": "customer service",
       "availableLanguage": "English"
     },

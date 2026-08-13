@@ -80,7 +80,7 @@ export function HostingContact() {
                 <Phone className="h-5 w-5" />
               </div>
               <div className="text-sm font-bold text-[#08112a]">
-                +1 (234) 567-890
+                +923070761555
               </div>
             </div>
           </div>

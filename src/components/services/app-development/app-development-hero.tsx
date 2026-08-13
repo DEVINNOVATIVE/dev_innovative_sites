@@ -96,8 +96,8 @@ export function AppDevelopmentHero() {
                   <PhoneCall className="h-4 w-4" />
                 </div>
                 <div>
-                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Call us: +1 (555) 257-4355</p>
-                  <a href="tel:+15552574355" className="text-sm font-bold text-[#08112a] hover:text-[#104cba] transition-colors">
+                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Call us: +923070761555</p>
+                  <a href="tel:+923070761555" className="text-sm font-bold text-[#08112a] hover:text-[#104cba] transition-colors">
                     For any questions
                   </a>
                 </div>
@@ -174,7 +174,7 @@ export function AppDevelopmentHero() {
               Get A Free Quote
             </Link>
             <a  
-              href="tel:+15552574355" 
+              href="tel:+923070761555" 
               className="inline-flex h-12 w-full sm:w-auto items-center justify-center rounded-xl border border-slate-200 bg-white text-sm font-bold text-[#08112a] gap-2 shadow-sm transition-transform duration-200 ease-out active:scale-[0.97]"
             >
               {/* Added animate-pulse tool to provide clean visual depth directly onto phone viewports */}

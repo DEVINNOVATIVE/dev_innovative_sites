@@ -75,7 +75,7 @@ export function EcommerceCallToAction() {
                 
                   className="text-2xl xl:text-3xl font-black tracking-tight text-[#08112a] hover:text-[#104cba] transition-colors duration-300 block"
                 >
-                  +1 (689) 267-4506
+                  +923070761555
                 </span>
               </ConditionalReveal>
             </div>
@@ -104,7 +104,7 @@ export function EcommerceCallToAction() {
             
             <div className="space-y-0.5 pt-1">
               <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase block">Contact Us For More Details !</span>
-              <span  className="text-xl sm:text-2xl font-black text-[#08112a] hover:text-[#104cba] transition-colors">+1 (689) 267-4506</span>
+              <span  className="text-xl sm:text-2xl font-black text-[#08112a] hover:text-[#104cba] transition-colors">+923070761555</span>
             </div>
 
             <div className="pt-3">

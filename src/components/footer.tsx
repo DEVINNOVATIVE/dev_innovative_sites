@@ -97,7 +97,7 @@ export function Footer() {
               <h3 className="text-lg font-extrabold text-white tracking-wider uppercase">Contact Us</h3>
               <ul className="space-y-4 text-[15px] text-slate-200/95 font-medium leading-relaxed">
                 <li className="max-w-[260px]">
-                  2020 N Academy Blvd, Colorado Springs, 80909 United States
+                  F3X8+HMJ , Shop 1 & 2 First Floor, Alpha Tower Business District, North, Phase 8 Bahria Town, Rawalpindi, 46000
                 </li>
                 <li>
                   <span className="hover:underline hover:text-orange-400 block transition-colors">
@@ -106,7 +106,7 @@ export function Footer() {
                 </li>
                 <li>
                   <span  className="hover:underline hover:text-orange-400 block transition-colors">
-                    +1 (689) 267-4506
+                    +92307 0761555
                   </span>
                 </li>
               </ul>
@@ -144,7 +144,7 @@ export function Footer() {
 
             {/* --- 4. FLOATING WHATSAPP CHAT WIDGET --- */}
             <a 
-              href="https://wa.me/16892674506" 
+              href="https://wa.me/+923070761555" 
               target="_blank" 
               rel="noopener noreferrer"
               className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-3 rounded-full bg-[#25d366] px-6 py-3.5 text-sm font-extrabold text-white shadow-[0_12px_35px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-[1.04] hover:bg-[#20ba5a] group shrink-0"

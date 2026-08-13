@@ -81,7 +81,7 @@ export default function WebHostingOverView() {
             <ConditionalReveal direction="up" duration={1.0} delay={0.3} offset={15} animationType="from">
               <div className="flex items-center gap-6 pt-2">
                 <a href="#pricing" className="inline-flex h-12 items-center justify-center rounded-xl bg-[#ff5c3d] hover:bg-[#e84c2e] px-7 text-[15px] font-bold text-white shadow-lg shadow-orange-500/10 transition-all duration-200">Contact Us</a>
-                <div className="text-left"><p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Call us for details</p><a href="tel:+1234567890" className="text-sm font-bold text-[#08112a] hover:text-[#104cba]">+1 (234) 567-890</a></div>
+                <div className="text-left"><p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Call us for details</p><a href="tel:+923070761555" className="text-sm font-bold text-[#08112a] hover:text-[#104cba]">+923070761555</a></div>
               </div>
             </ConditionalReveal>
           </div>
@@ -275,7 +275,7 @@ export default function WebHostingOverView() {
               </div>
               <div className="flex gap-3.5 items-center">
                 <div className="h-10 w-10 shrink-0 rounded-xl bg-red-50 text-[#ff5c3d] flex items-center justify-center shadow-sm"><Phone className="h-5 w-5" /></div>
-                <div className="text-sm font-bold text-[#08112a]">+1 (234) 567-890</div>
+                <div className="text-sm font-bold text-[#08112a]">+923070761555</div>
               </div>
             </div>
           </div>

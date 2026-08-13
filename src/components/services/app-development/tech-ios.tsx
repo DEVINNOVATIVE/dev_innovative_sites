@@ -305,8 +305,8 @@ export function AppDevelopmentTechAndOS() {
                   <div className="h-11 w-11 rounded-xl bg-red-50 text-[#ff5c3d] flex items-center justify-center shrink-0 shadow-sm animate-pulse">
                     <PhoneCall className="h-5 w-5" />
                   </div>
-                  <a href="tel:+16892674506" className="text-2xl font-black text-slate-700 hover:text-[#104cba] transition-colors tracking-tight">
-                    +1 (689) 267-4506
+                  <a href="tel:+923070761555" className="text-2xl font-black text-slate-700 hover:text-[#104cba] transition-colors tracking-tight">
+                    +923070761555
                   </a>
                 </div>
               </ConditionalReveal>
@@ -317,9 +317,9 @@ export function AppDevelopmentTechAndOS() {
               <h3 className="text-2xl font-black tracking-tight text-[#08112a]">
                 Are Your Ready To Build <br /> Stunning App Today ?
               </h3>
-              <a href="tel:+16892674506" className="inline-flex items-center gap-3 justify-center px-6 h-12 rounded-xl bg-slate-50 border border-slate-100 text-xl font-black text-[#ff5c3d] w-full max-w-sm">
+              <a href="tel:+923070761555" className="inline-flex items-center gap-3 justify-center px-6 h-12 rounded-xl bg-slate-50 border border-slate-100 text-xl font-black text-[#ff5c3d] w-full max-w-sm">
                 <PhoneCall className="h-5 w-5 text-[#ff5c3d]" />
-                +1 (689) 267-4506
+                +923070761555
               </a>
             </div>
           </div>

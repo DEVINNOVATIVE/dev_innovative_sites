@@ -12,14 +12,14 @@ import { ContactFormCard } from "./contact-us";
 const infoCards = [
     {
         title: "Our Location",
-        content: "2020 N Academy Blvd, Colorado Springs, 80909 United States",
+        content: "F3X8+HMJ , Shop 1 & 2 First Floor, Alpha Tower Business District, North, Phase 8 Bahria Town, Rawalpindi, 46000",
         Icon: MapPin,
         iconColor: "text-blue-500",
         iconBg: "bg-blue-50/50",
     },
     {
         title: "Phone Number",
-        content: "+1 (689) 267-4506",
+        content: "+92307 0761555",
         Icon: Phone,
         iconColor: "text-orange-500",
         iconBg: "bg-orange-50/50",

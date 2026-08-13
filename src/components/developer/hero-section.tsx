@@ -91,7 +91,7 @@ export function HireDeveloperHero() {
 
               {/* Communication Channel Anchor Link node */}
               <a 
-                href="tel:+16892674506" 
+                href="tel:+923070761555" 
                 className="group flex items-center gap-3.5 text-left transition-colors"
               >
                 <div className="h-11 w-11 rounded-xl  flex items-center justify-center shrink-0   transition-colors">
@@ -99,7 +99,7 @@ export function HireDeveloperHero() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-lg font-bold text-[#104cba] tracking-tight transition-colors group-hover:text-blue-700">
-                    Call us +1 (689) 267-4506
+                    Call us +923070761555
                   </span>
                   <span className="text-base font-semibold text-neutral-500">
                     For any question
