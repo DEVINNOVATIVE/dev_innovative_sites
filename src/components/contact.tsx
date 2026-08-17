@@ -12,7 +12,7 @@ import { ContactFormCard } from "./contact-us";
 const infoCards = [
     {
         title: "Our Location",
-        content: "F3X8+HMJ , Shop 1 & 2 First Floor, Alpha Tower Business District, North, Phase 8 Bahria Town, Rawalpindi, 46000",
+        content: "Shop 1 & 2 First Floor, Alpha Tower Business District, North, Phase 8 Bahria Town, Rawalpindi, 46000",
         Icon: MapPin,
         iconColor: "text-blue-500",
         iconBg: "bg-blue-50/50",
